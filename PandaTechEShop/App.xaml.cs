@@ -27,13 +27,13 @@ namespace PandaTechEShop
         {
             InitializeComponent();
             //NavigationService.NavigateAsync(PageConstants.MY_PAGE);
-            NavigationService.NavigateAsync("NavigationPage/TestPage");
+            NavigationService.NavigateAsync("NavigationPage/TestMainPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<TestPage, TestPageViewModel>();
+            containerRegistry.RegisterForNavigation<TestMainPage, TestMainPageViewModel>();
         }
 
         protected override void OnStart()

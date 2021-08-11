@@ -20,10 +20,12 @@
     <None Remove="Views\" />
     <None Remove="ViewModels\" />
     <None Remove="ViewModels\Base\" />
+    <None Remove="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
     <Folder Include="ViewModels\" />
     <Folder Include="ViewModels\Base\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
 </Project>
