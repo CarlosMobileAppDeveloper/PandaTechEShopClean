@@ -7,6 +7,7 @@ namespace PandaTechEShop.ViewModels.Base
     {
         protected INavigationService NavigationService { get; private set; }
 
+        // TODO - Use Fody
         private string _title;
         public string Title
         {

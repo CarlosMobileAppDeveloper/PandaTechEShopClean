@@ -12,6 +12,7 @@ namespace PandaTechEShop.ViewModels
         private DelegateCommand _saveCommand;
         private IPreferences _preferences;
 
+        // TODO - Use Fody
         private string _username;
         public string Username
         {
@@ -26,6 +27,8 @@ namespace PandaTechEShop.ViewModels
             Title = "Welcome to Xamarin.Forms with PRISM!";
         }
 
+        // TODO - Make AsyncCommand using Xamarin Community Toolkit
+        // TOOD - "IsProcessing" checks
         public DelegateCommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(ExecuteSaveCommand));
 
         private void ExecuteSaveCommand()
