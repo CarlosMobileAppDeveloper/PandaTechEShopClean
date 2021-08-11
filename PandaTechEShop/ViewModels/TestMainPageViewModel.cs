@@ -9,6 +9,9 @@ namespace PandaTechEShop.ViewModels
 {
     public class TestMainPageViewModel : BaseViewModel
     {
+        // TODO - Code Analysis
+        // TODO - Unit Testing Project and tests
+
         private DelegateCommand _saveCommand;
         private IPreferences _preferences;
 
