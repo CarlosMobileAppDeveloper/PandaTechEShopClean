@@ -32,6 +32,7 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
-        <Button Command="{Binding NavigateCommand}" Text="About Page" />
+        <Entry Placeholder="Enter Username" Text="{Binding Username}" />
+        <Button Command="{Binding SaveCommand}" Text="Save Username" />
     </StackLayout>
 </ContentPage>

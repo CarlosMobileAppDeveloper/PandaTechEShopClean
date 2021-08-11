@@ -6,6 +6,7 @@ using Prism.Ioc;
 using Prism.DryIoc;
 using PandaTechEShop.Views;
 using PandaTechEShop.ViewModels;
+using PandaTechEShop.Services.Preferences;
 
 namespace PandaTechEShop
 {
@@ -34,6 +35,8 @@ namespace PandaTechEShop
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<TestMainPage, TestMainPageViewModel>();
+
+            containerRegistry.Register<IPreferences, Preferences>();
         }
 
         protected override void OnStart()

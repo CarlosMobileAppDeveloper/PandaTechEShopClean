@@ -21,11 +21,17 @@
     <None Remove="ViewModels\" />
     <None Remove="ViewModels\Base\" />
     <None Remove="Views\Base\" />
+    <None Remove="Services\" />
+    <None Remove="Services\Preferences\" />
+    <None Remove="Constants\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
     <Folder Include="ViewModels\" />
     <Folder Include="ViewModels\Base\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Services\" />
+    <Folder Include="Services\Preferences\" />
+    <Folder Include="Constants\" />
   </ItemGroup>
 </Project>
