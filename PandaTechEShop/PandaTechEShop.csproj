@@ -14,6 +14,11 @@
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="8.1.97" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" PrivateAssets="All"/>
   </ItemGroup>
   <ItemGroup>
     <None Remove="Prism.DryIoc.Forms" />
@@ -24,6 +29,8 @@
     <None Remove="Services\" />
     <None Remove="Services\Preferences\" />
     <None Remove="Constants\" />
+    <None Remove="StyleCop.Analyzers" />
+    <None Remove="PropertyChanged.Fody" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
@@ -33,5 +40,8 @@
     <Folder Include="Services\" />
     <Folder Include="Services\Preferences\" />
     <Folder Include="Constants\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FodyWeavers.xsd" />
   </ItemGroup>
 </Project>

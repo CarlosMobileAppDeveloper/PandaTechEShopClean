@@ -19,8 +19,18 @@ namespace PandaTechEShop.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            //LoadApplication(new App());
+
+            // LoadApplication(new App());
             LoadApplication(new App(new AndroidInitializer()));
+        }
+
+#pragma warning disable SA1202 // Elements should be ordered by access
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+#pragma warning restore SA1202 // Elements should be ordered by access
+        {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
         public class AndroidInitializer : IPlatformInitializer
@@ -28,13 +38,6 @@ namespace PandaTechEShop.Droid
             public void RegisterTypes(IContainerRegistry containerRegistry)
             {
             }
-        }
-
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
-        {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

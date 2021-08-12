@@ -9,6 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PandaTechEShop.iOS", "Panda
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PandaTechEShop", "PandaTechEShop\PandaTechEShop.csproj", "{7848434D-EC3A-421A-823B-D4E693AB0A9F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D5CAC70F-B542-4995-88E0-C75C85556ED7}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PandaTechEShop.UnitTests", "PandaTechEShop.UnitTests\PandaTechEShop.UnitTests.csproj", "{FAE2BCC0-0ADE-427F-9763-0442752904B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +62,18 @@ Global
 		{7848434D-EC3A-421A-823B-D4E693AB0A9F}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{7848434D-EC3A-421A-823B-D4E693AB0A9F}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{7848434D-EC3A-421A-823B-D4E693AB0A9F}.Release|iPhone.Build.0 = Release|Any CPU
+		{FAE2BCC0-0ADE-427F-9763-0442752904B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAE2BCC0-0ADE-427F-9763-0442752904B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAE2BCC0-0ADE-427F-9763-0442752904B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAE2BCC0-0ADE-427F-9763-0442752904B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAE2BCC0-0ADE-427F-9763-0442752904B1}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{FAE2BCC0-0ADE-427F-9763-0442752904B1}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{FAE2BCC0-0ADE-427F-9763-0442752904B1}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{FAE2BCC0-0ADE-427F-9763-0442752904B1}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{FAE2BCC0-0ADE-427F-9763-0442752904B1}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{FAE2BCC0-0ADE-427F-9763-0442752904B1}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{FAE2BCC0-0ADE-427F-9763-0442752904B1}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{FAE2BCC0-0ADE-427F-9763-0442752904B1}.Release|iPhone.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

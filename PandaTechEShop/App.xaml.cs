@@ -10,24 +10,20 @@ using PandaTechEShop.Services.Preferences;
 
 namespace PandaTechEShop
 {
-    public partial class App : PrismApplication 
+    public partial class App : PrismApplication
     {
-        //public App()
-        //{
-        //    InitializeComponent();
-
-        //    MainPage = new MainPage();
-        //}
-
         // Prism Setup Guid
         // https://www.c-sharpcorner.com/article/xamarin-forms-getting-starting-with-prism/
-
-        public App(IPlatformInitializer platformInitializer = null) : base(platformInitializer) { }
+        public App(IPlatformInitializer platformInitializer = null)
+            : base(platformInitializer)
+        {
+        }
 
         protected override void OnInitialized()
         {
             InitializeComponent();
-            //NavigationService.NavigateAsync(PageConstants.MY_PAGE);
+
+            // NavigationService.NavigateAsync(PageConstants.MY_PAGE);
             NavigationService.NavigateAsync("NavigationPage/TestMainPage");
         }
 

@@ -1,5 +1,4 @@
-﻿using System;
-namespace PandaTechEShop.Services.Preferences
+﻿namespace PandaTechEShop.Services.Preferences
 {
     public interface IPreferences
     {

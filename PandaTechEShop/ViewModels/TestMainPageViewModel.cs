@@ -1,27 +1,14 @@
-﻿using System;
-using PandaTechEShop.Services.Preferences;
+﻿using PandaTechEShop.Services.Preferences;
 using PandaTechEShop.ViewModels.Base;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
 
 namespace PandaTechEShop.ViewModels
 {
     public class TestMainPageViewModel : BaseViewModel
     {
-        // TODO - Code Analysis
-        // TODO - Unit Testing Project and tests
-
         private DelegateCommand _saveCommand;
         private IPreferences _preferences;
-
-        // TODO - Use Fody
-        private string _username;
-        public string Username
-        {
-            get { return _username; }
-            set { SetProperty(ref _username, value); }
-        }
 
         public TestMainPageViewModel(INavigationService navigationService, IPreferences preferences)
             : base(navigationService)
@@ -29,6 +16,8 @@ namespace PandaTechEShop.ViewModels
             _preferences = preferences;
             Title = "Welcome to Xamarin.Forms with PRISM!";
         }
+
+        public string Username { get; set; }
 
         // TODO - Make AsyncCommand using Xamarin Community Toolkit
         // TOOD - "IsProcessing" checks
@@ -38,11 +27,12 @@ namespace PandaTechEShop.ViewModels
         {
             Username = Username?.Trim();
 
-            if(!string.IsNullOrEmpty(_username))
+            if (!string.IsNullOrEmpty(Username))
             {
-                _preferences.Set("Username", _username);
+                _preferences.Set("Username", Username);
             }
-            //await base.NavigationService.NavigateAsync("AboutPage", useModalNavigation: true);
+
+            // await base.NavigationService.NavigateAsync("AboutPage", useModalNavigation: true);
         }
     }
 }
