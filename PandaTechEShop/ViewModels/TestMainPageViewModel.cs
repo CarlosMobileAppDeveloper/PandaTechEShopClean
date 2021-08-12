@@ -1,7 +1,10 @@
-﻿using PandaTechEShop.Services.Preferences;
+﻿using System.Threading.Tasks;
+using System.Windows.Input;
+using PandaTechEShop.Services.Preferences;
 using PandaTechEShop.ViewModels.Base;
 using Prism.Commands;
 using Prism.Navigation;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PandaTechEShop.ViewModels
 {
@@ -15,15 +18,16 @@ namespace PandaTechEShop.ViewModels
         {
             _preferences = preferences;
             Title = "Welcome to Xamarin.Forms with PRISM!";
+            SaveCommand = new AsyncCommand(ExecuteSaveCommand, allowsMultipleExecutions: false);
         }
 
         public string Username { get; set; }
 
         // TODO - Make AsyncCommand using Xamarin Community Toolkit
         // TOOD - "IsProcessing" checks
-        public DelegateCommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(ExecuteSaveCommand));
+        public IAsyncCommand SaveCommand { get; }
 
-        private void ExecuteSaveCommand()
+        private async Task ExecuteSaveCommand()
         {
             Username = Username?.Trim();
 
@@ -31,6 +35,8 @@ namespace PandaTechEShop.ViewModels
             {
                 _preferences.Set("Username", Username);
             }
+
+            await Task.Delay(1);
 
             // await base.NavigationService.NavigateAsync("AboutPage", useModalNavigation: true);
         }
