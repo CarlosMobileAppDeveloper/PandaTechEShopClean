@@ -35,7 +35,7 @@ namespace PandaTechEShop.ViewModels
 
             if (!string.IsNullOrEmpty(Username))
             {
-                _preferences.SetString("Username", Username);
+                _preferences.Set("Username", Username);
             }
 
             await Task.Delay(1);
@@ -45,7 +45,7 @@ namespace PandaTechEShop.ViewModels
 
         private async Task ExecuteRetrieveCommandAsync()
         {
-            Username = _preferences.GetString("Username", string.Empty);
+            Username = _preferences.Get("Username", string.Empty);
 
             await Task.Delay(1);
         }

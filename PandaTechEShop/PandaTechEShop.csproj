@@ -21,6 +21,7 @@
     <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" PrivateAssets="All" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Refit" Version="6.0.94" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Prism.DryIoc.Forms" />
@@ -42,6 +43,14 @@
     <None Remove="Models\ShoppingCart\" />
     <None Remove="Models\Order\" />
     <None Remove="Models\Complaint\" />
+    <None Remove="Services\FurnitureAPI\" />
+    <None Remove="Refit" />
+    <None Remove="Services\AccountService\" />
+    <None Remove="Services\Category\" />
+    <None Remove="Services\Product\" />
+    <None Remove="Services\ShoppingCart\" />
+    <None Remove="Services\Order\" />
+    <None Remove="Services\Complaint\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
@@ -58,6 +67,13 @@
     <Folder Include="Models\ShoppingCart\" />
     <Folder Include="Models\Order\" />
     <Folder Include="Models\Complaint\" />
+    <Folder Include="Services\FurnitureAPI\" />
+    <Folder Include="Services\Account\" />
+    <Folder Include="Services\Category\" />
+    <Folder Include="Services\Product\" />
+    <Folder Include="Services\ShoppingCart\" />
+    <Folder Include="Services\Order\" />
+    <Folder Include="Services\Complaint\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xsd" />

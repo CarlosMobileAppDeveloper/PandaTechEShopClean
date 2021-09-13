@@ -7,6 +7,12 @@ using Prism.DryIoc;
 using PandaTechEShop.Views;
 using PandaTechEShop.ViewModels;
 using PandaTechEShop.Services.Preferences;
+using PandaTechEShop.Services.Account;
+using PandaTechEShop.Services.Category;
+using PandaTechEShop.Services.Product;
+using PandaTechEShop.Services.ShoppingCart;
+using PandaTechEShop.Services.Order;
+using PandaTechEShop.Services.Complaint;
 
 namespace PandaTechEShop
 {
@@ -32,7 +38,13 @@ namespace PandaTechEShop
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<TestMainPage, TestMainPageViewModel>();
 
+            containerRegistry.Register<IAccountService, AccountService>();
+            containerRegistry.Register<ICategoryService, CategoryService>();
+            containerRegistry.Register<IComplaintService, ComplaintService>();
             containerRegistry.Register<IPreferences, Preferences>();
+            containerRegistry.Register<IProductService, ProductService>();
+            containerRegistry.Register<IOrderService, OrderService>();
+            containerRegistry.Register<IShoppingCartService, ShoppingCartService>();
         }
 
         protected override void OnStart()

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace PandaTechEShop.Models.Category
 {
-    public class Category
+    public class CategoryInfo
     {
         [JsonProperty("id")]
         public int Id { get; set; }

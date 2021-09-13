@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace PandaTechEShop.Models.Order
 {
-    public class Order
+    public class OrderInfo
     {
         [JsonProperty("FullName")]
         public string FullName { get; set; }

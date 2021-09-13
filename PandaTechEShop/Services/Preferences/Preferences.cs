@@ -6,12 +6,22 @@
         {
         }
 
-        public void SetString(string key, string value)
+        public void Set(string key, string value)
         {
             Xamarin.Essentials.Preferences.Set(key, value);
         }
 
-        public string GetString(string key, string defaultValue)
+        public void Set(string key, int value)
+        {
+            Xamarin.Essentials.Preferences.Set(key, value);
+        }
+
+        public string Get(string key, string defaultValue)
+        {
+            return Xamarin.Essentials.Preferences.Get(key, defaultValue);
+        }
+
+        public int Get(string key, int defaultValue)
         {
             return Xamarin.Essentials.Preferences.Get(key, defaultValue);
         }
