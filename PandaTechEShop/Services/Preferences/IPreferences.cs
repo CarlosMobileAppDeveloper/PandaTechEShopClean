@@ -2,6 +2,8 @@
 {
     public interface IPreferences
     {
-        void Set(string key, string value);
+        void SetString(string key, string value);
+
+        string GetString(string key, string defaultValue);
     }
 }

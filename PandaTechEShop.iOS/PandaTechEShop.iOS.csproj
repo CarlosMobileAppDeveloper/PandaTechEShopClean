@@ -133,6 +133,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.1</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -140,5 +143,19 @@
       <Project>{7848434D-EC3A-421A-823B-D4E693AB0A9F}</Project>
       <Name>PandaTechEShop</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\backarrow.png" />
+    <BundleResource Include="Resources\basket.png" />
+    <BundleResource Include="Resources\carticon.png" />
+    <BundleResource Include="Resources\contact.png" />
+    <BundleResource Include="Resources\leftarrow.png" />
+    <BundleResource Include="Resources\logout.png" />
+    <BundleResource Include="Resources\menuicon.png" />
+    <BundleResource Include="Resources\minus.png" />
+    <BundleResource Include="Resources\order.png" />
+    <BundleResource Include="Resources\plus.png" />
+    <BundleResource Include="Resources\rightarrow.png" />
+    <BundleResource Include="Resources\shape.png" />
   </ItemGroup>
 </Project>

@@ -34,5 +34,7 @@
         </Label>
         <Entry Placeholder="Enter Username" Text="{Binding Username}" />
         <Button Command="{Binding SaveCommand}" Text="Save Username" />
+        <Button Command="{Binding RetriveCommand}" Text="Retrieve Username" />
+        <Label Text="{Binding Username}" />
     </StackLayout>
 </ContentPage>
