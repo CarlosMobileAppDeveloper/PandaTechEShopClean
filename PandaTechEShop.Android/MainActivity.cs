@@ -7,6 +7,8 @@ using Android.OS;
 
 using Prism;
 using Prism.Ioc;
+using Xamarin.Forms;
+using PandaTechEShop.Droid.Services;
 
 namespace PandaTechEShop.Droid
 {
@@ -19,6 +21,8 @@ namespace PandaTechEShop.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+
+            DependencyService.Register<DeviceOrientationLocator>();
 
             // LoadApplication(new App());
             LoadApplication(new App(new AndroidInitializer()));

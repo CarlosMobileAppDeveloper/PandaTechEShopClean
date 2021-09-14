@@ -7,6 +7,8 @@ using UIKit;
 
 using Prism;
 using Prism.Ioc;
+using Xamarin.Forms;
+using PandaTechEShop.iOS.Services;
 
 #pragma warning disable SA1300 // Element should begin with upper-case letter
 namespace PandaTechEShop.iOS
@@ -26,6 +28,9 @@ namespace PandaTechEShop.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+
+            DependencyService.Register<DeviceOrientationLocator>();
+
             LoadApplication(new App(new iOSInitializer()));
             return base.FinishedLaunching(app, options);
         }

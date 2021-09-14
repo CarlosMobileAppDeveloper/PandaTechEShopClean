@@ -13,6 +13,8 @@ using PandaTechEShop.Services.Product;
 using PandaTechEShop.Services.ShoppingCart;
 using PandaTechEShop.Services.Order;
 using PandaTechEShop.Services.Complaint;
+using PandaTechEShop.ViewModels.Account;
+using PandaTechEShop.Views.Account;
 
 namespace PandaTechEShop
 {
@@ -30,13 +32,16 @@ namespace PandaTechEShop
             InitializeComponent();
 
             // NavigationService.NavigateAsync(PageConstants.MY_PAGE);
-            NavigationService.NavigateAsync("NavigationPage/TestMainPage");
+            //NavigationService.NavigateAsync("NavigationPage/TestMainPage");
+            NavigationService.NavigateAsync("NavigationPage/SignupPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<TestMainPage, TestMainPageViewModel>();
+            containerRegistry.RegisterForNavigation<CreateAccountPage, CreateAccountPageViewModel>();
+            containerRegistry.RegisterForNavigation<SignupPage, SignupPageViewModel>();
 
             containerRegistry.Register<IAccountService, AccountService>();
             containerRegistry.Register<ICategoryService, CategoryService>();

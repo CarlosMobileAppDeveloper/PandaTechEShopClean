@@ -51,6 +51,16 @@
     <None Remove="Services\ShoppingCart\" />
     <None Remove="Services\Order\" />
     <None Remove="Services\Complaint\" />
+    <None Remove="Views\Account\" />
+    <None Remove="Helpers\" />
+    <None Remove="Validations\" />
+    <None Remove="Behaviours\" />
+    <None Remove="Converters\" />
+    <None Remove="Controls\" />
+    <None Remove="ViewModels\Account\" />
+    <None Remove="Effects\" />
+    <None Remove="Models\Enums\" />
+    <None Remove="Themes\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
@@ -74,8 +84,23 @@
     <Folder Include="Services\ShoppingCart\" />
     <Folder Include="Services\Order\" />
     <Folder Include="Services\Complaint\" />
+    <Folder Include="Views\Account\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Validations\" />
+    <Folder Include="Behaviours\" />
+    <Folder Include="Converters\" />
+    <Folder Include="Controls\" />
+    <Folder Include="ViewModels\Account\" />
+    <Folder Include="Effects\" />
+    <Folder Include="Models\Enums\" />
+    <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="App.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

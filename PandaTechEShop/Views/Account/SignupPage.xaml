@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="PandaTechEShop.Views.Account.SignupPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    Title="{Binding Title}"
+    ios:Page.UseSafeArea="True"
+    BackgroundColor="{DynamicResource MainPageBackgroundColor}"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <Grid>
+            <ScrollView Margin="0" Padding="{StaticResource MainPagePadding}">
+                <Grid
+                    ColumnSpacing="0"
+                    HorizontalOptions="Fill"
+                    RowDefinitions="200, Auto, Auto, *, Auto"
+                    RowSpacing="0"
+                    Style="{StaticResource SignUpFormsContentStyle}"
+                    VerticalOptions="FillAndExpand">
+
+                    <Image
+                        Grid.Row="0"
+                        HeightRequest="200"
+                        HorizontalOptions="EndAndExpand"
+                        Source="shape.png"
+                        Style="{StaticResource SignUpImageStyle}" />
+
+                    <Label
+                        Grid.Row="1"
+                        Margin="0,20,0,40"
+                        FontAttributes="Bold"
+                        Text="Create Account"
+                        TextColor="#2C2C2C">
+                        <Label.FontSize>
+                            <OnIdiom
+                                x:TypeArguments="x:Double"
+                                Phone="24"
+                                Tablet="34" />
+                        </Label.FontSize>
+                    </Label>
+
+                    <Grid
+                        Grid.Row="2"
+                        Padding="0"
+                        HeightRequest="200"
+                        RowDefinitions="*, *, *"
+                        VerticalOptions="StartAndExpand">
+
+                        <Entry
+                            x:Name="UsernameEntry"
+                            Grid.Row="0"
+                            Placeholder="Full Name"
+                            Style="{StaticResource SingleLineFormEntryStyle}"
+                            Text="{Binding Username}" />
+                        <Entry
+                            x:Name="EmailEntry"
+                            Grid.Row="1"
+                            Keyboard="Email"
+                            Placeholder="Email"
+                            Style="{StaticResource SingleLineFormEntryStyle}"
+                            Text="{Binding EmailAddress}" />
+                        <Entry
+                            x:Name="PasswordEntry"
+                            Grid.Row="2"
+                            IsPassword="True"
+                            Placeholder="Password"
+                            Style="{StaticResource SingleLineFormEntryStyle}"
+                            Text="{Binding Password}" />
+
+                    </Grid>
+
+                    <Grid
+                        Grid.Row="3"
+                        Margin="0,20,0,20"
+                        VerticalOptions="Start">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5.5*" />
+                            <ColumnDefinition Width="4.5*" />
+                        </Grid.ColumnDefinitions>
+                        <Frame
+                            Grid.Column="1"
+                            Padding="15"
+                            BackgroundColor="#FA6400"
+                            CornerRadius="35">
+                            <StackLayout Orientation="Horizontal">
+                                <Label
+                                    FontSize="Medium"
+                                    HorizontalOptions="EndAndExpand"
+                                    Text="SIGN UP"
+                                    TextColor="White"
+                                    VerticalOptions="Center" />
+                                <Image
+                                    HeightRequest="30"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Source="rightarrow.png" />
+                            </StackLayout>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer x:Name="TapSignup" Command="{Binding SignUpCommand}" />
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </Grid>
+
+                    <Label
+                        Grid.Row="3"
+                        Margin="0,20"
+                        HorizontalOptions="Center"
+                        VerticalOptions="EndAndExpand">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    FontSize="Small"
+                                    Text="Already have an account? "
+                                    TextColor="#2C2C2C" />
+                                <Span
+                                    FontSize="Small"
+                                    Text=" Sign in "
+                                    TextColor="#FA6400">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer x:Name="SpanSignin" />
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+
+
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
