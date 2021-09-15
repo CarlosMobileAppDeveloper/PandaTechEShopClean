@@ -20,6 +20,8 @@ using PandaTechEShop.ViewModels.Home;
 using PandaTechEShop.Views.Home;
 using PandaTechEShop.ViewModels.Init;
 using PandaTechEShop.Views.Init;
+using PandaTechEShop.Views.Product;
+using PandaTechEShop.ViewModels.Product;
 
 namespace PandaTechEShop
 {
@@ -51,6 +53,7 @@ namespace PandaTechEShop
             containerRegistry.RegisterForNavigation<SignupPage, SignupPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
+            containerRegistry.RegisterForNavigation<ProductListPage, ProductListPageViewModel>();
 
             containerRegistry.Register<IAccountService, AccountService>();
             containerRegistry.Register<ICategoryService, CategoryService>();

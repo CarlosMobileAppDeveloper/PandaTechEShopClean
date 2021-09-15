@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="PandaTechEShop.Views.Product.ProductListPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    Title="{Binding Title}"
+    ios:Page.UseSafeArea="True"
+    BackgroundColor="{DynamicResource PrimaryBackgroundColor}"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <Grid>
+            <!--  Navigation Bar  -->
+            <Grid Margin="0" Padding="10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Image
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    Source="leftarrow.png">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TapBack" Command="{Binding NavigateBackCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label
+                    x:Name="LblCategoryName"
+                    Grid.Column="1"
+                    FontAttributes="Bold"
+                    FontSize="Large"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding Title}"
+                    TextColor="#2C2C2C" />
+            </Grid>
+
+            <!--  Main Content  -->
+            <CollectionView
+                x:Name="CvProducts"
+                Margin="0,60,0,0"
+                ItemsSource="{Binding Products}"
+                SelectionMode="Single">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        HorizontalItemSpacing="0"
+                        Orientation="Vertical"
+                        Span="2"
+                        VerticalItemSpacing="20" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Spacing="0">
+                            <Frame
+                                Margin="15,0,15,0"
+                                Padding="20"
+                                CornerRadius="10"
+                                HasShadow="False">
+                                <StackLayout Orientation="Vertical" Spacing="5">
+                                    <Image
+                                        Aspect="Fill"
+                                        BackgroundColor="White"
+                                        HeightRequest="120"
+                                        Source="{Binding FullImageUrl}" />
+                                    <Label Text="{Binding Name}" TextColor="#2C2C2C" />
+                                    <Label Text="{Binding Price, StringFormat='${0}'}" TextColor="#FA6400" />
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

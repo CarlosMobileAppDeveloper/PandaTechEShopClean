@@ -69,6 +69,8 @@
     <None Remove="Views\Home\" />
     <None Remove="Views\Init\" />
     <None Remove="ViewModels\Init\" />
+    <None Remove="Views\Product\" />
+    <None Remove="ViewModels\Product\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
@@ -108,6 +110,8 @@
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Init\" />
     <Folder Include="ViewModels\Init\" />
+    <Folder Include="Views\Product\" />
+    <Folder Include="ViewModels\Product\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xsd" />

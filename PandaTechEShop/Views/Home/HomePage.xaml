@@ -4,15 +4,15 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    Title="{Binding Title}"
     ios:Page.UseSafeArea="True"
     BackgroundColor="{DynamicResource PrimaryBackgroundColor}"
     NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <Grid>
             <!--  Navigation Bar  -->
-
             <Grid
-                Margin="0,0,0,0"
+                Margin="0"
                 Padding="10,0"
                 HeightRequest="60"
                 VerticalOptions="Start">
@@ -119,6 +119,8 @@
                                     x:Name="CvCategories"
                                     HeightRequest="200"
                                     ItemsSource="{Binding Categories}"
+                                    SelectedItem="{Binding SelectedProductCategory, Mode=TwoWay}"
+                                    SelectionChangedCommand="{Binding ViewProductForCategoryCommand}"
                                     SelectionMode="Single">
                                     <CollectionView.ItemsLayout>
                                         <LinearItemsLayout Orientation="Horizontal" />

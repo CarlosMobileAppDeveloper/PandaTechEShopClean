@@ -19,7 +19,6 @@ namespace PandaTechEShop.ViewModels.Home
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
         private readonly IShoppingCartService _shoppingCartService;
-        private string _userId;
 
         public HomePageViewModel(
             INavigationService navigationService,
@@ -31,32 +30,33 @@ namespace PandaTechEShop.ViewModels.Home
             : base(navigationService, popupNavigation)
         {
             Title = "Panda eShop";
+
             _preferences = preferences;
             _productService = productService;
             _categoryService = categoryService;
             _shoppingCartService = shoppingCartService;
+
             TrendingProducts = new ObservableRangeCollection<TrendingProduct>();
             Categories = new ObservableRangeCollection<CategoryInfo>();
 
+            ViewProductForCategoryCommand = new AsyncCommand(ExecuteViewProductForCategoryCommandAsync, allowsMultipleExecutions: false);
         }
 
         public string Username { get; set; }
 
         public int CartItemsCount { get; set; } = 0;
 
+        public CategoryInfo SelectedProductCategory { get; set; }
+
         public ObservableRangeCollection<TrendingProduct> TrendingProducts { get; set; }
 
         public ObservableRangeCollection<CategoryInfo> Categories { get; set; }
 
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-            Username = _preferences.Get("userName", string.Empty);
-            _userId = _preferences.Get("userId", string.Empty);
-        }
+        public IAsyncCommand ViewProductForCategoryCommand { get; }
 
         public override Task InitializeAsync(INavigationParameters parameters)
         {
+            Username = _preferences.Get("userName", string.Empty);
             return Task.WhenAll(LoadTrendingProducts(), LoadCategories());
         }
 
@@ -85,8 +85,27 @@ namespace PandaTechEShop.ViewModels.Home
 
         private async Task LoadCartItemsCount()
         {
-            var totalCartItem = await _shoppingCartService.GetTotalCartItemsAsync(Convert.ToInt32(_userId));
+            var userId = _preferences.Get("userId", string.Empty);
+            var totalCartItem = await _shoppingCartService.GetTotalCartItemsAsync(Convert.ToInt32(userId));
             CartItemsCount = totalCartItem.TotalItems;
+        }
+
+        private Task ExecuteViewProductForCategoryCommandAsync()
+        {
+            if (SelectedProductCategory == null)
+            {
+                return Task.CompletedTask;
+            }
+
+            var navigationParameters = new NavigationParameters
+            {
+                { nameof(CategoryInfo), SelectedProductCategory },
+            };
+
+            // Clear selection before navigating
+            SelectedProductCategory = null;
+
+            return NavigationService.NavigateAsync("ProductListPage", navigationParameters, useModalNavigation: true);
         }
     }
 }
