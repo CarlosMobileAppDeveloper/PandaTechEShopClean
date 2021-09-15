@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="PandaTechEShop.Views.Account.LoginPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="True"
+    BackgroundColor="{DynamicResource PrimaryBackgroundColor}"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <Grid>
+            <ScrollView Margin="0" Padding="{StaticResource MainPagePadding}">
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Image
+                            HeightRequest="40"
+                            HorizontalOptions="Start"
+                            Source="leftarrow"
+                            VerticalOptions="Start"
+                            WidthRequest="40">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding NavigateBackCommand}" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Image
+                            HeightRequest="200"
+                            HorizontalOptions="EndAndExpand"
+                            Source="shape.png" />
+                    </StackLayout>
+                    <Label
+                        Margin="0,20,0,0"
+                        FontAttributes="Bold"
+                        Text="Login">
+                        <Label.FontSize>
+                            <OnIdiom
+                                x:TypeArguments="x:Double"
+                                Phone="24"
+                                Tablet="34" />
+                        </Label.FontSize>
+                    </Label>
+                    <Label
+                        Margin="0,0,0,20"
+                        FontSize="Medium"
+                        Text="Please Sign in to continue"
+                        TextColor="{StaticResource PrimaryTextSubTitleColor}" />
+                    <Entry
+                        Keyboard="Email"
+                        Placeholder="Email"
+                        Style="{StaticResource SingleLineFormEntryStyle}"
+                        Text="{Binding EmailAddress}" />
+                    <Entry
+                        IsPassword="True"
+                        Placeholder="Password"
+                        Style="{StaticResource SingleLineFormEntryStyle}"
+                        Text="{Binding Password}" />
+                    <Grid Margin="0,40,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5.5*" />
+                            <ColumnDefinition Width="4.5*" />
+                        </Grid.ColumnDefinitions>
+                        <Frame
+                            Grid.Column="1"
+                            Padding="15"
+                            BackgroundColor="{StaticResource PrimaryButtonColor}"
+                            CornerRadius="35">
+                            <StackLayout Orientation="Horizontal">
+                                <Label
+                                    FontSize="Medium"
+                                    HorizontalOptions="EndAndExpand"
+                                    Text="LOGIN"
+                                    TextColor="White"
+                                    VerticalOptions="Center" />
+                                <Image
+                                    HeightRequest="30"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Source="rightarrow.png" />
+                            </StackLayout>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding LoginCommand}" />
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </Grid>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -15,6 +15,11 @@ using PandaTechEShop.Services.Order;
 using PandaTechEShop.Services.Complaint;
 using PandaTechEShop.ViewModels.Account;
 using PandaTechEShop.Views.Account;
+using Rg.Plugins.Popup.Services;
+using PandaTechEShop.ViewModels.Home;
+using PandaTechEShop.Views.Home;
+using PandaTechEShop.ViewModels.Init;
+using PandaTechEShop.Views.Init;
 
 namespace PandaTechEShop
 {
@@ -33,15 +38,19 @@ namespace PandaTechEShop
 
             // NavigationService.NavigateAsync(PageConstants.MY_PAGE);
             //NavigationService.NavigateAsync("NavigationPage/TestMainPage");
-            NavigationService.NavigateAsync("NavigationPage/SignupPage");
+
+            NavigationService.NavigateAsync("InitPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<InitPage, InitPageViewModel>();
             containerRegistry.RegisterForNavigation<TestMainPage, TestMainPageViewModel>();
             containerRegistry.RegisterForNavigation<CreateAccountPage, CreateAccountPageViewModel>();
             containerRegistry.RegisterForNavigation<SignupPage, SignupPageViewModel>();
+            containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
+            containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
 
             containerRegistry.Register<IAccountService, AccountService>();
             containerRegistry.Register<ICategoryService, CategoryService>();
@@ -50,6 +59,8 @@ namespace PandaTechEShop
             containerRegistry.Register<IProductService, ProductService>();
             containerRegistry.Register<IOrderService, OrderService>();
             containerRegistry.Register<IShoppingCartService, ShoppingCartService>();
+
+            containerRegistry.RegisterInstance(PopupNavigation.Instance);
         }
 
         protected override void OnStart()

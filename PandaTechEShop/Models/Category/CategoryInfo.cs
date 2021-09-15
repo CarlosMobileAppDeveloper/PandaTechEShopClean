@@ -13,5 +13,7 @@ namespace PandaTechEShop.Models.Category
 
         [JsonProperty("imageUrl")]
         public string ImageUrl { get; set; }
+
+        public string FullImageUrl => AppSettings.ApiUrl + "/" + ImageUrl;
     }
 }

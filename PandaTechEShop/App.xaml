@@ -126,13 +126,29 @@
 
 
             <!--  GENERAL COLOURS CARL  -->
-            <Color x:Key="MainPageBackgroundColor">#ffffff</Color>
+            <Color x:Key="PrimaryBackgroundColor">#ffffff</Color>
+            <Color x:Key="PrimaryColor">#FA6400</Color>
+            <Color x:Key="PrimaryButtonColor">#FA6400</Color>
+            <Color x:Key="PrimaryButtonTextColor">#ffffff</Color>
+            <Color x:Key="PrimaryTextColor">#2C2C2C</Color>
+            <Color x:Key="PrimaryTextSubTitleColor">#D3D3D3</Color>
+
+            <!--  BASE STYLES Carl  -->
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
+                <Setter Property="FontSize" Value="{StaticResource BaseFontSize}" />
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
+            </Style>
 
             <!--  RESPONSIVE COMMON CARL  -->
             <OnIdiom x:Key="MainPagePadding" x:TypeArguments="Thickness">
                 <OnIdiom.Phone>16,0,16,0</OnIdiom.Phone>
                 <OnIdiom.Tablet>100,0,100,0</OnIdiom.Tablet>
             </OnIdiom>
+
+
 
             <Style x:Key="SignUpFormsContentStyle" TargetType="Layout">
                 <Setter Property="Padding" Value="{helpers:OnOrientationThickness PortraitPhone='0,10,0,20', LandscapePhone='30,10,30,30', PortraitTablet=0, LandscapeTablet=0}" />
@@ -144,7 +160,7 @@
 
             <!--  ENTRY FIELDS CARL  -->
             <Style x:Key="SingleLineFormEntryStyle" TargetType="Entry">
-                <Setter Property="TextColor" Value="{DynamicResource InverseTextColor}" />
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
                 <Setter Property="BackgroundColor" Value="Transparent" />
                 <Setter Property="HorizontalTextAlignment" Value="Start" />
                 <!--<Setter Property="helpers:EntryProperties.BorderStyle" Value="BottomLine" />

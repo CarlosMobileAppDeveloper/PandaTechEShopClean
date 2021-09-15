@@ -4,6 +4,7 @@ using PandaTechEShop.Services.Preferences;
 using PandaTechEShop.ViewModels.Base;
 using Prism.Commands;
 using Prism.Navigation;
+using Rg.Plugins.Popup.Contracts;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PandaTechEShop.ViewModels
@@ -12,8 +13,8 @@ namespace PandaTechEShop.ViewModels
     {
         private IPreferences _preferences;
 
-        public TestMainPageViewModel(INavigationService navigationService, IPreferences preferences)
-            : base(navigationService)
+        public TestMainPageViewModel(INavigationService navigationService, IPopupNavigation popupNavigation, IPreferences preferences)
+            : base(navigationService, popupNavigation)
         {
             _preferences = preferences;
             Title = "Welcome to Xamarin.Forms with PRISM!";

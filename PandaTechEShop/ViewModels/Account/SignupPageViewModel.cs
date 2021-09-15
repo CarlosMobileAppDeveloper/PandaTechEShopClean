@@ -2,8 +2,10 @@
 using System.Threading.Tasks;
 using PandaTechEShop.Services.Account;
 using PandaTechEShop.ViewModels.Base;
+using Rg.Plugins.Popup.Contracts;
 using Prism.Navigation;
 using Xamarin.CommunityToolkit.ObjectModel;
+using PandaTechEShop.Controls.Popups;
 
 namespace PandaTechEShop.ViewModels.Account
 {
@@ -11,11 +13,12 @@ namespace PandaTechEShop.ViewModels.Account
     {
         private readonly IAccountService _accountService;
 
-        public SignupPageViewModel(INavigationService navigationService, IAccountService accountService)
-            : base(navigationService)
+        public SignupPageViewModel(INavigationService navigationService, IPopupNavigation popupNavigation, IAccountService accountService)
+            : base(navigationService, popupNavigation)
         {
             Title = "Sign Up";
             SignUpCommand = new AsyncCommand(ExecuteSignUpCommandAsync, allowsMultipleExecutions: false);
+            NavigateToSignInPageCommand = new AsyncCommand(ExecuteNavigateToSignInPageCommandAsync, allowsMultipleExecutions: false);
             _accountService = accountService;
         }
 
@@ -24,6 +27,7 @@ namespace PandaTechEShop.ViewModels.Account
         public string Password { get; set; }
 
         public IAsyncCommand SignUpCommand { get; }
+        public IAsyncCommand NavigateToSignInPageCommand { get; }
 
         private async Task ExecuteSignUpCommandAsync()
         {
@@ -36,11 +40,22 @@ namespace PandaTechEShop.ViewModels.Account
 
                 if (response)
                 {
-
+                    await PopupNavigation.PushAsync(new ToastPopup("Success"));
+                    await Task.Delay(500);
+                    await NavigationService.NavigateAsync("LoginPage", useModalNavigation: true);
+                }
+                else
+                {
+                    await PopupNavigation.PushAsync(new ToastPopup("Failed to create account for user"));
                 }
             }
 
             // await base.NavigationService.NavigateAsync("AboutPage", useModalNavigation: true);
+        }
+
+        private async Task ExecuteNavigateToSignInPageCommandAsync()
+        {
+            await NavigationService.NavigateAsync("LoginPage", useModalNavigation: true);
         }
     }
 }

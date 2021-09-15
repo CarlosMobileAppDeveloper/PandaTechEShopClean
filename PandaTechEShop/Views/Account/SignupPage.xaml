@@ -6,7 +6,7 @@
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     Title="{Binding Title}"
     ios:Page.UseSafeArea="True"
-    BackgroundColor="{DynamicResource MainPageBackgroundColor}"
+    BackgroundColor="{DynamicResource PrimaryBackgroundColor}"
     NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <Grid>
@@ -30,8 +30,7 @@
                         Grid.Row="1"
                         Margin="0,20,0,40"
                         FontAttributes="Bold"
-                        Text="Create Account"
-                        TextColor="#2C2C2C">
+                        Text="Create Account">
                         <Label.FontSize>
                             <OnIdiom
                                 x:TypeArguments="x:Double"
@@ -43,25 +42,21 @@
                     <Grid
                         Grid.Row="2"
                         Padding="0"
-                        HeightRequest="200"
                         RowDefinitions="*, *, *"
                         VerticalOptions="StartAndExpand">
 
                         <Entry
-                            x:Name="UsernameEntry"
                             Grid.Row="0"
                             Placeholder="Full Name"
                             Style="{StaticResource SingleLineFormEntryStyle}"
                             Text="{Binding Username}" />
                         <Entry
-                            x:Name="EmailEntry"
                             Grid.Row="1"
                             Keyboard="Email"
                             Placeholder="Email"
                             Style="{StaticResource SingleLineFormEntryStyle}"
                             Text="{Binding EmailAddress}" />
                         <Entry
-                            x:Name="PasswordEntry"
                             Grid.Row="2"
                             IsPassword="True"
                             Placeholder="Password"
@@ -81,14 +76,14 @@
                         <Frame
                             Grid.Column="1"
                             Padding="15"
-                            BackgroundColor="#FA6400"
+                            BackgroundColor="{StaticResource PrimaryButtonColor}"
                             CornerRadius="35">
                             <StackLayout Orientation="Horizontal">
                                 <Label
                                     FontSize="Medium"
                                     HorizontalOptions="EndAndExpand"
                                     Text="SIGN UP"
-                                    TextColor="White"
+                                    TextColor="{StaticResource PrimaryButtonTextColor}"
                                     VerticalOptions="Center" />
                                 <Image
                                     HeightRequest="30"
@@ -96,7 +91,7 @@
                                     Source="rightarrow.png" />
                             </StackLayout>
                             <Frame.GestureRecognizers>
-                                <TapGestureRecognizer x:Name="TapSignup" Command="{Binding SignUpCommand}" />
+                                <TapGestureRecognizer Command="{Binding SignUpCommand}" />
                             </Frame.GestureRecognizers>
                         </Frame>
                     </Grid>
@@ -111,13 +106,13 @@
                                 <Span
                                     FontSize="Small"
                                     Text="Already have an account? "
-                                    TextColor="#2C2C2C" />
+                                    TextColor="{StaticResource PrimaryTextColor}" />
                                 <Span
                                     FontSize="Small"
                                     Text=" Sign in "
-                                    TextColor="#FA6400">
+                                    TextColor="{StaticResource PrimaryButtonColor}">
                                     <Span.GestureRecognizers>
-                                        <TapGestureRecognizer x:Name="SpanSignin" />
+                                        <TapGestureRecognizer Command="{Binding NavigateToSignInPageCommand}" />
                                     </Span.GestureRecognizers>
                                 </Span>
                             </FormattedString>
