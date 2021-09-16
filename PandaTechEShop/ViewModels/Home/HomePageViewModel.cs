@@ -40,6 +40,7 @@ namespace PandaTechEShop.ViewModels.Home
             Categories = new ObservableRangeCollection<CategoryInfo>();
 
             ViewProductForCategoryCommand = new AsyncCommand(ExecuteViewProductForCategoryCommandAsync, allowsMultipleExecutions: false);
+            ViewProductDetailsCommand = new AsyncCommand(ExecuteViewProductDetailsCommandAsync, allowsMultipleExecutions: false);
         }
 
         public string Username { get; set; }
@@ -48,11 +49,16 @@ namespace PandaTechEShop.ViewModels.Home
 
         public CategoryInfo SelectedProductCategory { get; set; }
 
+        public TrendingProduct SelectedProduct { get; set; }
+
         public ObservableRangeCollection<TrendingProduct> TrendingProducts { get; set; }
 
         public ObservableRangeCollection<CategoryInfo> Categories { get; set; }
 
         public IAsyncCommand ViewProductForCategoryCommand { get; }
+
+        public IAsyncCommand ViewProductDetailsCommand { get; }
+
 
         public override Task InitializeAsync(INavigationParameters parameters)
         {
@@ -60,6 +66,7 @@ namespace PandaTechEShop.ViewModels.Home
             return Task.WhenAll(LoadTrendingProducts(), LoadCategories());
         }
 
+        // FIXME - Doesn't get called when you navigate back from a modal page in iOS... but does get called if that is a navigation page modal page
         public override Task OnAppearingAsync()
         {
             return LoadCartItemsCount();
@@ -97,7 +104,7 @@ namespace PandaTechEShop.ViewModels.Home
                 return Task.CompletedTask;
             }
 
-            var navigationParameters = new NavigationParameters
+            var parameters = new NavigationParameters
             {
                 { nameof(CategoryInfo), SelectedProductCategory },
             };
@@ -105,7 +112,24 @@ namespace PandaTechEShop.ViewModels.Home
             // Clear selection before navigating
             SelectedProductCategory = null;
 
-            return NavigationService.NavigateAsync("ProductListPage", navigationParameters, useModalNavigation: true);
+            return NavigationService.NavigateAsync("NavigationPage/ProductListPage", parameters, useModalNavigation: true);
+        }
+
+        private Task ExecuteViewProductDetailsCommandAsync()
+        {
+            if (SelectedProduct == null)
+            {
+                return Task.CompletedTask;
+            }
+
+            var parameters = new NavigationParameters
+            {
+                { "ProductId", SelectedProduct.Id },
+                { "ProductName", SelectedProduct.Name },
+            };
+
+            SelectedProduct = null;
+            return NavigationService.NavigateAsync("NavigationPage/ProductDetailsPage", parameters, useModalNavigation: true);
         }
     }
 }

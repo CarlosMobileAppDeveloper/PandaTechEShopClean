@@ -42,7 +42,9 @@
             <CollectionView
                 x:Name="CvProducts"
                 Margin="0,60,0,0"
-                ItemsSource="{Binding Products}"
+                ItemsSource="{Binding ProductsByCategory}"
+                SelectedItem="{Binding SelectedProduct}"
+                SelectionChangedCommand="{Binding ViewProductDetailsCommand}"
                 SelectionMode="Single">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout

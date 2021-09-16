@@ -29,12 +29,12 @@ namespace PandaTechEShop.Services.Product
             return JsonConvert.DeserializeObject<ProductInfo>(response);
         }
 
-        public async Task<List<ProductInfo>> GetProductsByCategoryAsync(int categoryId)
+        public async Task<List<ProductByCategory>> GetProductsByCategoryAsync(int categoryId)
         {
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", _preferences.Get("accessToken", string.Empty));
             var response = await httpClient.GetStringAsync(_apiUrlBase + "/productsbycategory/" + categoryId);
-            return JsonConvert.DeserializeObject<List<ProductInfo>>(response);
+            return JsonConvert.DeserializeObject<List<ProductByCategory>>(response);
         }
 
         public async Task<List<TrendingProduct>> GetTrendingProductsAsync()

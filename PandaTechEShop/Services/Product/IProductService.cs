@@ -7,7 +7,7 @@ namespace PandaTechEShop.Services.Product
     public interface IProductService
     {
         Task<ProductInfo> GetProductByIdAsync(int productId);
-        Task<List<ProductInfo>> GetProductsByCategoryAsync(int categoryId);
+        Task<List<ProductByCategory>> GetProductsByCategoryAsync(int categoryId);
         Task<List<TrendingProduct>> GetTrendingProductsAsync();
     }
 }

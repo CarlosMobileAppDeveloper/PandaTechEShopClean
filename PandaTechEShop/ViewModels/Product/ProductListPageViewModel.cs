@@ -15,7 +15,7 @@ namespace PandaTechEShop.ViewModels.Product
     {
         private readonly IPreferences _preferences;
         private readonly IProductService _productService;
-        private CategoryInfo _productCategory;
+        private CategoryInfo _category;
 
         public ProductListPageViewModel(
             INavigationService navigationService,
@@ -26,20 +26,25 @@ namespace PandaTechEShop.ViewModels.Product
         {
             _preferences = preferences;
             _productService = productService;
-            Products = new ObservableRangeCollection<ProductInfo>();
+            ProductsByCategory = new ObservableRangeCollection<ProductByCategory>();
             NavigateBackCommand = new AsyncCommand(ExecuteNavigateBackCommandAsync, allowsMultipleExecutions: false);
+            ViewProductDetailsCommand = new AsyncCommand(ExecuteViewProductDetailsCommandAsync, allowsMultipleExecutions: false);
         }
 
-        public ObservableRangeCollection<ProductInfo> Products { get; set; }
+        public ProductByCategory SelectedProduct { get; set; }
+
+        public ObservableRangeCollection<ProductByCategory> ProductsByCategory { get; set; }
 
         public IAsyncCommand NavigateBackCommand { get; }
+
+        public IAsyncCommand ViewProductDetailsCommand { get; }
 
         public override Task InitializeAsync(INavigationParameters parameters)
         {
             if (parameters.ContainsKey(nameof(CategoryInfo)))
             {
-                _productCategory = parameters.GetValue<CategoryInfo>(nameof(CategoryInfo));
-                Title = _productCategory.Name;
+                _category = parameters.GetValue<CategoryInfo>(nameof(CategoryInfo));
+                Title = _category.Name;
             }
 
             return LoadProducts();
@@ -47,11 +52,28 @@ namespace PandaTechEShop.ViewModels.Product
 
         private async Task LoadProducts()
         {
-            var products = await _productService.GetProductsByCategoryAsync(_productCategory.Id);
+            var products = await _productService.GetProductsByCategoryAsync(_category.Id);
             foreach (var product in products)
             {
-                Products.Add(product);
+                ProductsByCategory.Add(product);
             }
+        }
+
+        private Task ExecuteViewProductDetailsCommandAsync()
+        {
+            if (SelectedProduct == null)
+            {
+                return Task.CompletedTask;
+            }
+
+            var parameters = new NavigationParameters
+            {
+                { "ProductId", SelectedProduct.Id },
+                { "ProductName", SelectedProduct.Name },
+            };
+
+            SelectedProduct = null;
+            return NavigationService.NavigateAsync("NavigationPage/ProductDetailsPage", parameters, useModalNavigation: true);
         }
 
         private Task ExecuteNavigateBackCommandAsync()

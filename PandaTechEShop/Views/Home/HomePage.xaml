@@ -99,6 +99,8 @@
                     <CollectionView
                         x:Name="CvProducts"
                         ItemsSource="{Binding TrendingProducts}"
+                        SelectedItem="{Binding SelectedProduct}"
+                        SelectionChangedCommand="{Binding ViewProductDetailsCommand}"
                         SelectionMode="Single">
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout
