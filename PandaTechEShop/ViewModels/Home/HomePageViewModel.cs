@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using PandaTechEShop.Controls.Popups;
 using PandaTechEShop.Models.Category;
 using PandaTechEShop.Models.Product;
 using PandaTechEShop.Services.Category;
@@ -41,6 +42,7 @@ namespace PandaTechEShop.ViewModels.Home
 
             ViewProductForCategoryCommand = new AsyncCommand(ExecuteViewProductForCategoryCommandAsync, allowsMultipleExecutions: false);
             ViewProductDetailsCommand = new AsyncCommand(ExecuteViewProductDetailsCommandAsync, allowsMultipleExecutions: false);
+            ViewCartCommand = new AsyncCommand(ExecuteViewCartCommandAsync, allowsMultipleExecutions: false);
         }
 
         public string Username { get; set; }
@@ -59,20 +61,22 @@ namespace PandaTechEShop.ViewModels.Home
 
         public IAsyncCommand ViewProductDetailsCommand { get; }
 
+        public IAsyncCommand ViewCartCommand { get; }
 
         public override Task InitializeAsync(INavigationParameters parameters)
         {
             Username = _preferences.Get("userName", string.Empty);
-            return Task.WhenAll(LoadTrendingProducts(), LoadCategories());
+            return Task.WhenAll(GetTrendingProducts(), GetCategories());
         }
 
-        // FIXME - Doesn't get called when you navigate back from a modal page in iOS... but does get called if that is a navigation page modal page
+        // FIXME - Doesn't get called when you navigate back from a modal page in iOS...
+        // ... but does get called if it is a navigation page modal page
         public override Task OnAppearingAsync()
         {
-            return LoadCartItemsCount();
+            return GetCartItemsCount();
         }
 
-        private async Task LoadTrendingProducts()
+        private async Task GetTrendingProducts()
         {
             var products = await _productService.GetTrendingProductsAsync();
             foreach (var product in products)
@@ -81,7 +85,7 @@ namespace PandaTechEShop.ViewModels.Home
             }
         }
 
-        private async Task LoadCategories()
+        private async Task GetCategories()
         {
             var categories = await _categoryService.GetCategoriesAsync();
             foreach (var category in categories)
@@ -90,10 +94,10 @@ namespace PandaTechEShop.ViewModels.Home
             }
         }
 
-        private async Task LoadCartItemsCount()
+        private async Task GetCartItemsCount()
         {
-            var userId = _preferences.Get("userId", string.Empty);
-            var totalCartItem = await _shoppingCartService.GetTotalCartItemsAsync(Convert.ToInt32(userId));
+            var userId = _preferences.Get("userId", -1);
+            var totalCartItem = await _shoppingCartService.GetTotalCartItemsAsync(userId);
             CartItemsCount = totalCartItem.TotalItems;
         }
 
@@ -130,6 +134,18 @@ namespace PandaTechEShop.ViewModels.Home
 
             SelectedProduct = null;
             return NavigationService.NavigateAsync("NavigationPage/ProductDetailsPage", parameters, useModalNavigation: true);
+        }
+
+        private Task ExecuteViewCartCommandAsync()
+        {
+            if (CartItemsCount == 0)
+            {
+                return PopupNavigation.PushAsync(new ToastPopup("You have no items in your cart"));
+            }
+            else
+            {
+                return NavigationService.NavigateAsync("NavigationPage/ShoppingCartPage", useModalNavigation: true);
+            }
         }
     }
 }

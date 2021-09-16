@@ -60,12 +60,12 @@ namespace PandaTechEShop.ViewModels.Product
                 {
                     _productId = parameters.GetValue<int>("ProductId");
 
-                    LoadProductDetailsAsync().ConfigureAwait(false);
+                    GetProductDetailsAsync().ConfigureAwait(false);
                 }
             }
         }
 
-        private async Task LoadProductDetailsAsync()
+        private async Task GetProductDetailsAsync()
         {
             SelectedProduct = await _productService.GetProductByIdAsync(_productId);
         }

@@ -47,10 +47,10 @@ namespace PandaTechEShop.ViewModels.Product
                 Title = _category.Name;
             }
 
-            return LoadProducts();
+            return GetProductsAsync();
         }
 
-        private async Task LoadProducts()
+        private async Task GetProductsAsync()
         {
             var products = await _productService.GetProductsByCategoryAsync(_category.Id);
             foreach (var product in products)

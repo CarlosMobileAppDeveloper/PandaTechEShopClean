@@ -87,7 +87,7 @@
                             WidthRequest="25" />
                     </Frame>
                     <Grid.GestureRecognizers>
-                        <TapGestureRecognizer x:Name="TapCartIcon" />
+                        <TapGestureRecognizer x:Name="TapCartIcon" Command="{Binding ViewCartCommand}" />
                     </Grid.GestureRecognizers>
                 </Grid>
             </Grid>

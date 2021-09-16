@@ -22,5 +22,7 @@ namespace PandaTechEShop.Models.ShoppingCart
 
         [JsonProperty("imageUrl")]
         public string ImageUrl { get; set; }
+
+        public string FullImageUrl => AppSettings.ApiUrl + "/" + ImageUrl;
     }
 }
