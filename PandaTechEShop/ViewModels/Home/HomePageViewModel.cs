@@ -43,6 +43,7 @@ namespace PandaTechEShop.ViewModels.Home
             ViewProductForCategoryCommand = new AsyncCommand(ExecuteViewProductForCategoryCommandAsync, allowsMultipleExecutions: false);
             ViewProductDetailsCommand = new AsyncCommand(ExecuteViewProductDetailsCommandAsync, allowsMultipleExecutions: false);
             ViewCartCommand = new AsyncCommand(ExecuteViewCartCommandAsync, allowsMultipleExecutions: false);
+            ViewOrdersCommand = new AsyncCommand(ExecuteViewOrdersCommandAsync, allowsMultipleExecutions: false);
         }
 
         public string Username { get; set; }
@@ -62,6 +63,10 @@ namespace PandaTechEShop.ViewModels.Home
         public IAsyncCommand ViewProductDetailsCommand { get; }
 
         public IAsyncCommand ViewCartCommand { get; }
+
+        public IAsyncCommand ViewOrdersCommand { get; }
+
+        public Action CloseMenu { get; set; }
 
         public override Task InitializeAsync(INavigationParameters parameters)
         {
@@ -146,6 +151,12 @@ namespace PandaTechEShop.ViewModels.Home
             {
                 return NavigationService.NavigateAsync("NavigationPage/ShoppingCartPage", useModalNavigation: true);
             }
+        }
+
+        private async Task ExecuteViewOrdersCommandAsync()
+        {
+            await NavigationService.NavigateAsync("NavigationPage/OrdersPage", useModalNavigation: true);
+            CloseMenu();
         }
     }
 }

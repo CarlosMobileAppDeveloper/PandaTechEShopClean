@@ -234,7 +234,7 @@
                             TextColor="#2C2C2C"
                             VerticalTextAlignment="Center" />
                         <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer x:Name="TapOrders" />
+                            <TapGestureRecognizer x:Name="TapOrders" Command="{Binding ViewOrdersCommand}" />
                         </StackLayout.GestureRecognizers>
                     </StackLayout>
                     <StackLayout

@@ -24,6 +24,8 @@ using PandaTechEShop.Views.Product;
 using PandaTechEShop.ViewModels.Product;
 using PandaTechEShop.ViewModels.ShoppingCart;
 using PandaTechEShop.Views.ShoppingCart;
+using PandaTechEShop.Views.Order;
+using PandaTechEShop.ViewModels.Order;
 
 namespace PandaTechEShop
 {
@@ -59,6 +61,7 @@ namespace PandaTechEShop
             containerRegistry.RegisterForNavigation<ProductDetailsPage, ProductDetailsPageViewModel>();
             containerRegistry.RegisterForNavigation<ShoppingCartPage, ShoppingCartPageViewModel>();
             containerRegistry.RegisterForNavigation<PlaceOrderPage, PlaceOrderPageViewModel>();
+            containerRegistry.RegisterForNavigation<OrdersPage, OrdersPageViewModel>();
 
             containerRegistry.Register<IAccountService, AccountService>();
             containerRegistry.Register<ICategoryService, CategoryService>();
