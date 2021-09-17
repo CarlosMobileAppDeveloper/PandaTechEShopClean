@@ -33,6 +33,7 @@ namespace PandaTechEShop.ViewModels.ShoppingCart
             ShoppingCartItems = new ObservableRangeCollection<ShoppingCartItem>();
             NavigateBackCommand = new AsyncCommand(ExecuteNavigateBackCommandAsync, allowsMultipleExecutions: false);
             ClearShoppingCartCommand = new AsyncCommand(ExecuteClearShoppingCartCommandAsync, allowsMultipleExecutions: false);
+            ProceedWithOrderCommand = new AsyncCommand(ExecuteProceedWithOrderCommandAsync, allowsMultipleExecutions: false);
         }
 
         public CartSubTotal ShoppingCartSubTotal { get; set; }
@@ -40,6 +41,8 @@ namespace PandaTechEShop.ViewModels.ShoppingCart
         public ObservableRangeCollection<ShoppingCartItem> ShoppingCartItems { get; set; }
 
         public IAsyncCommand ClearShoppingCartCommand { get; }
+
+        public IAsyncCommand ProceedWithOrderCommand { get; }
 
         public IAsyncCommand NavigateBackCommand { get; }
 
@@ -86,6 +89,16 @@ namespace PandaTechEShop.ViewModels.ShoppingCart
             {
                 await PopupNavigation.PushAsync(new ToastPopup("Something gone wrong. Failed to clear cart."));
             }
+        }
+
+        private Task ExecuteProceedWithOrderCommandAsync()
+        {
+            var parameters = new NavigationParameters
+            {
+                { "OrderTotal", ShoppingCartSubTotal.SubTotal },
+            };
+
+            return NavigationService.NavigateAsync("PlaceOrderPage", parameters);
         }
 
         private Task ExecuteNavigateBackCommandAsync()

@@ -132,6 +132,7 @@
                 <Button
                     x:Name="BtnProceed"
                     BackgroundColor="#FA6400"
+                    Command="{Binding ProceedWithOrderCommand}"
                     HorizontalOptions="FillAndExpand"
                     Text="Proceed"
                     TextColor="White" />

@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="PandaTechEShop.Views.ShoppingCart.PlaceOrderPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    Title="{Binding Title}"
+    ios:Page.UseSafeArea="True"
+    BackgroundColor="{DynamicResource PrimaryBackgroundColor}"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <StackLayout Margin="25" Spacing="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Image
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    Source="leftarrow.png"
+                    VerticalOptions="Center">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TapBack" Command="{Binding NavigateBackCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label
+                    Grid.Column="1"
+                    FontAttributes="Bold"
+                    FontSize="Large"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Text="PLACE ORDER"
+                    TextColor="#2C2C2C"
+                    VerticalOptions="Center" />
+            </Grid>
+            <Frame
+                Margin="0,30,0,30"
+                Padding="25"
+                HasShadow="True">
+                <StackLayout Margin="0,60,0,60" Spacing="20">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="Large"
+                        HorizontalTextAlignment="Center"
+                        Text="Provide Your Details"
+                        TextColor="#2C2C2C" />
+                    <Entry
+                        x:Name="EntName"
+                        Keyboard="Text"
+                        Placeholder="Name"
+                        Text="{Binding FullName}" />
+                    <Entry
+                        x:Name="EntPhone"
+                        Keyboard="Numeric"
+                        Placeholder="Phone"
+                        Text="{Binding PhoneNumber}" />
+                    <Editor
+                        x:Name="EntAddress"
+                        HeightRequest="100"
+                        Placeholder="Address"
+                        Text="{Binding Address}" />
+                </StackLayout>
+            </Frame>
+            <Button
+                x:Name="BtnPlaceOrder"
+                BackgroundColor="#FA6400"
+                Command="{Binding PlaceOrderCommand}"
+                CornerRadius="25"
+                Text="Place My Order"
+                TextColor="White" />
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>
