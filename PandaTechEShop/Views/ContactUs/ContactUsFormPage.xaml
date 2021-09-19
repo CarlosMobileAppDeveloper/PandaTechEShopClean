@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="PandaTechEShop.Views.ContactUs.ContactUsFormPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    Title="{Binding Title}"
+    ios:Page.UseSafeArea="True"
+    BackgroundColor="{DynamicResource PrimaryBackgroundColor}"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout Spacing="20">
+                <Grid Margin="0,20,0,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.5*" />
+                        <ColumnDefinition Width="7*" />
+                        <ColumnDefinition Width="1.5*" />
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        Grid.Column="0"
+                        Margin="20,0,0,0"
+                        HeightRequest="30"
+                        Source="leftarrow.png"
+                        WidthRequest="30">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer x:Name="TapBack" Command="{Binding NavigateBackCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label
+                        Grid.Column="1"
+                        FontSize="Title"
+                        HorizontalTextAlignment="Center"
+                        Text="Contact Us"
+                        TextColor="#2C2C2C" />
+                </Grid>
+                <Entry
+                    x:Name="EntFullName"
+                    Margin="20,0,20,0"
+                    Placeholder="Full Name" />
+                <Entry
+                    x:Name="EntPhoneNumber"
+                    Margin="20,0,20,0"
+                    Keyboard="Telephone"
+                    Placeholder="Phone Number" />
+                <Entry
+                    x:Name="EntEmail"
+                    Margin="20,0,20,0"
+                    Keyboard="Email"
+                    Placeholder="Email" />
+                <Entry
+                    x:Name="EntTitle"
+                    Margin="20,0,20,0"
+                    Placeholder="Your message is about" />
+                <Editor
+                    x:Name="EntDescription"
+                    Margin="20,0,20,0"
+                    HeightRequest="150"
+                    Placeholder="Please explain your issue in detail and our team will get back to you as soon as possible." />
+                <Button
+                    x:Name="BtnSendMessage"
+                    Margin="20,0,20,0"
+                    BackgroundColor="#FA6400"
+                    CornerRadius="25"
+                    Text="Send Message"
+                    TextColor="White" />
+            </StackLayout>
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>

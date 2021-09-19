@@ -75,6 +75,8 @@
     <None Remove="Views\ShoppingCart\" />
     <None Remove="Views\Order\" />
     <None Remove="ViewModels\Order\" />
+    <None Remove="Views\ContactUs\" />
+    <None Remove="ViewModels\ContactUs\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
@@ -120,6 +122,8 @@
     <Folder Include="Views\ShoppingCart\" />
     <Folder Include="Views\Order\" />
     <Folder Include="ViewModels\Order\" />
+    <Folder Include="Views\ContactUs\" />
+    <Folder Include="ViewModels\ContactUs\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xsd" />

@@ -25,10 +25,15 @@ namespace PandaTechEShop.ViewModels.Order
             _preferences = preferences;
             _orderService = orderService;
             NavigateBackCommand = new AsyncCommand(ExecuteNavigateBackCommandAsync, allowsMultipleExecutions: false);
+            ViewOrderDetailsCommand = new AsyncCommand<OrderByUser>(order => ExecuteViewOrderDetailsCommandAsync(order), allowsMultipleExecutions: false);
             Orders = new ObservableRangeCollection<OrderByUser>();
         }
 
         public IAsyncCommand NavigateBackCommand { get; }
+
+        public IAsyncCommand<OrderByUser> ViewOrderDetailsCommand { get; }
+
+        public OrderByUser SelectedOrder { get; set; }
 
         public ObservableRangeCollection<OrderByUser> Orders { get; set; }
 
@@ -52,6 +57,23 @@ namespace PandaTechEShop.ViewModels.Order
             }
 
             Orders = orders;
+        }
+
+        private async Task ExecuteViewOrderDetailsCommandAsync(OrderByUser order)
+        {
+            if (order == null)
+            {
+                return;
+            }
+
+            var parameters = new NavigationParameters
+            {
+                { "OrderId", order.Id },
+                { "OrderTotal", order.OrderTotal },
+            };
+
+            SelectedOrder = null;
+            await NavigationService.NavigateAsync("OrderDetailsPage", parameters);
         }
 
         private Task ExecuteNavigateBackCommandAsync()

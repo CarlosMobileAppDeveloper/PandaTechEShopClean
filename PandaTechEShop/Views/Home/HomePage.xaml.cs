@@ -43,8 +43,11 @@ namespace PandaTechEShop.Views.Home
 
         private async void CloseMenu()
         {
-            await SlMenu.TranslateTo(-250, 0, 400, Easing.Linear);
-            GridOverlay.IsVisible = false;
+            if (GridOverlay.IsVisible)
+            {
+                await SlMenu.TranslateTo(-250, 0, 400, Easing.Linear);
+                GridOverlay.IsVisible = false;
+            }
         }
     }
 }

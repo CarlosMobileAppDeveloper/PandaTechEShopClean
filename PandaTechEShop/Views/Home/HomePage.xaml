@@ -252,7 +252,7 @@
                             TextColor="#2C2C2C"
                             VerticalTextAlignment="Center" />
                         <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer x:Name="TapCart" />
+                            <TapGestureRecognizer x:Name="TapCart" Command="{Binding ViewCartCommand}" />
                         </StackLayout.GestureRecognizers>
                     </StackLayout>
                     <StackLayout
@@ -270,7 +270,7 @@
                             TextColor="#2C2C2C"
                             VerticalTextAlignment="Center" />
                         <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer x:Name="TapContact" />
+                            <TapGestureRecognizer x:Name="TapContact" Command="{Binding ContactUsCommand}" />
                         </StackLayout.GestureRecognizers>
                     </StackLayout>
                     <StackLayout
@@ -288,7 +288,7 @@
                             TextColor="#2C2C2C"
                             VerticalTextAlignment="Center" />
                         <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer x:Name="TapLogout" />
+                            <TapGestureRecognizer x:Name="TapLogout" Command="{Binding LogoutCommand}" />
                         </StackLayout.GestureRecognizers>
                     </StackLayout>
                 </StackLayout>

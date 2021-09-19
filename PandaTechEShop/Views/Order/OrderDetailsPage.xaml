@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="PandaTechEShop.Views.Order.OrderDetailsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    Title="{Binding Title}"
+    ios:Page.UseSafeArea="True"
+    BackgroundColor="{DynamicResource PrimaryBackgroundColor}"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid Margin="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.5*" />
+                    <ColumnDefinition Width="7*" />
+                    <ColumnDefinition Width="1.5*" />
+                </Grid.ColumnDefinitions>
+                <Image
+                    Grid.Column="0"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    Source="leftarrow.png">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TapBack" Command="{Binding NavigateBackCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label
+                    Grid.Column="1"
+                    FontAttributes="Bold"
+                    FontSize="Large"
+                    HorizontalTextAlignment="Center"
+                    Text="Order Details"
+                    TextColor="#2C2C2C" />
+            </Grid>
+            <ListView
+                x:Name="LvOrderDetail"
+                HasUnevenRows="True"
+                ItemsSource="{Binding OrderDetails}"
+                SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="20">
+                                <Label
+                                    FontSize="Medium"
+                                    Text="{Binding ProductName}"
+                                    TextColor="#2C2C2C" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3.3*" />
+                                        <ColumnDefinition Width="3.3*" />
+                                        <ColumnDefinition Width="3.4*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout Grid.Column="0">
+                                        <Label
+                                            HorizontalOptions="Center"
+                                            Text="Qty"
+                                            TextColor="#2C2C2C" />
+                                        <Label
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Qty}"
+                                            TextColor="#80574D" />
+                                    </StackLayout>
+                                    <StackLayout Grid.Column="1">
+                                        <Label
+                                            HorizontalOptions="Center"
+                                            Text="Unit Price"
+                                            TextColor="#2C2C2C" />
+                                        <Label
+                                            HorizontalOptions="Center"
+                                            Text="{Binding ProductPrice, StringFormat='x {0}'}"
+                                            TextColor="#2C2C2C" />
+                                    </StackLayout>
+                                    <StackLayout Grid.Column="2">
+                                        <Label
+                                            HorizontalOptions="Center"
+                                            Text="Sub Total"
+                                            TextColor="#2C2C2C" />
+                                        <Label
+                                            HorizontalOptions="Center"
+                                            Text="{Binding SubTotal, StringFormat='${0}'}"
+                                            TextColor="#2C2C2C" />
+                                    </StackLayout>
+                                </Grid>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <StackLayout Margin="20">
+                        <Label
+                            FontSize="Medium"
+                            HorizontalOptions="End"
+                            Text="Total Price"
+                            TextColor="#2C2C2C" />
+                        <Label
+                            x:Name="LblTotalPrice"
+                            FontSize="Medium"
+                            HorizontalOptions="End"
+                            Text="{Binding OrderTotal, StringFormat='${0}'}"
+                            TextColor="#FA6400" />
+                    </StackLayout>
+                </ListView.Footer>
+            </ListView>
+        </StackLayout>
+
+
+    </ContentPage.Content>
+</ContentPage>

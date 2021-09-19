@@ -44,6 +44,8 @@ namespace PandaTechEShop.ViewModels.Home
             ViewProductDetailsCommand = new AsyncCommand(ExecuteViewProductDetailsCommandAsync, allowsMultipleExecutions: false);
             ViewCartCommand = new AsyncCommand(ExecuteViewCartCommandAsync, allowsMultipleExecutions: false);
             ViewOrdersCommand = new AsyncCommand(ExecuteViewOrdersCommandAsync, allowsMultipleExecutions: false);
+            ContactUsCommand = new AsyncCommand(ExecuteContactUsCommandAsync, allowsMultipleExecutions: false);
+            LogoutCommand = new AsyncCommand(ExecuteLogoutCommandAsync, allowsMultipleExecutions: false);
         }
 
         public string Username { get; set; }
@@ -65,6 +67,10 @@ namespace PandaTechEShop.ViewModels.Home
         public IAsyncCommand ViewCartCommand { get; }
 
         public IAsyncCommand ViewOrdersCommand { get; }
+
+        public IAsyncCommand ContactUsCommand { get; }
+
+        public IAsyncCommand LogoutCommand { get; set; }
 
         public Action CloseMenu { get; set; }
 
@@ -141,16 +147,21 @@ namespace PandaTechEShop.ViewModels.Home
             return NavigationService.NavigateAsync("NavigationPage/ProductDetailsPage", parameters, useModalNavigation: true);
         }
 
-        private Task ExecuteViewCartCommandAsync()
+        private async Task ExecuteViewCartCommandAsync()
         {
-            if (CartItemsCount == 0)
-            {
-                return PopupNavigation.PushAsync(new ToastPopup("You have no items in your cart"));
-            }
-            else
-            {
-                return NavigationService.NavigateAsync("NavigationPage/ShoppingCartPage", useModalNavigation: true);
-            }
+            await NavigationService.NavigateAsync("NavigationPage/ShoppingCartPage", useModalNavigation: true);
+            CloseMenu();
+        }
+
+        private async Task ExecuteContactUsCommandAsync()
+        {
+            await NavigationService.NavigateAsync("NavigationPage/ContactUsFormPage", useModalNavigation: true);
+            CloseMenu();
+        }
+
+        private async Task ExecuteLogoutCommandAsync()
+        {
+
         }
 
         private async Task ExecuteViewOrdersCommandAsync()
