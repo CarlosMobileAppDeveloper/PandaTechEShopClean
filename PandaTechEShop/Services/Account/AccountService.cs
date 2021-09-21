@@ -57,8 +57,9 @@ namespace PandaTechEShop.Services.Account
             }
 
             var jsonResult = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<Token>(jsonResult);
+            var result = JsonConvert.DeserializeObject<TokenInfo>(jsonResult);
             _preferences.Set("accessToken", result.AccessToken);
+            _preferences.Set("tokenExpirationTime", result.ExpirationTime);
             _preferences.Set("userId", result.UserId);
             _preferences.Set("userName", result.UserName);
             return true;

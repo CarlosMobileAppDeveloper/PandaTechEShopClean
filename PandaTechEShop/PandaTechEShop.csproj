@@ -23,6 +23,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Refit" Version="6.0.94" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.12" />
+    <PackageReference Include="Epoch.Unix.TimeStamp" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Prism.DryIoc.Forms" />
@@ -77,6 +78,8 @@
     <None Remove="ViewModels\Order\" />
     <None Remove="Views\ContactUs\" />
     <None Remove="ViewModels\ContactUs\" />
+    <None Remove="Epoch.Unix.TimeStamp" />
+    <None Remove="Services\Token\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
@@ -124,6 +127,7 @@
     <Folder Include="ViewModels\Order\" />
     <Folder Include="Views\ContactUs\" />
     <Folder Include="ViewModels\ContactUs\" />
+    <Folder Include="Services\Token\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xsd" />

@@ -28,6 +28,7 @@ using PandaTechEShop.Views.Order;
 using PandaTechEShop.ViewModels.Order;
 using PandaTechEShop.Views.ContactUs;
 using PandaTechEShop.ViewModels.ContactUs;
+using PandaTechEShop.Services.Token;
 
 namespace PandaTechEShop
 {
@@ -74,6 +75,7 @@ namespace PandaTechEShop
             containerRegistry.Register<IProductService, ProductService>();
             containerRegistry.Register<IOrderService, OrderService>();
             containerRegistry.Register<IShoppingCartService, ShoppingCartService>();
+            containerRegistry.Register<ITokenValidatorService, TokenValidatorService>();
 
             containerRegistry.RegisterInstance(PopupNavigation.Instance);
         }

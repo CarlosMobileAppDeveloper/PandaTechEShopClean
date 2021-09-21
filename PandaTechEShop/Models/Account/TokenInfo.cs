@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace PandaTechEShop.Models.Account
 {
-    public class Token
+    public class TokenInfo
     {
         [JsonProperty("access_token")]
         public string AccessToken { get; set; }

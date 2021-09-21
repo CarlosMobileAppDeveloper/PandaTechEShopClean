@@ -17,7 +17,7 @@ namespace PandaTechEShop.Services.FurnitureAPI
         Task RegisterUser([Body] Register newReistration);
 
         [Post("/api/accounts/login")]
-        Task<Token> Login([Body] Login login);
+        Task<TokenInfo> Login([Body] Login login);
 
         [Get("/api/categories")]
         Task<List<CategoryInfo>> GetCategories();

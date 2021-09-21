@@ -159,9 +159,11 @@ namespace PandaTechEShop.ViewModels.Home
             CloseMenu();
         }
 
-        private async Task ExecuteLogoutCommandAsync()
+        private Task ExecuteLogoutCommandAsync()
         {
-
+            _preferences.Set("accessToken", string.Empty);
+            _preferences.Set("tokenExpirationTime", 0);
+            return NavigationService.NavigateAsync("/NavigationPage/SignupPage");
         }
 
         private async Task ExecuteViewOrdersCommandAsync()
