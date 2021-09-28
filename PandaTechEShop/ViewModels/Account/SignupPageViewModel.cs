@@ -1,16 +1,14 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using PandaTechEShop.Services.Account;
 using PandaTechEShop.ViewModels.Base;
-using Rg.Plugins.Popup.Contracts;
 using Prism.Navigation;
 using Xamarin.CommunityToolkit.ObjectModel;
 using PandaTechEShop.Controls.Popups;
 using System.Windows.Input;
 using System.Collections.Generic;
-using Xamarin.CommunityToolkit.Behaviors;
 using System.Linq;
-using Xamarin.Forms;
+using Prism.Commands;
+using PandaTechEShop.Services;
 
 namespace PandaTechEShop.ViewModels.Account
 {
@@ -22,8 +20,8 @@ namespace PandaTechEShop.ViewModels.Account
         private bool _hasPasswordUnFocussed = false;
         private bool _hasPasswordMatchUnFocussed = false;
 
-        public SignupPageViewModel(INavigationService navigationService, IPopupNavigation popupNavigation, IAccountService accountService)
-            : base(navigationService, popupNavigation)
+        public SignupPageViewModel(IBaseService baseService, IAccountService accountService)
+            : base(baseService)
         {
             Title = "Sign Up";
 
@@ -32,14 +30,14 @@ namespace PandaTechEShop.ViewModels.Account
             SignUpCommand = new AsyncCommand(SignUpAsync, allowsMultipleExecutions: false);
             NavigateToSignInPageCommand = new AsyncCommand(NavigateToSignInPageAsync, allowsMultipleExecutions: false);
 
-            ValidateEmailCommand = new Command(ValidateEmail);
-            ForceValidateEmailCommand = new Command(ForceValidateEmail);
+            ValidateEmailCommand = new DelegateCommand(ValidateEmail);
+            ForceValidateEmailCommand = new DelegateCommand(ForceValidateEmail);
 
-            ValidatePasswordCommand = new Command(ValidatePassword);
-            ForceValidatePasswordCommand = new Command(ForceValidatePassword);
+            ValidatePasswordCommand = new DelegateCommand(ValidatePassword);
+            ForceValidatePasswordCommand = new DelegateCommand(ForceValidatePassword);
 
-            ValidatePasswordMatchCommand = new Command(ValidatePasswordMatch);
-            ForceValidatePasswordMatchCommand = new Command(ForceValidatePasswordMatch);
+            ValidatePasswordMatchCommand = new DelegateCommand(ValidatePasswordMatch);
+            ForceValidatePasswordMatchCommand = new DelegateCommand(ForceValidatePasswordMatch);
         }
 
         //public string Username { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using PandaTechEShop.Services;
 using Prism.AppModel;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -10,17 +11,20 @@ namespace PandaTechEShop.ViewModels.Base
     [AddINotifyPropertyChangedInterface]
     public class BaseViewModel : BindableBase, IInitialize, INavigationAware, IDestructible, IPageLifecycleAware
     {
-        public BaseViewModel(INavigationService navigationService, IPopupNavigation popupNavigation)
+        public BaseViewModel(IBaseService baseService)
         {
-            NavigationService = navigationService;
-            PopupNavigation = popupNavigation;
+            NavigationService = baseService.NavigationService;
+            Logger = baseService.Logger;
+            PopupNavigation = baseService.PopupNavigation;
         }
 
         public string Title { get; set; }
 
         protected INavigationService NavigationService { get; private set; }
 
-        public IPopupNavigation PopupNavigation { get; }
+        protected ILogger Logger { get; private set; }
+
+        protected IPopupNavigation PopupNavigation { get; private set; }
 
         public virtual void Initialize(INavigationParameters parameters)
         {

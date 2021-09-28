@@ -82,6 +82,7 @@
     <None Remove="Epoch.Unix.TimeStamp" />
     <None Remove="Services\Token\" />
     <None Remove="XF.Material" />
+    <None Remove="Services\Logger\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
@@ -130,6 +131,7 @@
     <Folder Include="Views\ContactUs\" />
     <Folder Include="ViewModels\ContactUs\" />
     <Folder Include="Services\Token\" />
+    <Folder Include="Services\Logger\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xsd" />

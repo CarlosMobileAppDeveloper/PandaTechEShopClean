@@ -1,11 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using PandaTechEShop.Models.Order;
+using PandaTechEShop.Services;
 using PandaTechEShop.Services.Order;
 using PandaTechEShop.Services.Preferences;
 using PandaTechEShop.ViewModels.Base;
 using Prism.Navigation;
-using Rg.Plugins.Popup.Contracts;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PandaTechEShop.ViewModels.Order
@@ -16,11 +15,10 @@ namespace PandaTechEShop.ViewModels.Order
         private readonly IOrderService _orderService;
 
         public OrdersPageViewModel(
-            INavigationService navigationService,
-            IPopupNavigation popupNavigation,
+            IBaseService baseService,
             IPreferences preferences,
             IOrderService orderService)
-            : base(navigationService, popupNavigation)
+            : base(baseService)
         {
             _preferences = preferences;
             _orderService = orderService;

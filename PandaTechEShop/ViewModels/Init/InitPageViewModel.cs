@@ -1,9 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using PandaTechEShop.Services;
 using PandaTechEShop.Services.Preferences;
 using PandaTechEShop.ViewModels.Base;
-using Prism.Navigation;
-using Rg.Plugins.Popup.Contracts;
 
 namespace PandaTechEShop.ViewModels.Init
 {
@@ -11,8 +9,8 @@ namespace PandaTechEShop.ViewModels.Init
     {
         private IPreferences _preferences;
 
-        public InitPageViewModel(INavigationService navigationService, IPopupNavigation popupNavigation, IPreferences preferences)
-            : base(navigationService, popupNavigation)
+        public InitPageViewModel(IBaseService baseService, IPreferences preferences)
+            : base(baseService)
         {
             _preferences = preferences;
         }

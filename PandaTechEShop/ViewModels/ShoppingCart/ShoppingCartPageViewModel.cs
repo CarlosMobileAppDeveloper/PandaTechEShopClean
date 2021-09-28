@@ -1,13 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using PandaTechEShop.Controls.Popups;
 using PandaTechEShop.Models.ShoppingCart;
+using PandaTechEShop.Services;
 using PandaTechEShop.Services.Preferences;
 using PandaTechEShop.Services.Product;
 using PandaTechEShop.Services.ShoppingCart;
 using PandaTechEShop.ViewModels.Base;
 using Prism.Navigation;
-using Rg.Plugins.Popup.Contracts;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PandaTechEShop.ViewModels.ShoppingCart
@@ -19,12 +18,11 @@ namespace PandaTechEShop.ViewModels.ShoppingCart
         private readonly IShoppingCartService _shoppingCartService;
 
         public ShoppingCartPageViewModel(
-            INavigationService navigationService,
-            IPopupNavigation popupNavigation,
+            IBaseService baseService,
             IPreferences preferences,
             IProductService productService,
             IShoppingCartService shoppingCartService)
-            : base(navigationService, popupNavigation)
+            : base(baseService)
         {
             _preferences = preferences;
             _productService = productService;

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using PandaTechEShop.Models.Category;
 using PandaTechEShop.Models.Product;
+using PandaTechEShop.Services;
 using PandaTechEShop.Services.Preferences;
 using PandaTechEShop.Services.Product;
 using PandaTechEShop.ViewModels.Base;
 using Prism.Navigation;
-using Rg.Plugins.Popup.Contracts;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PandaTechEShop.ViewModels.Product
@@ -18,11 +17,10 @@ namespace PandaTechEShop.ViewModels.Product
         private CategoryInfo _category;
 
         public ProductListPageViewModel(
-            INavigationService navigationService,
-            IPopupNavigation popupNavigation,
+            IBaseService baseService,
             IPreferences preferences,
             IProductService productService)
-            : base(navigationService, popupNavigation)
+            : base(baseService)
         {
             _preferences = preferences;
             _productService = productService;

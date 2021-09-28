@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
-using PandaTechEShop.Controls.Popups;
 using PandaTechEShop.Models.Category;
 using PandaTechEShop.Models.Product;
+using PandaTechEShop.Services;
 using PandaTechEShop.Services.Category;
 using PandaTechEShop.Services.Preferences;
 using PandaTechEShop.Services.Product;
 using PandaTechEShop.Services.ShoppingCart;
 using PandaTechEShop.ViewModels.Base;
 using Prism.Navigation;
-using Rg.Plugins.Popup.Contracts;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PandaTechEShop.ViewModels.Home
@@ -22,13 +21,12 @@ namespace PandaTechEShop.ViewModels.Home
         private readonly IShoppingCartService _shoppingCartService;
 
         public HomePageViewModel(
-            INavigationService navigationService,
-            IPopupNavigation popupNavigation,
+            IBaseService baseService,
             IPreferences preferences,
             IProductService productService,
             ICategoryService categoryService,
             IShoppingCartService shoppingCartService)
-            : base(navigationService, popupNavigation)
+            : base(baseService)
         {
             Title = "Panda eShop";
 

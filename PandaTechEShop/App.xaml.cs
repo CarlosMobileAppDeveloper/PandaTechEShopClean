@@ -29,6 +29,7 @@ using PandaTechEShop.ViewModels.Order;
 using PandaTechEShop.Views.ContactUs;
 using PandaTechEShop.ViewModels.ContactUs;
 using PandaTechEShop.Services.Token;
+using PandaTechEShop.Services;
 
 namespace PandaTechEShop
 {
@@ -69,6 +70,8 @@ namespace PandaTechEShop
             containerRegistry.RegisterForNavigation<OrderDetailsPage, OrderDetailsPageViewModel>();
             containerRegistry.RegisterForNavigation<ContactUsFormPage, ContactUsFormPageViewModel>();
 
+            containerRegistry.Register<IBaseService, BaseService>();
+            containerRegistry.Register<ILogger, Logger>();
             containerRegistry.Register<IAccountService, AccountService>();
             containerRegistry.Register<ICategoryService, CategoryService>();
             containerRegistry.Register<IComplaintService, ComplaintService>();

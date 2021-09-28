@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
+using PandaTechEShop.Services;
 using PandaTechEShop.Services.Preferences;
 using PandaTechEShop.ViewModels.Base;
 using Prism.Commands;
@@ -13,8 +14,8 @@ namespace PandaTechEShop.ViewModels
     {
         private IPreferences _preferences;
 
-        public TestMainPageViewModel(INavigationService navigationService, IPopupNavigation popupNavigation, IPreferences preferences)
-            : base(navigationService, popupNavigation)
+        public TestMainPageViewModel(IBaseService baseService, IPreferences preferences)
+            : base(baseService)
         {
             _preferences = preferences;
             Title = "Welcome to Xamarin.Forms with PRISM!";

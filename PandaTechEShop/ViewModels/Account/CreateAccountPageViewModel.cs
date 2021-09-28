@@ -1,14 +1,12 @@
-﻿using System;
+﻿using PandaTechEShop.Services;
 using PandaTechEShop.ViewModels.Base;
-using Prism.Navigation;
-using Rg.Plugins.Popup.Contracts;
 
 namespace PandaTechEShop.ViewModels.Account
 {
     public class CreateAccountPageViewModel : BaseViewModel
     {
-        public CreateAccountPageViewModel(INavigationService navigationService, IPopupNavigation popupNavigation)
-            : base(navigationService, popupNavigation)
+        public CreateAccountPageViewModel(IBaseService baseService)
+            : base(baseService)
         {
             Title = "Welcome to Xamarin.Forms with PRISM!";
         }

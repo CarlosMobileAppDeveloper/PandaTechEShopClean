@@ -2,10 +2,9 @@
 using System.Threading.Tasks;
 using PandaTechEShop.Controls.Popups;
 using PandaTechEShop.Models.Complaint;
+using PandaTechEShop.Services;
 using PandaTechEShop.Services.Complaint;
 using PandaTechEShop.ViewModels.Base;
-using Prism.Navigation;
-using Rg.Plugins.Popup.Contracts;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PandaTechEShop.ViewModels.ContactUs
@@ -15,10 +14,9 @@ namespace PandaTechEShop.ViewModels.ContactUs
         private readonly IComplaintService _complaintService;
 
         public ContactUsFormPageViewModel(
-            INavigationService navigationService,
-            IPopupNavigation popupNavigation,
+            IBaseService baseService,
             IComplaintService complaintService)
-            : base(navigationService, popupNavigation)
+            : base(baseService)
         {
             Title = "Contact Us";
             _complaintService = complaintService;

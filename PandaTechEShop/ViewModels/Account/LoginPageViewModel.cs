@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using PandaTechEShop.Controls.Popups;
+using PandaTechEShop.Services;
 using PandaTechEShop.Services.Account;
 using PandaTechEShop.ViewModels.Base;
-using Prism.Navigation;
-using Rg.Plugins.Popup.Contracts;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PandaTechEShop.ViewModels.Account
@@ -13,8 +12,8 @@ namespace PandaTechEShop.ViewModels.Account
     {
         private readonly IAccountService _accountService;
 
-        public LoginPageViewModel(INavigationService navigationService, IPopupNavigation popupNavigation, IAccountService accountService)
-            : base(navigationService, popupNavigation)
+        public LoginPageViewModel(IBaseService baseService, IAccountService accountService)
+            : base(baseService)
         {
             Title = "Log In";
             LoginCommand = new AsyncCommand(ExecuteLoginCommandAsync, allowsMultipleExecutions: false);
