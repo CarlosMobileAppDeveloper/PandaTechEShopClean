@@ -59,8 +59,11 @@
                         <StackLayout Grid.Row="0">
                             <material:MaterialTextField
                                 AlwaysShowUnderline="True"
-                                BackgroundColor="#00FFFFFF"
+                                BackgroundColor="Transparent"
                                 CardBackgroundColor="Transparent"
+                                ErrorColor="Red"
+                                ErrorText="Invalid Email Entry"
+                                HasError="{Binding IsEmailAddressValid, Converter={xct:InvertedBoolConverter}}"
                                 InputType="Email"
                                 IsSpellCheckEnabled="False"
                                 IsTextPredictionEnabled="False"
@@ -68,7 +71,8 @@
                                 ReturnType="Next"
                                 Text="{Binding EmailAddress}">
                                 <material:MaterialTextField.Behaviors>
-                                    <xct:EventToCommandBehavior Command="{Binding EmailValidatorCommand}" EventName="Unfocused" />
+                                    <xct:EventToCommandBehavior Command="{Binding ForceValidateEmailCommand}" EventName="Unfocused" />
+                                    <xct:EventToCommandBehavior Command="{Binding ValidateEmailCommand}" EventName="TextChanged" />
                                     <xct:EmailValidationBehavior
                                         x:Name="EmailValidator"
                                         DecorationFlags="Trim"
@@ -76,11 +80,6 @@
                                         IsValid="{Binding IsEmailAddressValid}" />
                                 </material:MaterialTextField.Behaviors>
                             </material:MaterialTextField>
-                            <Label
-                                IsVisible="{Binding IsValid, Source={x:Reference EmailValidator}, Converter={xct:InvertedBoolConverter}}"
-                                Style="{StaticResource InvalidEntryLabelStyle}"
-                                Text="Invalid Email Entry" />
-                            <Label IsVisible="{Binding IsValid, Source={x:Reference EmailValidator}}" Text=" " />
                         </StackLayout>
                         <StackLayout Grid.Row="1">
                             <Entry
