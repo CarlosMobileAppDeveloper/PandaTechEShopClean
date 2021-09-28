@@ -19,6 +19,8 @@ namespace PandaTechEShop.ViewModels.Account
 
         private readonly IAccountService _accountService;
         private bool _hasEmailUnFocussed = false;
+        private bool _hasPasswordUnFocussed = false;
+        private bool _hasPasswordMatchUnFocussed = false;
 
         public SignupPageViewModel(INavigationService navigationService, IPopupNavigation popupNavigation, IAccountService accountService)
             : base(navigationService, popupNavigation)
@@ -32,6 +34,12 @@ namespace PandaTechEShop.ViewModels.Account
 
             ValidateEmailCommand = new Command(ValidateEmail);
             ForceValidateEmailCommand = new Command(ForceValidateEmail);
+
+            ValidatePasswordCommand = new Command(ValidatePassword);
+            ForceValidatePasswordCommand = new Command(ForceValidatePassword);
+
+            ValidatePasswordMatchCommand = new Command(ValidatePasswordMatch);
+            ForceValidatePasswordMatchCommand = new Command(ForceValidatePasswordMatch);
         }
 
         //public string Username { get; set; }
@@ -50,7 +58,7 @@ namespace PandaTechEShop.ViewModels.Account
         public List<object> PasswordErrors { get; set; }
         public string PasswordError
         {
-            get { return PasswordErrors?.FirstOrDefault()?.ToString(); }
+            get { return PasswordErrors?.FirstOrDefault()?.ToString() ?? string.Empty; }
         }
 
         public ICommand EmailValidatorCommand { get; set; }
@@ -58,10 +66,12 @@ namespace PandaTechEShop.ViewModels.Account
         public ICommand ForceValidateEmailCommand { get; set; }
 
         public ICommand PasswordValidatorCommand { get; set; }
-
+        public ICommand ValidatePasswordCommand { get; set; }
+        public ICommand ForceValidatePasswordCommand { get; set; }
 
         public ICommand PasswordMatchValidatorCommand { get; set; }
-
+        public ICommand ValidatePasswordMatchCommand { get; set; }
+        public ICommand ForceValidatePasswordMatchCommand { get; set; }
 
         public IAsyncCommand SignUpCommand { get; }
         public IAsyncCommand NavigateToSignInPageCommand { get; }
@@ -69,14 +79,14 @@ namespace PandaTechEShop.ViewModels.Account
         private bool IsValid()
         {
             ForceValidateEmail();
-            PasswordValidatorCommand.Execute(null);
-            PasswordMatchValidatorCommand.Execute(null);
+            ForceValidatePassword();
+            ForceValidatePasswordMatch();
             return IsEmailAddressValid && IsPasswordValid && IsPasswordMatchValid;
         }
 
         private async Task SignUpAsync()
         {
-            if(!IsFormValid)
+            if (!IsFormValid)
             {
                 return;
             }
@@ -106,7 +116,7 @@ namespace PandaTechEShop.ViewModels.Account
             if (_hasEmailUnFocussed)
             {
                 EmailValidatorCommand.Execute(null);
-            }            
+            }
         }
 
         private void ForceValidateEmail()
@@ -114,6 +124,34 @@ namespace PandaTechEShop.ViewModels.Account
             _hasEmailUnFocussed = true;
             EmailAddress?.Trim();
             EmailValidatorCommand.Execute(null);
+        }
+
+        private void ValidatePassword()
+        {
+            if (_hasPasswordUnFocussed)
+            {
+                PasswordValidatorCommand.Execute(null);
+            }
+        }
+
+        private void ForceValidatePassword()
+        {
+            _hasPasswordUnFocussed = true;
+            PasswordValidatorCommand.Execute(null);
+        }
+
+        private void ValidatePasswordMatch()
+        {
+            if (_hasPasswordMatchUnFocussed)
+            {
+                PasswordMatchValidatorCommand.Execute(null);
+            }
+        }
+
+        private void ForceValidatePasswordMatch()
+        {
+            _hasPasswordMatchUnFocussed = true;
+            PasswordMatchValidatorCommand.Execute(null);
         }
 
         private void ClearForm()

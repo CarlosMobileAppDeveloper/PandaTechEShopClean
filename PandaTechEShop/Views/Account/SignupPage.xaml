@@ -81,20 +81,29 @@
                                 </material:MaterialTextField.Behaviors>
                             </material:MaterialTextField>
                         </StackLayout>
+
                         <StackLayout Grid.Row="1">
-                            <Entry
+                            <material:MaterialTextField
                                 x:Name="PasswordEntry"
-                                IsPassword="True"
+                                AlwaysShowUnderline="True"
+                                BackgroundColor="Transparent"
+                                CardBackgroundColor="Transparent"
+                                ErrorColor="Red"
+                                ErrorText="{Binding PasswordError}"
+                                HasError="{Binding IsPasswordValid, Converter={xct:InvertedBoolConverter}}"
+                                InputType="Password"
+                                IsSpellCheckEnabled="False"
+                                IsTextPredictionEnabled="False"
                                 Placeholder="Password"
                                 ReturnType="Next"
-                                Style="{StaticResource SingleLineFormEntryStyle}"
                                 Text="{Binding Password}">
-                                <Entry.Behaviors>
+                                <material:MaterialTextField.Behaviors>
+                                    <xct:EventToCommandBehavior Command="{Binding ForceValidatePasswordCommand}" EventName="Unfocused" />
+                                    <xct:EventToCommandBehavior Command="{Binding ValidatePasswordCommand}" EventName="TextChanged" />
                                     <xct:MultiValidationBehavior
                                         x:Name="PasswordValidator"
                                         Errors="{Binding PasswordErrors}"
                                         ForceValidateCommand="{Binding PasswordValidatorCommand}"
-                                        InvalidStyle="{StaticResource InvalidEntryStyle}"
                                         IsValid="{Binding IsPasswordValid}">
                                         <xct:TextValidationBehavior xct:MultiValidationBehavior.Error="Minimum 8 length" MinimumLength="8" />
                                         <xct:CharactersValidationBehavior
@@ -118,16 +127,36 @@
                                             CharacterType="Whitespace"
                                             MaximumCharacterCount="0" />
                                     </xct:MultiValidationBehavior>
-                                </Entry.Behaviors>
-                            </Entry>
-                            <Label
-                                IsVisible="{Binding IsValid, Source={x:Reference PasswordValidator}, Converter={xct:InvertedBoolConverter}}"
-                                Style="{StaticResource InvalidEntryLabelStyle}"
-                                Text="{Binding PasswordError}" />
+                                </material:MaterialTextField.Behaviors>
+                            </material:MaterialTextField>
                         </StackLayout>
 
                         <StackLayout Grid.Row="2">
-                            <Entry
+                            <material:MaterialTextField
+                                AlwaysShowUnderline="True"
+                                BackgroundColor="Transparent"
+                                CardBackgroundColor="Transparent"
+                                ErrorColor="Red"
+                                ErrorText="Passwords do not match"
+                                HasError="{Binding IsPasswordMatchValid, Converter={xct:InvertedBoolConverter}}"
+                                InputType="Password"
+                                IsSpellCheckEnabled="False"
+                                IsTextPredictionEnabled="False"
+                                Placeholder="Confirm Password"
+                                ReturnType="Go"
+                                Text="{Binding ConfirmedPassword}">
+                                <material:MaterialTextField.Behaviors>
+                                    <xct:EventToCommandBehavior Command="{Binding ForceValidatePasswordMatchCommand}" EventName="Unfocused" />
+                                    <xct:EventToCommandBehavior Command="{Binding ValidatePasswordMatchCommand}" EventName="TextChanged" />
+                                    <xct:RequiredStringValidationBehavior
+                                        ForceValidateCommand="{Binding PasswordMatchValidatorCommand}"
+                                        IsValid="{Binding IsPasswordMatchValid}"
+                                        RequiredString="{Binding Text, Source={x:Reference PasswordEntry}}" />
+                                </material:MaterialTextField.Behaviors>
+                            </material:MaterialTextField>
+
+
+                            <!--<Entry
                                 IsPassword="True"
                                 Placeholder="Confirm Password"
                                 ReturnCommand="{Binding SignUpCommand}"
@@ -146,7 +175,7 @@
                             <Label
                                 IsVisible="{Binding IsValid, Source={x:Reference PasswordMatchValidator}, Converter={xct:InvertedBoolConverter}}"
                                 Style="{StaticResource InvalidEntryLabelStyle}"
-                                Text="Passwords do not match" />
+                                Text="Passwords do not match" />-->
                         </StackLayout>
                     </Grid>
 
