@@ -30,6 +30,7 @@ namespace PandaTechEShop.iOS
             Rg.Plugins.Popup.Popup.Init();
 
             global::Xamarin.Forms.Forms.Init();
+            XF.Material.iOS.Material.Init();
 
             DependencyService.Register<DeviceOrientationLocator>();
 

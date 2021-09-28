@@ -44,6 +44,7 @@ namespace PandaTechEShop
         protected override void OnInitialized()
         {
             InitializeComponent();
+            XF.Material.Forms.Material.Init(this);
 
             // NavigationService.NavigateAsync(PageConstants.MY_PAGE);
             //NavigationService.NavigateAsync("NavigationPage/TestMainPage");

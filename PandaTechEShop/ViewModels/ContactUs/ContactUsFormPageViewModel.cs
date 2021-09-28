@@ -23,9 +23,11 @@ namespace PandaTechEShop.ViewModels.ContactUs
             Title = "Contact Us";
             _complaintService = complaintService;
             NavigateBackCommand = new AsyncCommand(ExecuteNavigateBackCommandAsync, allowsMultipleExecutions: false);
+            SendComplaintCommand = new AsyncCommand(ExecuteSendComplaintCommandAsync, allowsMultipleExecutions: false);
         }
 
         public IAsyncCommand NavigateBackCommand { get; }
+        public IAsyncCommand SendComplaintCommand { get; }
 
         public string FullName { get; set; }
         public string EmailAddress { get; set; }

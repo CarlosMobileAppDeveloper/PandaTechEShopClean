@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2125" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="8.1.97" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
@@ -24,6 +24,7 @@
     <PackageReference Include="Refit" Version="6.0.94" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.12" />
     <PackageReference Include="Epoch.Unix.TimeStamp" Version="2.0.0" />
+    <PackageReference Include="XF.Material" Version="1.7.8" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Prism.DryIoc.Forms" />
@@ -80,6 +81,7 @@
     <None Remove="ViewModels\ContactUs\" />
     <None Remove="Epoch.Unix.TimeStamp" />
     <None Remove="Services\Token\" />
+    <None Remove="XF.Material" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />

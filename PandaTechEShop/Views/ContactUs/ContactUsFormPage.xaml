@@ -64,6 +64,7 @@
                     x:Name="BtnSendMessage"
                     Margin="20,0,20,0"
                     BackgroundColor="#FA6400"
+                    Command="{Binding SendComplaintCommand}"
                     CornerRadius="25"
                     Text="Send Message"
                     TextColor="White" />

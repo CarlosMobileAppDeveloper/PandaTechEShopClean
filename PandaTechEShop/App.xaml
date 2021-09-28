@@ -161,7 +161,7 @@
             <!--  ENTRY FIELDS CARL  -->
             <Style x:Key="SingleLineFormEntryStyle" TargetType="Entry">
                 <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
-                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="HorizontalTextAlignment" Value="Start" />
                 <!--<Setter Property="helpers:EntryProperties.BorderStyle" Value="BottomLine" />
                 <Setter Property="helpers:EntryProperties.BorderColor" Value="{DynamicResource InverseTextColor}" />
