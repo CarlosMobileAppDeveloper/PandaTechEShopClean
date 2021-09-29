@@ -62,6 +62,7 @@
                                 BackgroundColor="Transparent"
                                 CardBackgroundColor="Transparent"
                                 ErrorColor="Red"
+                                ErrorIcon="ic_warning_fill"
                                 ErrorText="Invalid Email Entry"
                                 HasError="{Binding IsEmailAddressValid, Converter={xct:InvertedBoolConverter}}"
                                 InputType="Email"
@@ -89,6 +90,7 @@
                                 BackgroundColor="Transparent"
                                 CardBackgroundColor="Transparent"
                                 ErrorColor="Red"
+                                ErrorIcon="ic_warning_fill"
                                 ErrorText="{Binding PasswordError}"
                                 HasError="{Binding IsPasswordValid, Converter={xct:InvertedBoolConverter}}"
                                 InputType="Password"
@@ -137,6 +139,7 @@
                                 BackgroundColor="Transparent"
                                 CardBackgroundColor="Transparent"
                                 ErrorColor="Red"
+                                ErrorIcon="ic_warning_fill"
                                 ErrorText="Passwords do not match"
                                 HasError="{Binding IsPasswordMatchValid, Converter={xct:InvertedBoolConverter}}"
                                 InputType="Password"
@@ -154,28 +157,6 @@
                                         RequiredString="{Binding Text, Source={x:Reference PasswordEntry}}" />
                                 </material:MaterialTextField.Behaviors>
                             </material:MaterialTextField>
-
-
-                            <!--<Entry
-                                IsPassword="True"
-                                Placeholder="Confirm Password"
-                                ReturnCommand="{Binding SignUpCommand}"
-                                ReturnType="Go"
-                                Style="{StaticResource SingleLineFormEntryStyle}"
-                                Text="{Binding ConfirmedPassword}">
-                                <Entry.Behaviors>
-                                    <xct:RequiredStringValidationBehavior
-                                        x:Name="PasswordMatchValidator"
-                                        ForceValidateCommand="{Binding PasswordMatchValidatorCommand}"
-                                        InvalidStyle="{StaticResource InvalidEntryStyle}"
-                                        IsValid="{Binding IsPasswordMatchValid}"
-                                        RequiredString="{Binding Text, Source={x:Reference PasswordEntry}}" />
-                                </Entry.Behaviors>
-                            </Entry>
-                            <Label
-                                IsVisible="{Binding IsValid, Source={x:Reference PasswordMatchValidator}, Converter={xct:InvertedBoolConverter}}"
-                                Style="{StaticResource InvalidEntryLabelStyle}"
-                                Text="Passwords do not match" />-->
                         </StackLayout>
                     </Grid>
 
