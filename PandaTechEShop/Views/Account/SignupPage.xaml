@@ -65,6 +65,7 @@
                                 ErrorIcon="ic_warning_fill"
                                 ErrorText="Invalid Email Entry"
                                 HasError="{Binding IsEmailAddressValid, Converter={xct:InvertedBoolConverter}}"
+                                HorizontalPadding="0"
                                 InputType="Email"
                                 IsSpellCheckEnabled="False"
                                 IsTextPredictionEnabled="False"
@@ -93,6 +94,7 @@
                                 ErrorIcon="ic_warning_fill"
                                 ErrorText="{Binding PasswordError}"
                                 HasError="{Binding IsPasswordValid, Converter={xct:InvertedBoolConverter}}"
+                                HorizontalPadding="0"
                                 InputType="Password"
                                 IsSpellCheckEnabled="False"
                                 IsTextPredictionEnabled="False"
@@ -142,10 +144,12 @@
                                 ErrorIcon="ic_warning_fill"
                                 ErrorText="Passwords do not match"
                                 HasError="{Binding IsPasswordMatchValid, Converter={xct:InvertedBoolConverter}}"
+                                HorizontalPadding="0"
                                 InputType="Password"
                                 IsSpellCheckEnabled="False"
                                 IsTextPredictionEnabled="False"
                                 Placeholder="Confirm Password"
+                                ReturnCommand="{Binding SignUpCommand}"
                                 ReturnType="Go"
                                 Text="{Binding ConfirmedPassword}">
                                 <material:MaterialTextField.Behaviors>

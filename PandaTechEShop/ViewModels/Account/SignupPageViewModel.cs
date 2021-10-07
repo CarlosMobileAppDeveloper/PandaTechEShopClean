@@ -74,17 +74,9 @@ namespace PandaTechEShop.ViewModels.Account
         public IAsyncCommand SignUpCommand { get; }
         public IAsyncCommand NavigateToSignInPageCommand { get; }
 
-        private bool IsValid()
-        {
-            ForceValidateEmail();
-            ForceValidatePassword();
-            ForceValidatePasswordMatch();
-            return IsEmailAddressValid && IsPasswordValid && IsPasswordMatchValid;
-        }
-
         private async Task SignUpAsync()
         {
-            if (!IsFormValid)
+            if (!IsValid())
             {
                 return;
             }
@@ -107,6 +99,14 @@ namespace PandaTechEShop.ViewModels.Account
         {
             ClearForm();
             return NavigationService.NavigateAsync("LoginPage", useModalNavigation: true);
+        }
+
+        private bool IsValid()
+        {
+            ForceValidateEmail();
+            ForceValidatePassword();
+            ForceValidatePasswordMatch();
+            return IsEmailAddressValid && IsPasswordValid && IsPasswordMatchValid;
         }
 
         private void ValidateEmail()

@@ -3,11 +3,19 @@
     x:Class="PandaTechEShop.Views.Account.LoginPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:PandaTechEShop.Converters;assembly=PandaTechEShop"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     Title="{Binding Title}"
     ios:Page.UseSafeArea="True"
     BackgroundColor="{DynamicResource MainPageBackgroundColor}"
     NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
             <ScrollView Margin="0" Padding="{StaticResource MainPagePadding}">
@@ -44,16 +52,52 @@
                         FontSize="Medium"
                         Text="Please Sign in to continue"
                         TextColor="{StaticResource PrimaryTextSubTitleColor}" />
-                    <Entry
-                        Keyboard="Email"
+                    <material:MaterialTextField
+                        AlwaysShowUnderline="True"
+                        BackgroundColor="Transparent"
+                        CardBackgroundColor="Transparent"
+                        ErrorColor="Red"
+                        ErrorIcon="ic_warning_fill"
+                        ErrorText="{Binding EmailAddress.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                        HasError="{Binding EmailAddress.IsValid, Converter={xct:InvertedBoolConverter}}"
+                        HorizontalPadding="0"
+                        InputType="Email"
+                        IsSpellCheckEnabled="False"
+                        IsTextPredictionEnabled="False"
                         Placeholder="Email"
-                        Style="{StaticResource SingleLineFormEntryStyle}"
-                        Text="{Binding EmailAddress}" />
-                    <Entry
+                        ReturnType="Next"
+                        Text="{Binding EmailAddress.Value, Mode=TwoWay}">
+                        <material:MaterialTextField.Behaviors>
+                            <xct:EventToCommandBehavior Command="{Binding ForceValidateEmailCommand}" EventName="Unfocused" />
+                            <xct:EventToCommandBehavior Command="{Binding ValidateEmailCommand}" EventName="TextChanged" />
+                        </material:MaterialTextField.Behaviors>
+                    </material:MaterialTextField>
+                    <!--<Entry
                         IsPassword="True"
                         Placeholder="Password"
                         Style="{StaticResource SingleLineFormEntryStyle}"
-                        Text="{Binding Password}" />
+                        Text="{Binding Password.Value, Mode=TwoWay}" />-->
+                    <material:MaterialTextField
+                        AlwaysShowUnderline="True"
+                        BackgroundColor="Transparent"
+                        CardBackgroundColor="Transparent"
+                        ErrorColor="Red"
+                        ErrorIcon="ic_warning_fill"
+                        ErrorText="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                        HasError="{Binding Password.IsValid, Converter={xct:InvertedBoolConverter}}"
+                        HorizontalPadding="0"
+                        InputType="Password"
+                        IsSpellCheckEnabled="False"
+                        IsTextPredictionEnabled="False"
+                        Placeholder="Password"
+                        ReturnCommand="{Binding LoginCommand}"
+                        ReturnType="Go"
+                        Text="{Binding Password.Value, Mode=TwoWay}">
+                        <material:MaterialTextField.Behaviors>
+                            <xct:EventToCommandBehavior Command="{Binding ForceValidatePasswordCommand}" EventName="Unfocused" />
+                            <xct:EventToCommandBehavior Command="{Binding ValidatePasswordCommand}" EventName="TextChanged" />
+                        </material:MaterialTextField.Behaviors>
+                    </material:MaterialTextField>
                     <Grid Margin="0,40,0,20">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="5.5*" />

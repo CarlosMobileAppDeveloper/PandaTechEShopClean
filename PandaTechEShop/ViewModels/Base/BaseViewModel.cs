@@ -61,5 +61,10 @@ namespace PandaTechEShop.ViewModels.Base
         public virtual void OnDisappearing()
         {
         }
+
+        public virtual async Task NavigateBackAsync()
+        {
+            await NavigationService.GoBackAsync();
+        }
     }
 }
