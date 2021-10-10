@@ -34,7 +34,7 @@
                         <Image
                             HeightRequest="200"
                             HorizontalOptions="EndAndExpand"
-                            Source="shape.png" />
+                            Source="PandaLogo1.png" />
                     </StackLayout>
                     <Label
                         Margin="0,20,0,0"

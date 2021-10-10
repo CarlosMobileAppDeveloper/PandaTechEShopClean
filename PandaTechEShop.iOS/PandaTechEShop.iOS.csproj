@@ -175,6 +175,7 @@
     <BundleResource Include="Resources\rightarrow.png" />
     <BundleResource Include="Resources\shape.png" />
     <BundleResource Include="Resources\main_background_image.png" />
+    <BundleResource Include="Resources\PandaLogo1.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Effects\" />

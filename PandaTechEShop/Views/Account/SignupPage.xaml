@@ -32,9 +32,9 @@
 
                     <Image
                         Grid.Row="0"
-                        HeightRequest="200"
-                        HorizontalOptions="EndAndExpand"
-                        Source="shape.png"
+                        HeightRequest="150"
+                        HorizontalOptions="CenterAndExpand"
+                        Source="PandaLogo1.png"
                         Style="{StaticResource SignUpImageStyle}" />
 
                     <Label
