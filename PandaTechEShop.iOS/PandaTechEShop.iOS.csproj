@@ -61,6 +61,7 @@
     <MtouchArch>ARM64</MtouchArch>
     <CodesignKey>iPhone Developer</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -176,6 +177,13 @@
     <BundleResource Include="Resources\shape.png" />
     <BundleResource Include="Resources\main_background_image.png" />
     <BundleResource Include="Resources\PandaLogo1.png" />
+    <BundleResource Include="Resources\loading_animation.json" />
+    <BundleResource Include="Resources\xf_checkbox_unselected%403x.png" />
+    <BundleResource Include="Resources\xf_checkbox_unselected%402x.png" />
+    <BundleResource Include="Resources\xf_checkbox_unselected.png" />
+    <BundleResource Include="Resources\xf_checkbox_selected%403x.png" />
+    <BundleResource Include="Resources\xf_checkbox_selected%402x.png" />
+    <BundleResource Include="Resources\xf_checkbox_selected.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Effects\" />

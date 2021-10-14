@@ -32,7 +32,7 @@
                             </Image.GestureRecognizers>
                         </Image>
                         <Image
-                            HeightRequest="200"
+                            HeightRequest="150"
                             HorizontalOptions="EndAndExpand"
                             Source="PandaLogo1.png" />
                     </StackLayout>
@@ -51,7 +51,7 @@
                         Margin="0,0,0,20"
                         FontSize="Medium"
                         Text="Please Sign in to continue"
-                        TextColor="{StaticResource PrimaryTextSubTitleColor}" />
+                        TextColor="{StaticResource LightPrimaryTextSubTitleColor}" />
                     <material:MaterialTextField
                         AlwaysShowUnderline="True"
                         BackgroundColor="Transparent"

@@ -72,6 +72,12 @@ namespace PandaTechEShop.ViewModels.Home
 
         public Action CloseMenu { get; set; }
 
+        //public override void Initialize(INavigationParameters parameters)
+        //{
+        //    Username = _preferences.Get("userName", string.Empty);
+        //    base.Initialize(parameters);
+        //}
+
         public override Task InitializeAsync(INavigationParameters parameters)
         {
             Username = _preferences.Get("userName", string.Empty);
@@ -88,19 +94,25 @@ namespace PandaTechEShop.ViewModels.Home
         private async Task GetTrendingProducts()
         {
             var products = await _productService.GetTrendingProductsAsync();
+            var productsCollection = new ObservableRangeCollection<TrendingProduct>();
             foreach (var product in products)
             {
-                TrendingProducts.Add(product);
+                productsCollection.Add(product);
             }
+
+            TrendingProducts.ReplaceRange(productsCollection);
         }
 
         private async Task GetCategories()
         {
             var categories = await _categoryService.GetCategoriesAsync();
+            var catergoriesCollection = new ObservableRangeCollection<CategoryInfo>();
             foreach (var category in categories)
             {
-                Categories.Add(category);
+                catergoriesCollection.Add(category);
             }
+
+            Categories.ReplaceRange(catergoriesCollection);
         }
 
         private async Task GetCartItemsCount()

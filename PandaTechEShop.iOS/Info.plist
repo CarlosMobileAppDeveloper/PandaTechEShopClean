@@ -25,7 +25,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>PandaTechEShop</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.pandatech.test.PandaTechEShop</string>
+	<string>com.pandatech.test.PandaTechEShop.PandaTechEShop</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>

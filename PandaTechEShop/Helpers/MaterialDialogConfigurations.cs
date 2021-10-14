@@ -5,7 +5,7 @@ using XF.Material.Forms.UI.Dialogs.Configurations;
 
 namespace PandaTechEShop.Helpers
 {
-    public static class MaterialDialogConfigurations
+    public static class MaterialStylesConfigurations
     {
         public static MaterialLoadingDialogConfiguration LoadingDialogConfiguration => new MaterialLoadingDialogConfiguration()
         {

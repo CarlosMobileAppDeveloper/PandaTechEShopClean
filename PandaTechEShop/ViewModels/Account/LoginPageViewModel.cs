@@ -65,7 +65,7 @@ namespace PandaTechEShop.ViewModels.Account
                 return;
             }
 
-            var loadingDialog = await _materialDialog.LoadingDialogAsync(message: "Logging In...", configuration: MaterialDialogConfigurations.LoadingDialogConfiguration);
+            var loadingDialog = await _materialDialog.LoadingDialogAsync(message: "Logging In...", configuration: MaterialStylesConfigurations.LoadingDialogConfiguration);
 
             var response = await _accountService.LoginAsync(EmailAddress.Value, Password.Value);
 
@@ -78,7 +78,7 @@ namespace PandaTechEShop.ViewModels.Account
             }
             else
             {
-                await _materialDialog.SnackbarAsync(message: "Failed to login.", msDuration: MaterialSnackbar.DurationLong, configuration: MaterialDialogConfigurations.SnackbarConfiguration);
+                await _materialDialog.SnackbarAsync(message: "Failed to login.", msDuration: MaterialSnackbar.DurationLong, configuration: MaterialStylesConfigurations.SnackbarConfiguration);
             }
         }
 

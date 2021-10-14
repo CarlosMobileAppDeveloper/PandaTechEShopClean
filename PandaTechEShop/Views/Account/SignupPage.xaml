@@ -3,29 +3,45 @@
     x:Class="PandaTechEShop.Views.Account.SignupPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:PandaTechEShop.Converters;assembly=PandaTechEShop"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     Title="{Binding Title}"
     ios:Page.UseSafeArea="True"
-    BackgroundColor="{DynamicResource PrimaryBackgroundColor}"
+    BackgroundColor="{DynamicResource LightPrimaryBackgroundColor}"
     NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
-        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
-            <Setter Property="TextColor" Value="Red" />
-        </Style>
-        <Style x:Key="InvalidEntryLabelStyle" TargetType="Label">
-            <Setter Property="TextColor" Value="Red" />
-            <Setter Property="FontSize" Value="12" />
-        </Style>
+        <ResourceDictionary>
+            <Style x:Key="BaseEntryStyle" TargetType="material:MaterialTextField">
+                <Setter Property="ErrorColor" Value="{StaticResource ErrorColor}" />
+                <Setter Property="TintColor" Value="{StaticResource LightPrimaryColor}" />
+                <Setter Property="PlaceholderColor" Value="{StaticResource LightPrimaryTextSubTitleColor}" />
+                <Setter Property="AlwaysShowUnderline" Value="True" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="CardBackgroundColor" Value="Transparent" />
+                <Setter Property="HorizontalPadding" Value="0" />
+                <Setter Property="IsSpellCheckEnabled" Value="False" />
+                <Setter Property="IsTextPredictionEnabled" Value="False" />
+            </Style>
+            <Style x:Key="BaseCheckBoxStyle" TargetType="material:MaterialCheckbox">
+                <Setter Property="TextColor" Value="{StaticResource LightPrimaryTextSubTitleColor}" />
+                <Setter Property="SelectedColor" Value="{StaticResource LightPrimaryColor}" />
+                <Setter Property="UnselectedColor" Value="{StaticResource LightPrimaryTextSubTitleColor}" />
+                <Setter Property="Margin" Value="-16,0,0,-16" />
+                <Setter Property="FontSize" Value="12" />
+
+            </Style>
+            <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
+        </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
-            <ScrollView Margin="0" Padding="{StaticResource MainPagePadding}">
+            <ScrollView Margin="0,20,0,0" Padding="{StaticResource MainPagePadding}">
                 <Grid
                     ColumnSpacing="0"
                     HorizontalOptions="Fill"
-                    RowDefinitions="200, Auto, Auto, Auto, *, Auto"
+                    RowDefinitions="150, Auto, Auto, Auto, *, Auto"
                     RowSpacing="0"
                     Style="{StaticResource SignUpFormsContentStyle}"
                     VerticalOptions="FillAndExpand">
@@ -41,7 +57,8 @@
                         Grid.Row="1"
                         Margin="0,20,0,40"
                         FontAttributes="Bold"
-                        Text="Create Account">
+                        HorizontalOptions="Center"
+                        Text="Create your account">
                         <Label.FontSize>
                             <OnIdiom
                                 x:TypeArguments="x:Double"
@@ -58,28 +75,17 @@
 
                         <StackLayout Grid.Row="0">
                             <material:MaterialTextField
-                                AlwaysShowUnderline="True"
-                                BackgroundColor="Transparent"
-                                CardBackgroundColor="Transparent"
-                                ErrorColor="Red"
                                 ErrorIcon="ic_warning_fill"
-                                ErrorText="Invalid Email Entry"
-                                HasError="{Binding IsEmailAddressValid, Converter={xct:InvertedBoolConverter}}"
-                                HorizontalPadding="0"
+                                ErrorText="{Binding EmailAddress.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                                HasError="{Binding EmailAddress.IsValid, Converter={xct:InvertedBoolConverter}}"
                                 InputType="Email"
-                                IsSpellCheckEnabled="False"
-                                IsTextPredictionEnabled="False"
                                 Placeholder="Email"
                                 ReturnType="Next"
-                                Text="{Binding EmailAddress}">
+                                Style="{StaticResource BaseEntryStyle}"
+                                Text="{Binding EmailAddress.Value, Mode=TwoWay}">
                                 <material:MaterialTextField.Behaviors>
                                     <xct:EventToCommandBehavior Command="{Binding ForceValidateEmailCommand}" EventName="Unfocused" />
                                     <xct:EventToCommandBehavior Command="{Binding ValidateEmailCommand}" EventName="TextChanged" />
-                                    <xct:EmailValidationBehavior
-                                        x:Name="EmailValidator"
-                                        DecorationFlags="Trim"
-                                        ForceValidateCommand="{Binding EmailValidatorCommand}"
-                                        IsValid="{Binding IsEmailAddressValid}" />
                                 </material:MaterialTextField.Behaviors>
                             </material:MaterialTextField>
                         </StackLayout>
@@ -87,86 +93,67 @@
                         <StackLayout Grid.Row="1">
                             <material:MaterialTextField
                                 x:Name="PasswordEntry"
-                                AlwaysShowUnderline="True"
-                                BackgroundColor="Transparent"
-                                CardBackgroundColor="Transparent"
-                                ErrorColor="Red"
                                 ErrorIcon="ic_warning_fill"
-                                ErrorText="{Binding PasswordError}"
-                                HasError="{Binding IsPasswordValid, Converter={xct:InvertedBoolConverter}}"
-                                HorizontalPadding="0"
+                                ErrorText="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                                HasError="{Binding Password.IsValid, Converter={xct:InvertedBoolConverter}}"
                                 InputType="Password"
-                                IsSpellCheckEnabled="False"
-                                IsTextPredictionEnabled="False"
                                 Placeholder="Password"
                                 ReturnType="Next"
-                                Text="{Binding Password}">
+                                Style="{StaticResource BaseEntryStyle}"
+                                Text="{Binding Password.Value, Mode=TwoWay}">
                                 <material:MaterialTextField.Behaviors>
                                     <xct:EventToCommandBehavior Command="{Binding ForceValidatePasswordCommand}" EventName="Unfocused" />
                                     <xct:EventToCommandBehavior Command="{Binding ValidatePasswordCommand}" EventName="TextChanged" />
-                                    <xct:MultiValidationBehavior
-                                        x:Name="PasswordValidator"
-                                        Errors="{Binding PasswordErrors}"
-                                        ForceValidateCommand="{Binding PasswordValidatorCommand}"
-                                        IsValid="{Binding IsPasswordValid}">
-                                        <xct:TextValidationBehavior xct:MultiValidationBehavior.Error="Minimum 8 length" MinimumLength="8" />
-                                        <xct:CharactersValidationBehavior
-                                            xct:MultiValidationBehavior.Error="Password must have 1 digit"
-                                            CharacterType="Digit"
-                                            MinimumCharacterCount="1" />
-                                        <xct:CharactersValidationBehavior
-                                            xct:MultiValidationBehavior.Error="Password must have 1 lowercase character"
-                                            CharacterType="LowercaseLetter"
-                                            MinimumCharacterCount="1" />
-                                        <xct:CharactersValidationBehavior
-                                            xct:MultiValidationBehavior.Error="Password must have 1 uppercase character"
-                                            CharacterType="UppercaseLetter"
-                                            MinimumCharacterCount="1" />
-                                        <xct:CharactersValidationBehavior
-                                            xct:MultiValidationBehavior.Error="Password must have 1 special character"
-                                            CharacterType="NonAlphanumericSymbol"
-                                            MinimumCharacterCount="1" />
-                                        <xct:CharactersValidationBehavior
-                                            xct:MultiValidationBehavior.Error="Password cannot have any spaces"
-                                            CharacterType="Whitespace"
-                                            MaximumCharacterCount="0" />
-                                    </xct:MultiValidationBehavior>
                                 </material:MaterialTextField.Behaviors>
                             </material:MaterialTextField>
                         </StackLayout>
 
                         <StackLayout Grid.Row="2">
                             <material:MaterialTextField
-                                AlwaysShowUnderline="True"
-                                BackgroundColor="Transparent"
-                                CardBackgroundColor="Transparent"
-                                ErrorColor="Red"
                                 ErrorIcon="ic_warning_fill"
-                                ErrorText="Passwords do not match"
-                                HasError="{Binding IsPasswordMatchValid, Converter={xct:InvertedBoolConverter}}"
-                                HorizontalPadding="0"
+                                ErrorText="{Binding ConfirmedPassword.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                                HasError="{Binding ConfirmedPassword.IsValid, Converter={xct:InvertedBoolConverter}}"
                                 InputType="Password"
-                                IsSpellCheckEnabled="False"
-                                IsTextPredictionEnabled="False"
                                 Placeholder="Confirm Password"
                                 ReturnCommand="{Binding SignUpCommand}"
                                 ReturnType="Go"
-                                Text="{Binding ConfirmedPassword}">
+                                Style="{StaticResource BaseEntryStyle}"
+                                Text="{Binding ConfirmedPassword.Value, Mode=TwoWay}">
                                 <material:MaterialTextField.Behaviors>
                                     <xct:EventToCommandBehavior Command="{Binding ForceValidatePasswordMatchCommand}" EventName="Unfocused" />
                                     <xct:EventToCommandBehavior Command="{Binding ValidatePasswordMatchCommand}" EventName="TextChanged" />
-                                    <xct:RequiredStringValidationBehavior
-                                        ForceValidateCommand="{Binding PasswordMatchValidatorCommand}"
-                                        IsValid="{Binding IsPasswordMatchValid}"
-                                        RequiredString="{Binding Text, Source={x:Reference PasswordEntry}}" />
                                 </material:MaterialTextField.Behaviors>
                             </material:MaterialTextField>
+
                         </StackLayout>
                     </Grid>
 
+                    <StackLayout Grid.Row="3" Spacing="0">
+                        <material:MaterialCheckbox
+                            IsSelected="True"
+                            Style="{StaticResource BaseCheckBoxStyle}"
+                            Text="Keep me signed in" />
 
-                    <Grid
-                        Grid.Row="3"
+                        <material:MaterialCheckbox
+                            IsSelected="True"
+                            Style="{StaticResource BaseCheckBoxStyle}"
+                            Text="Email me about special pricing deals" />
+                    </StackLayout>
+
+                    <material:MaterialButton
+                        Grid.Row="4"
+                        AllCaps="True"
+                        BackgroundColor="{StaticResource LightPrimaryColor}"
+                        Command="{Binding SignUpCommand}"
+                        Elevation="4, 8"
+                        HeightRequest="60"
+                        HorizontalOptions="FillAndExpand"
+                        Text="Create Account"
+                        TextColor="{StaticResource PrimaryButtonTextColor}"
+                        VerticalOptions="End" />
+
+                    <!--<Grid
+                        Grid.Row="4"
                         Margin="0,20,0,20"
                         VerticalOptions="Start">
                         <Grid.ColumnDefinitions>
@@ -194,19 +181,16 @@
                                 <TapGestureRecognizer Command="{Binding SignUpCommand}" />
                             </Frame.GestureRecognizers>
                         </Frame>
-                    </Grid>
+                    </Grid>-->
 
                     <Label
-                        Grid.Row="4"
+                        Grid.Row="5"
                         Margin="0,20"
                         HorizontalOptions="Center"
                         VerticalOptions="End">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span
-                                    FontSize="Small"
-                                    Text="Already have an account? "
-                                    TextColor="{StaticResource PrimaryTextColor}" />
+                                <Span FontSize="Small" Text="Already have an account? " />
                                 <Span
                                     FontSize="Small"
                                     Text=" Sign in "

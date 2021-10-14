@@ -6,7 +6,7 @@
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     Title="{Binding Title}"
     ios:Page.UseSafeArea="True"
-    BackgroundColor="{DynamicResource PrimaryBackgroundColor}"
+    BackgroundColor="{DynamicResource LightPrimaryBackgroundColor}"
     NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <StackLayout>

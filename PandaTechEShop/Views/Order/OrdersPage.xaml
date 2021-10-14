@@ -7,7 +7,7 @@
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     Title="{Binding Title}"
     ios:Page.UseSafeArea="True"
-    BackgroundColor="{DynamicResource PrimaryBackgroundColor}"
+    BackgroundColor="{DynamicResource LightPrimaryBackgroundColor}"
     NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
         <ResourceDictionary>
