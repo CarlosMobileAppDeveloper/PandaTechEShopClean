@@ -2,7 +2,7 @@
 using PandaTechEShop.Models.Order;
 using PandaTechEShop.Services;
 using PandaTechEShop.Services.Order;
-using PandaTechEShop.Services.Preferences;
+using PandaTechEShop.Services.Token;
 using PandaTechEShop.ViewModels.Base;
 using Prism.Navigation;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -11,16 +11,16 @@ namespace PandaTechEShop.ViewModels.Order
 {
     public class OrdersPageViewModel : BaseViewModel
     {
-        private readonly IPreferences _preferences;
+        private readonly ITokenService _tokenService;
         private readonly IOrderService _orderService;
 
         public OrdersPageViewModel(
             IBaseService baseService,
-            IPreferences preferences,
+            ITokenService tokenService,
             IOrderService orderService)
             : base(baseService)
         {
-            _preferences = preferences;
+            _tokenService = tokenService;
             _orderService = orderService;
             NavigateBackCommand = new AsyncCommand(ExecuteNavigateBackCommandAsync, allowsMultipleExecutions: false);
             ViewOrderDetailsCommand = new AsyncCommand<OrderByUser>(order => ExecuteViewOrderDetailsCommandAsync(order), allowsMultipleExecutions: false);
@@ -47,7 +47,7 @@ namespace PandaTechEShop.ViewModels.Order
 
         private async Task GetOrdersAsync()
         {
-            var ordersList = await _orderService.GetOrdersByUserAsync(_preferences.Get("userId", -1));
+            var ordersList = await _orderService.GetOrdersByUserAsync(_tokenService.GetUserId());
             var orders = new ObservableRangeCollection<OrderByUser>();
             foreach (var order in ordersList)
             {

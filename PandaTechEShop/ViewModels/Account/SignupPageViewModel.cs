@@ -83,32 +83,37 @@ namespace PandaTechEShop.ViewModels.Account
 
             if (response)
             {
-                loadingDialog.MessageText = "Logging In...";
-
-                response = await _accountService.LoginAsync(EmailAddress.Value, Password.Value);
-
-                await loadingDialog.DismissAsync();
-
-                if (response)
-                {
-                    await NavigationService.NavigateAsync("/NavigationPage/HomePage");
-                    await _materialDialog.SnackbarAsync(message: "Account successfully created.", msDuration: MaterialSnackbar.DurationLong, configuration: MaterialStylesConfigurations.SnackbarConfiguration);
-                }
-                else
-                {
-                    await NavigationService.NavigateAsync("LoginPage", useModalNavigation: true);
-                    await _materialDialog.SnackbarAsync(message: "Something went wrong. Failed to login. Please try again.", msDuration: MaterialSnackbar.DurationLong, configuration: MaterialStylesConfigurations.SnackbarConfiguration);
-
-                }
-
-                ResetForm();
+                await LoginAsync(loadingDialog);
             }
             else
             {
                 await loadingDialog.DismissAsync();
-                await _materialDialog.SnackbarAsync(message: "Failed to create account.", msDuration: MaterialSnackbar.DurationLong, configuration: MaterialStylesConfigurations.SnackbarConfiguration);
+                await _materialDialog.SnackbarAsync(message: "Something went wrong. Failed to create account. Please try again.", msDuration: MaterialSnackbar.DurationLong, configuration: MaterialStylesConfigurations.SnackbarConfiguration);
                 // await PopupNavigation.PushAsync(new ToastPopup("Failed to create account."));
             }
+        }
+
+        private async Task LoginAsync(IMaterialModalPage loadingDialog)
+        {
+            loadingDialog.MessageText = "Logging In...";
+
+            var response = await _accountService.LoginAsync(EmailAddress.Value, Password.Value);
+
+            await loadingDialog.DismissAsync();
+
+            if (response)
+            {
+                await NavigationService.NavigateAsync("/NavigationPage/HomePage");
+                await _materialDialog.SnackbarAsync(message: "Account successfully created.", msDuration: MaterialSnackbar.DurationLong, configuration: MaterialStylesConfigurations.SnackbarConfiguration);
+            }
+            else
+            {
+                await NavigationService.NavigateAsync("LoginPage", useModalNavigation: true);
+                await _materialDialog.SnackbarAsync(message: "Something went wrong. Failed to login. Please try again.", msDuration: MaterialSnackbar.DurationLong, configuration: MaterialStylesConfigurations.SnackbarConfiguration);
+
+            }
+
+            ResetForm();
         }
 
         private Task NavigateToSignInPageAsync()

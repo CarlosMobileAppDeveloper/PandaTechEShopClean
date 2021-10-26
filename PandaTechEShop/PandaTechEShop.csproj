@@ -25,6 +25,8 @@
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.13" />
     <PackageReference Include="Epoch.Unix.TimeStamp" Version="2.0.0" />
     <PackageReference Include="XF.Material" Version="1.7.8" />
+    <PackageReference Include="Polly" Version="7.2.2" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Prism.DryIoc.Forms" />
@@ -83,6 +85,11 @@
     <None Remove="Services\Token\" />
     <None Remove="XF.Material" />
     <None Remove="Services\Logger\" />
+    <None Remove="Services\RequestProvider\" />
+    <None Remove="Exceptions\" />
+    <None Remove="Polly" />
+    <None Remove="Services\SecureStorage\" />
+    <None Remove="Microsoft.Extensions.Caching.Memory" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
@@ -132,6 +139,9 @@
     <Folder Include="ViewModels\ContactUs\" />
     <Folder Include="Services\Token\" />
     <Folder Include="Services\Logger\" />
+    <Folder Include="Services\RequestProvider\" />
+    <Folder Include="Exceptions\" />
+    <Folder Include="Services\SecureStorage\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xsd" />

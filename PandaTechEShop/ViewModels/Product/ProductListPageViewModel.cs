@@ -2,7 +2,6 @@
 using PandaTechEShop.Models.Category;
 using PandaTechEShop.Models.Product;
 using PandaTechEShop.Services;
-using PandaTechEShop.Services.Preferences;
 using PandaTechEShop.Services.Product;
 using PandaTechEShop.ViewModels.Base;
 using Prism.Navigation;
@@ -12,17 +11,14 @@ namespace PandaTechEShop.ViewModels.Product
 {
     public class ProductListPageViewModel : BaseViewModel
     {
-        private readonly IPreferences _preferences;
         private readonly IProductService _productService;
         private CategoryInfo _category;
 
         public ProductListPageViewModel(
             IBaseService baseService,
-            IPreferences preferences,
             IProductService productService)
             : base(baseService)
         {
-            _preferences = preferences;
             _productService = productService;
             ProductsByCategory = new ObservableRangeCollection<ProductByCategory>();
             NavigateBackCommand = new AsyncCommand(ExecuteNavigateBackCommandAsync, allowsMultipleExecutions: false);

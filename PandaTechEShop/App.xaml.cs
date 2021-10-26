@@ -30,6 +30,9 @@ using PandaTechEShop.Views.ContactUs;
 using PandaTechEShop.ViewModels.ContactUs;
 using PandaTechEShop.Services.Token;
 using PandaTechEShop.Services;
+using PandaTechEShop.Services.RequestProvider;
+using PandaTechEShop.Services.SecureStorage;
+using PandaTechEShop.Services.MemoryCacheProvider;
 
 namespace PandaTechEShop
 {
@@ -75,13 +78,19 @@ namespace PandaTechEShop
             containerRegistry.Register<IAccountService, AccountService>();
             containerRegistry.Register<ICategoryService, CategoryService>();
             containerRegistry.Register<IComplaintService, ComplaintService>();
-            containerRegistry.Register<IPreferences, Preferences>();
             containerRegistry.Register<IProductService, ProductService>();
             containerRegistry.Register<IOrderService, OrderService>();
             containerRegistry.Register<IShoppingCartService, ShoppingCartService>();
             containerRegistry.Register<ITokenValidatorService, TokenValidatorService>();
+            containerRegistry.Register<ITokenService, TokenService>();
 
             containerRegistry.RegisterInstance(PopupNavigation.Instance);
+
+            containerRegistry.RegisterSingleton<IRequestProvider, RequestProvider>();
+            containerRegistry.RegisterSingleton<IPreferences, Preferences>(); // TODO - Should this be a singleton?
+            containerRegistry.RegisterSingleton<ISecureStorageService, SecureStorageService>(); // TODO - Should this be a singleton?
+            containerRegistry.RegisterSingleton<IMemoryCacheProviderService, MemoryCacheProviderService>();
+            containerRegistry.RegisterSingleton<ITokenStorageService, TokenStorageService>();
         }
 
         protected override void OnStart()

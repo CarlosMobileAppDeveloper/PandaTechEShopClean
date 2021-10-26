@@ -4,9 +4,9 @@ using PandaTechEShop.Models.Category;
 using PandaTechEShop.Models.Product;
 using PandaTechEShop.Services;
 using PandaTechEShop.Services.Category;
-using PandaTechEShop.Services.Preferences;
 using PandaTechEShop.Services.Product;
 using PandaTechEShop.Services.ShoppingCart;
+using PandaTechEShop.Services.Token;
 using PandaTechEShop.ViewModels.Base;
 using Prism.Navigation;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -15,14 +15,16 @@ namespace PandaTechEShop.ViewModels.Home
 {
     public class HomePageViewModel : BaseViewModel
     {
-        private readonly IPreferences _preferences;
+        private readonly ITokenService _tokenService;
+        private readonly ITokenStorageService _tokenStorageService;
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
         private readonly IShoppingCartService _shoppingCartService;
 
         public HomePageViewModel(
             IBaseService baseService,
-            IPreferences preferences,
+            ITokenService tokenService,
+            ITokenStorageService tokenStorageService,
             IProductService productService,
             ICategoryService categoryService,
             IShoppingCartService shoppingCartService)
@@ -30,7 +32,8 @@ namespace PandaTechEShop.ViewModels.Home
         {
             Title = "Panda eShop";
 
-            _preferences = preferences;
+            _tokenService = tokenService;
+            _tokenStorageService = tokenStorageService;
             _productService = productService;
             _categoryService = categoryService;
             _shoppingCartService = shoppingCartService;
@@ -80,7 +83,7 @@ namespace PandaTechEShop.ViewModels.Home
 
         public override Task InitializeAsync(INavigationParameters parameters)
         {
-            Username = _preferences.Get("userName", string.Empty);
+            Username = _tokenService.GetUsername();
             return Task.WhenAll(GetTrendingProducts(), GetCategories());
         }
 
@@ -117,7 +120,7 @@ namespace PandaTechEShop.ViewModels.Home
 
         private async Task GetCartItemsCount()
         {
-            var userId = _preferences.Get("userId", -1);
+            var userId = _tokenService.GetUserId();
             var totalCartItem = await _shoppingCartService.GetTotalCartItemsAsync(userId);
             CartItemsCount = totalCartItem.TotalItems;
         }
@@ -171,8 +174,7 @@ namespace PandaTechEShop.ViewModels.Home
 
         private Task ExecuteLogoutCommandAsync()
         {
-            _preferences.Set("accessToken", string.Empty);
-            _preferences.Set("tokenExpirationTime", 0);
+            _tokenStorageService.DeleteToken();
             return NavigationService.NavigateAsync("/NavigationPage/SignupPage");
         }
 

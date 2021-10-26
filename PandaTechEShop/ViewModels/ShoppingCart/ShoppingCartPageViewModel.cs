@@ -2,9 +2,8 @@
 using PandaTechEShop.Controls.Popups;
 using PandaTechEShop.Models.ShoppingCart;
 using PandaTechEShop.Services;
-using PandaTechEShop.Services.Preferences;
-using PandaTechEShop.Services.Product;
 using PandaTechEShop.Services.ShoppingCart;
+using PandaTechEShop.Services.Token;
 using PandaTechEShop.ViewModels.Base;
 using Prism.Navigation;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -13,19 +12,16 @@ namespace PandaTechEShop.ViewModels.ShoppingCart
 {
     public class ShoppingCartPageViewModel : BaseViewModel
     {
-        private readonly IPreferences _preferences;
-        private readonly IProductService _productService;
+        private readonly ITokenService _tokenService;
         private readonly IShoppingCartService _shoppingCartService;
 
         public ShoppingCartPageViewModel(
             IBaseService baseService,
-            IPreferences preferences,
-            IProductService productService,
+            ITokenService tokenService,
             IShoppingCartService shoppingCartService)
             : base(baseService)
         {
-            _preferences = preferences;
-            _productService = productService;
+            _tokenService = tokenService;
             _shoppingCartService = shoppingCartService;
             ShoppingCartSubTotal = new CartSubTotal { SubTotal = 0 };
             ShoppingCartItems = new ObservableRangeCollection<ShoppingCartItem>();
@@ -58,7 +54,7 @@ namespace PandaTechEShop.ViewModels.ShoppingCart
 
         private async Task GetShoppingCartItemsAsync()
         {
-            var cartItems = await _shoppingCartService.GetShoppingCartItemsAsync(_preferences.Get("userId", -1));
+            var cartItems = await _shoppingCartService.GetShoppingCartItemsAsync(_tokenService.GetUserId());
             var cartItemsCollection = new ObservableRangeCollection<ShoppingCartItem>();
             foreach (var cartItem in cartItems)
             {
@@ -70,12 +66,12 @@ namespace PandaTechEShop.ViewModels.ShoppingCart
 
         private async Task GetShoppingCartTotalAsync()
         {
-            ShoppingCartSubTotal = await _shoppingCartService.GetShoppingCartSubTotalAsync(_preferences.Get("userId", -1));
+            ShoppingCartSubTotal = await _shoppingCartService.GetShoppingCartSubTotalAsync(_tokenService.GetUserId());
         }
 
         private async Task ExecuteClearShoppingCartCommandAsync()
         {
-            var response = await _shoppingCartService.ClearShoppingCartAsync(_preferences.Get("userId", -1));
+            var response = await _shoppingCartService.ClearShoppingCartAsync(_tokenService.GetUserId());
 
             if (response)
             {

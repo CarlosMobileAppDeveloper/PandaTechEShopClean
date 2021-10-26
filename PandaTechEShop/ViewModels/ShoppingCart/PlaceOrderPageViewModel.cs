@@ -3,7 +3,7 @@ using PandaTechEShop.Controls.Popups;
 using PandaTechEShop.Models.Order;
 using PandaTechEShop.Services;
 using PandaTechEShop.Services.Order;
-using PandaTechEShop.Services.Preferences;
+using PandaTechEShop.Services.Token;
 using PandaTechEShop.ViewModels.Base;
 using Prism.Navigation;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -12,17 +12,17 @@ namespace PandaTechEShop.ViewModels.ShoppingCart
 {
     public class PlaceOrderPageViewModel : BaseViewModel
     {
-        private readonly IPreferences _preferences;
+        private readonly ITokenService _tokenService;
         private readonly IOrderService _orderService;
         private double _orderTotal;
 
         public PlaceOrderPageViewModel(
             IBaseService baseService,
-            IPreferences preferences,
+            ITokenService tokenService,
             IOrderService orderService)
             : base(baseService)
         {
-            _preferences = preferences;
+            _tokenService = tokenService;
             _orderService = orderService;
             NavigateBackCommand = new AsyncCommand(ExecuteNavigateBackCommandAsync, allowsMultipleExecutions: false);
             PlaceOrderCommand = new AsyncCommand(ExecutePlaceOrderCommandAsync, allowsMultipleExecutions: false);
@@ -63,7 +63,7 @@ namespace PandaTechEShop.ViewModels.ShoppingCart
                     FullName = FullName,
                     Phone = PhoneNumber,
                     Address = Address,
-                    UserId = _preferences.Get("userId", -1),
+                    UserId = _tokenService.GetUserId(),
                     OrderTotal = (int)_orderTotal,
                 };
 

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Headers;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using PandaTechEShop.Exceptions;
 using PandaTechEShop.Models.Category;
-using PandaTechEShop.Services.Preferences;
+using PandaTechEShop.Services.RequestProvider;
+using PandaTechEShop.Services.Token;
 
 namespace PandaTechEShop.Services.Category
 {
@@ -13,20 +11,33 @@ namespace PandaTechEShop.Services.Category
     {
         private const string _apiUrlBase = AppSettings.ApiUrl + "/api/categories";
 
-        private readonly IPreferences _preferences;
+        private readonly IRequestProvider _requestProvider;
+        private readonly ITokenService _tokenService;
 
-        public CategoryService(IPreferences preferences)
+        public CategoryService(IRequestProvider requestProvider, ITokenService tokenService)
             : base()
         {
-            _preferences = preferences;
+            _requestProvider = requestProvider;
+            _tokenService = tokenService;
         }
 
-        public async Task<List<CategoryInfo>> GetCategoriesAsync()
+        public Task<List<CategoryInfo>> GetCategoriesAsync()
         {
-            var httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", _preferences.Get("accessToken", string.Empty));
-            var response = await httpClient.GetStringAsync(_apiUrlBase);
-            return JsonConvert.DeserializeObject<List<CategoryInfo>>(response);
+            try
+            {
+                var accessToken = _tokenService.GetAccessToken();
+                return _requestProvider.GetAsync<List<CategoryInfo>>(uri: _apiUrlBase, token: accessToken);
+            }
+            catch (HttpRequestExceptionEx)
+            {
+                return Task.FromResult<List<CategoryInfo>>(null);
+            }
+
+            //var httpClient = new HttpClient();
+            //var accessToken = _tokenService.GetAccessToken();
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", accessToken);
+            //var response = await httpClient.GetStringAsync(_apiUrlBase);
+            //return JsonConvert.DeserializeObject<List<CategoryInfo>>(response);
         }
     }
 }

@@ -1,18 +1,20 @@
 ﻿using System.Threading.Tasks;
 using PandaTechEShop.Services;
-using PandaTechEShop.Services.Preferences;
+using PandaTechEShop.Services.Token;
 using PandaTechEShop.ViewModels.Base;
 
 namespace PandaTechEShop.ViewModels.Init
 {
     public class InitPageViewModel : BaseViewModel
     {
-        private IPreferences _preferences;
+        private readonly ITokenStorageService _tokenStorageService;
+        private readonly ITokenService _tokenService;
 
-        public InitPageViewModel(IBaseService baseService, IPreferences preferences)
+        public InitPageViewModel(IBaseService baseService, ITokenStorageService tokenStorageService, ITokenService tokenService)
             : base(baseService)
         {
-            _preferences = preferences;
+            _tokenStorageService = tokenStorageService;
+            _tokenService = tokenService;
         }
 
         public override void OnAppearing()
@@ -22,7 +24,9 @@ namespace PandaTechEShop.ViewModels.Init
 
         public Task StartupAsync()
         {
-            var accessToken = _preferences.Get("accessToken", string.Empty);
+            _tokenStorageService.LoadTokenIntoMemory();
+
+            var accessToken = _tokenService.GetAccessToken();
             return !string.IsNullOrEmpty(accessToken)
                 ? NavigationService.NavigateAsync("/NavigationPage/HomePage")
                 : NavigationService.NavigateAsync("/NavigationPage/SignupPage");

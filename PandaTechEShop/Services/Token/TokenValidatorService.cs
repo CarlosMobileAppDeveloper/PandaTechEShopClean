@@ -1,22 +1,20 @@
-﻿using System;
-using System.Threading.Tasks;
-using PandaTechEShop.Services.Preferences;
+﻿using System.Threading.Tasks;
 using UnixTimeStamp;
 
 namespace PandaTechEShop.Services.Token
 {
     public class TokenValidatorService : ITokenValidatorService
     {
-        private readonly IPreferences _preferencesService;
+        private readonly ITokenService _tokenService;
 
-        public TokenValidatorService(IPreferences preferences)
+        public TokenValidatorService(ITokenService tokenService)
         {
-            _preferencesService = preferences;
+            _tokenService = tokenService;
         }
 
         public Task<bool> HasTokenExpired()
         {
-            var expirationTime = _preferencesService.Get("tokenExpirationTime", 0);
+            var expirationTime = _tokenService.GetTokenExpirationTime();
             var currentTime = UnixTime.GetCurrentTime();
 
             if (expirationTime < currentTime)

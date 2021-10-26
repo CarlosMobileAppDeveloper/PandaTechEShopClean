@@ -4,9 +4,9 @@ using PandaTechEShop.Controls.Popups;
 using PandaTechEShop.Models.Product;
 using PandaTechEShop.Models.ShoppingCart;
 using PandaTechEShop.Services;
-using PandaTechEShop.Services.Preferences;
 using PandaTechEShop.Services.Product;
 using PandaTechEShop.Services.ShoppingCart;
+using PandaTechEShop.Services.Token;
 using PandaTechEShop.ViewModels.Base;
 using Prism.Navigation;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -15,19 +15,19 @@ namespace PandaTechEShop.ViewModels.Product
 {
     public class ProductDetailsPageViewModel : BaseViewModel
     {
-        private readonly IPreferences _preferences;
+        private readonly ITokenService _tokenService;
         private readonly IProductService _productService;
         private readonly IShoppingCartService _shoppingCartService;
         private int _productId;
 
         public ProductDetailsPageViewModel(
             IBaseService baseService,
-            IPreferences preferences,
+            ITokenService tokenService,
             IProductService productService,
             IShoppingCartService shoppingCartService)
             : base(baseService)
         {
-            _preferences = preferences;
+            _tokenService = tokenService;
             _productService = productService;
             _shoppingCartService = shoppingCartService;
             NavigateBackCommand = new AsyncCommand(ExecuteNavigateBackCommandAsync, allowsMultipleExecutions: false);
@@ -93,7 +93,7 @@ namespace PandaTechEShop.ViewModels.Product
                 Qty = Quantity,
                 Price = Convert.ToInt32(SelectedProduct.Price),
                 ProductId = SelectedProduct.Id,
-                CustomerId = _preferences.Get("userId", -1),
+                CustomerId = _tokenService.GetUserId(),
             };
 
             var response = await _shoppingCartService.AddItemsInCartAsync(addToCart);

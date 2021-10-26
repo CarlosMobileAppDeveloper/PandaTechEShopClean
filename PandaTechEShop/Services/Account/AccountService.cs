@@ -1,10 +1,8 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using System.Threading.Tasks;
+using PandaTechEShop.Exceptions;
 using PandaTechEShop.Models.Account;
-using PandaTechEShop.Services.Preferences;
-using Refit;
+using PandaTechEShop.Services.RequestProvider;
+using PandaTechEShop.Services.Token;
 
 namespace PandaTechEShop.Services.Account
 {
@@ -12,57 +10,54 @@ namespace PandaTechEShop.Services.Account
     {
         private const string _apiUrlBase = AppSettings.ApiUrl + "/api/accounts";
 
-        private readonly IPreferences _preferences;
+        private readonly IRequestProvider _requestProvider;
+        private readonly ITokenStorageService _tokenStorageService;
 
-        public AccountService(IPreferences preferences)
+        public AccountService(IRequestProvider requestProvider, ITokenStorageService tokenStorageService)
             : base()
         {
-            _preferences = preferences;
+            _requestProvider = requestProvider;
+            _tokenStorageService = tokenStorageService;
         }
 
         public async Task<bool> RegisterUserAsync(string name, string email, string password)
         {
-            var newRegistration = new Register()
+            var newUser = new Register()
             {
                 Name = name,
                 Email = email,
                 Password = password,
             };
 
-            // TODO - How to do Refit way?
-            // var service = RestService.For<IAccountApi>(AppSettings.ApiUrl);
-            // var response = await service.RegisterUser(newRegistration);
-            var httpClient = new HttpClient();
-            var json = JsonConvert.SerializeObject(newRegistration);
-            var content = new StringContent(json, encoding: System.Text.Encoding.UTF8, "application/json");
-            var response = await httpClient.PostAsync(_apiUrlBase + "/register", content: content);
-            return response.IsSuccessStatusCode;
+            try
+            {
+                await _requestProvider.PostAsync<object>(uri: _apiUrlBase + "/register", data: newUser);
+                return true;
+            }
+            catch (HttpRequestExceptionEx)
+            {
+                return false;
+            }
         }
 
         public async Task<bool> LoginAsync(string email, string password)
         {
-            var login = new Login()
+            var credentials = new Login()
             {
                 Email = email,
                 Password = password,
             };
 
-            var httpClient = new HttpClient();
-            var json = JsonConvert.SerializeObject(login);
-            var content = new StringContent(json, encoding: System.Text.Encoding.UTF8, "application/json");
-            var response = await httpClient.PostAsync(_apiUrlBase + "/login", content: content);
-            if (!response.IsSuccessStatusCode)
+            try
+            {
+                var response = await _requestProvider.PostAsync<TokenInfo>(_apiUrlBase + "/login", data: credentials);
+                await _tokenStorageService.SaveToken(response);
+                return true;
+            }
+            catch (HttpRequestExceptionEx)
             {
                 return false;
             }
-
-            var jsonResult = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<TokenInfo>(jsonResult);
-            _preferences.Set("accessToken", result.AccessToken);
-            _preferences.Set("tokenExpirationTime", result.ExpirationTime);
-            _preferences.Set("userId", result.UserId);
-            _preferences.Set("userName", result.UserName);
-            return true;
         }
     }
 }
