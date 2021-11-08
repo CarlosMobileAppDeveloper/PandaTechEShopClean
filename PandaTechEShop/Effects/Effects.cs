@@ -22,30 +22,6 @@ namespace PandaTechEShop.Effects
             }
         }
 
-        private class BackgroundGradientEffect : RoutingEffect
-        {
-            public BackgroundGradientEffect()
-                : base("PandaTechEShop.Effects.BackgroundGradientEffect")
-            {
-            }
-        }
-
-        private class CornerRadiusEffect : RoutingEffect
-        {
-            public CornerRadiusEffect()
-                : base("PandaTechEShop.Effects.CornerRadiusEffect")
-            {
-            }
-        }
-
-        private class ShadowEffect : RoutingEffect
-        {
-            public ShadowEffect()
-                : base("PandaTechEShop.Effects.ShadowEffect")
-            {
-            }
-        }
-
         public static readonly BindableProperty ApplyIOSSafeAreaAsPaddingProperty = BindableProperty.CreateAttached("ApplyIOSSafeAreaAsPadding", typeof(IOSSafeArea), typeof(Effects), IOSSafeArea.None, BindingMode.OneWay, null, OnChanged<ApplyIOSSafeAreaAsPaddingEffect, IOSSafeArea>);
 
         public static readonly BindableProperty IOSSafeAreaBottomSizeProperty = BindableProperty.CreateAttached("IOSSafeAreaBottomSize", typeof(double?), typeof(Effects), null);
@@ -57,18 +33,6 @@ namespace PandaTechEShop.Effects
         public static readonly BindableProperty IOSSafeAreaRightSizeProperty = BindableProperty.CreateAttached("IOSSafeAreaRightSize", typeof(double?), typeof(Effects), null);
 
         public static readonly BindableProperty IgnoreIOSSafeAreaOnScrollViewProperty = BindableProperty.CreateAttached("IgnoreIOSSafeAreaOnScrollView", typeof(IOSSafeArea), typeof(Effects), IOSSafeArea.None, BindingMode.OneWay, null, OnChanged<IgnoreIOSSafeAreaOnScrollViewEffect, IOSSafeArea>);
-
-        public static readonly BindableProperty BackgroundGradientProperty = BindableProperty.CreateAttached("BackgroundGradient", typeof(Gradient), typeof(Effects), null, BindingMode.OneWay, null, OnChanged<BackgroundGradientEffect, Gradient>);
-
-        public static readonly BindableProperty CornerRadiusProperty = BindableProperty.CreateAttached("CornerRadius", typeof(double), typeof(Effects), 0.0, BindingMode.OneWay, null, OnChanged<CornerRadiusEffect, double>);
-
-        public static readonly BindableProperty ShadowProperty = BindableProperty.CreateAttached("Shadow", typeof(bool), typeof(Effects), false, BindingMode.OneWay, null, OnChanged<ShadowEffect, bool>);
-
-        public static readonly BindableProperty ShadowIOSColorProperty = BindableProperty.CreateAttached("ShadowIOSColor", typeof(Color), typeof(Effects), Color.Gray);
-
-        public static readonly BindableProperty ShadowSizeProperty = BindableProperty.CreateAttached("ShadowSize", typeof(float), typeof(Effects), 5f);
-
-        public static readonly BindableProperty ShadowOpacityProperty = BindableProperty.CreateAttached("ShadowOpacity", typeof(float), typeof(Effects), 1f);
 
         public static void SetApplyIOSSafeAreaAsPadding(BindableObject view, IOSSafeArea value)
         {
@@ -128,66 +92,6 @@ namespace PandaTechEShop.Effects
         public static IOSSafeArea GetIgnoreIOSSafeAreaOnScrollView(BindableObject view)
         {
             return (IOSSafeArea)view.GetValue(IgnoreIOSSafeAreaOnScrollViewProperty);
-        }
-
-        public static void SetBackgroundGradient(BindableObject view, Gradient gradient)
-        {
-            view.SetValue(BackgroundGradientProperty, gradient);
-        }
-
-        public static Gradient GetBackgroundGradient(BindableObject view)
-        {
-            return (Gradient)view.GetValue(BackgroundGradientProperty);
-        }
-
-        public static void SetCornerRadius(BindableObject view, double radius)
-        {
-            view.SetValue(CornerRadiusProperty, radius);
-        }
-
-        public static double GetCornerRadius(BindableObject view)
-        {
-            return (double)view.GetValue(CornerRadiusProperty);
-        }
-
-        public static void SetShadow(BindableObject view, bool shadow)
-        {
-            view.SetValue(ShadowProperty, shadow);
-        }
-
-        public static bool GetShadow(BindableObject view)
-        {
-            return (bool)view.GetValue(ShadowProperty);
-        }
-
-        public static void SetShadowIOSColor(BindableObject view, Color color)
-        {
-            view.SetValue(ShadowIOSColorProperty, color);
-        }
-
-        public static Color GetShadowIOSColor(BindableObject view)
-        {
-            return (Color)view.GetValue(ShadowIOSColorProperty);
-        }
-
-        public static void SetShadowSize(BindableObject view, float offset)
-        {
-            view.SetValue(ShadowSizeProperty, offset);
-        }
-
-        public static float GetShadowSize(BindableObject view)
-        {
-            return (float)view.GetValue(ShadowSizeProperty);
-        }
-
-        public static void SetShadowOpacity(BindableObject view, float offset)
-        {
-            view.SetValue(ShadowOpacityProperty, offset);
-        }
-
-        public static float GetShadowOpacity(BindableObject view)
-        {
-            return (float)view.GetValue(ShadowOpacityProperty);
         }
 
         private static void OnChanged<TEffect, TProp>(BindableObject bindable, object oldValue, object newValue) where TEffect : Effect, new()
