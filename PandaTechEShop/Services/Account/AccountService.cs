@@ -34,8 +34,9 @@ namespace PandaTechEShop.Services.Account
                 await _requestProvider.PostAsync<object>(uri: _apiUrlBase + "/register", data: newUser);
                 return true;
             }
-            catch (HttpRequestExceptionEx)
+            catch (HttpRequestExceptionEx exception)
             {
+                var badexception = exception;
                 return false;
             }
         }

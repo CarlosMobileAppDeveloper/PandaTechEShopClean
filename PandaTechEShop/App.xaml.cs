@@ -33,6 +33,7 @@ using PandaTechEShop.Services;
 using PandaTechEShop.Services.RequestProvider;
 using PandaTechEShop.Services.SecureStorage;
 using PandaTechEShop.Services.MemoryCacheProvider;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace PandaTechEShop
 {
@@ -85,6 +86,7 @@ namespace PandaTechEShop
             containerRegistry.Register<ITokenService, TokenService>();
 
             containerRegistry.RegisterInstance(PopupNavigation.Instance);
+            containerRegistry.RegisterInstance(MaterialDialog.Instance);
 
             containerRegistry.RegisterSingleton<IRequestProvider, RequestProvider>();
             containerRegistry.RegisterSingleton<IPreferences, Preferences>(); // TODO - Should this be a singleton?

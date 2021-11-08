@@ -2,33 +2,32 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-
+    <GenerateErrorForMissingTargetingPacks>false</GenerateErrorForMissingTargetingPacks>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="3.1.0">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="Moq" Version="4.16.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    <PackageReference Include="coverlet.collector" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <KnownFrameworkReference Update="Microsoft.WindowsDesktop.App.WPF" IsWindowsOnly="false" />
+    <None Remove="Mocks\" />
+    <None Remove="Services\" />
+    <None Remove="ViewModels\" />
+    <None Remove="Moq" />
+    <None Remove="ViewModels\Account\" />
+    <None Remove="xunit.runner.visualstudio" />
+    <None Remove="Microsoft.NET.Test.Sdk" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Tests\" />
-    <None Remove="Tests\ViewModels\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Tests\" />
-    <Folder Include="Tests\ViewModels\" />
+    <Folder Include="Mocks\" />
+    <Folder Include="Services\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="ViewModels\Account\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PandaTechEShop\PandaTechEShop.csproj" />

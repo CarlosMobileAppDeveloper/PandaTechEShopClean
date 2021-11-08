@@ -8,7 +8,7 @@ namespace PandaTechEShop.Validations
     // https://github.com/dotnet-architecture/eshop-mobile-client/blob/main/eShopOnContainers/eShopOnContainers.Core/Validations/ValidatableObject.cs
 
     [AddINotifyPropertyChangedInterface]
-    public class ValidatableObject<T> : IValidity
+    public class ValidatableObject<T> : IValidatableObject<T>
     {
         private readonly List<IValidationRule<T>> _validations;
 
