@@ -62,7 +62,6 @@ namespace PandaTechEShop
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<InitPage, InitPageViewModel>();
             containerRegistry.RegisterForNavigation<TestMainPage, TestMainPageViewModel>();
-            containerRegistry.RegisterForNavigation<CreateAccountPage, CreateAccountPageViewModel>();
             containerRegistry.RegisterForNavigation<SignupPage, SignupPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
