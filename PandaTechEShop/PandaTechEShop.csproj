@@ -21,7 +21,6 @@
     <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" PrivateAssets="All" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Refit" Version="6.0.94" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.14" />
     <PackageReference Include="Epoch.Unix.TimeStamp" Version="2.0.0" />
     <PackageReference Include="XF.Material" Version="1.7.8" />
@@ -48,7 +47,6 @@
     <None Remove="Models\ShoppingCart\" />
     <None Remove="Models\Order\" />
     <None Remove="Models\Complaint\" />
-    <None Remove="Services\FurnitureAPI\" />
     <None Remove="Refit" />
     <None Remove="Services\AccountService\" />
     <None Remove="Services\Category\" />
@@ -106,7 +104,6 @@
     <Folder Include="Models\ShoppingCart\" />
     <Folder Include="Models\Order\" />
     <Folder Include="Models\Complaint\" />
-    <Folder Include="Services\FurnitureAPI\" />
     <Folder Include="Services\Account\" />
     <Folder Include="Services\Category\" />
     <Folder Include="Services\Product\" />
