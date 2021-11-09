@@ -54,7 +54,7 @@ namespace PandaTechEShop
             // NavigationService.NavigateAsync(PageConstants.MY_PAGE);
             //NavigationService.NavigateAsync("NavigationPage/TestMainPage");
 
-            NavigationService.NavigateAsync("InitPage");
+            NavigationService.NavigateAsync(nameof(InitPage));
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
