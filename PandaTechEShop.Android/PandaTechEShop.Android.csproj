@@ -77,15 +77,8 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Effects\ShadowEffect.cs" />
-    <Compile Include="Effects\BaseEffect.cs" />
-    <Compile Include="Renderers\EditorRenderer.cs" />
-    <Compile Include="Renderers\EditorRendererHelper.cs" />
-    <Compile Include="Renderers\BorderRendererHelper.cs" />
     <Compile Include="Services\DeviceOrientationLocator.cs" />
     <Compile Include="Services\DeviceOrientationImpl.cs" />
-    <Compile Include="Renderers\EntryRenderer.cs" />
-    <Compile Include="Renderers\EntryRendererHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
