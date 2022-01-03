@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using System;
 
-namespace PandaTechEShop.Services.MemoryCacheProvider
+namespace PandaTechEShop.Utilities.MemoryCacheProvider
 {
     public class MemoryCacheProviderService : IMemoryCacheProviderService
     {

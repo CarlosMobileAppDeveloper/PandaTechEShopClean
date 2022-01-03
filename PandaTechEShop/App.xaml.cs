@@ -31,8 +31,11 @@ using PandaTechEShop.ViewModels.ContactUs;
 using PandaTechEShop.Services.Token;
 using PandaTechEShop.Services;
 using PandaTechEShop.Services.RequestProvider;
-using PandaTechEShop.Services.SecureStorage;
-using PandaTechEShop.Services.MemoryCacheProvider;
+using PandaTechEShop.Utilities.Dialog;
+using PandaTechEShop.Utilities.Logger;
+using PandaTechEShop.Utilities.SecureStorage;
+using PandaTechEShop.Utilities.MemoryCacheProvider;
+using XF.Material.Forms.Resources;
 using XF.Material.Forms.UI.Dialogs;
 
 namespace PandaTechEShop
@@ -50,6 +53,7 @@ namespace PandaTechEShop
         {
             InitializeComponent();
             XF.Material.Forms.Material.Init(this);
+            XF.Material.Forms.Material.Use("Material.Configuration");
 
             // NavigationService.NavigateAsync(PageConstants.MY_PAGE);
             //NavigationService.NavigateAsync("NavigationPage/TestMainPage");
@@ -83,6 +87,7 @@ namespace PandaTechEShop
             containerRegistry.Register<IShoppingCartService, ShoppingCartService>();
             containerRegistry.Register<ITokenValidatorService, TokenValidatorService>();
             containerRegistry.Register<ITokenService, TokenService>();
+            containerRegistry.Register<IDialogService, DialogService>();
 
             containerRegistry.RegisterInstance(PopupNavigation.Instance);
             containerRegistry.RegisterInstance(MaterialDialog.Instance);

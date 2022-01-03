@@ -118,9 +118,15 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ic_warning_fill.imageset\ic_warning_fill%403x.png" />
-    <ImageAsset Include="Assets.xcassets\ic_warning_fill.imageset\ic_warning_fill%402x.png" />
-    <ImageAsset Include="Assets.xcassets\ic_warning_fill.imageset\ic_warning_fill.png" />
+    <ImageAsset Include="Assets.xcassets\ic_warning_fill.imageset\ic_warning_fill%403x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_warning_fill.imageset\ic_warning_fill%402x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_warning_fill.imageset\ic_warning_fill.png">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ic_warning_fill.imageset\Contents.json">
       <Visible>False</Visible>
     </ImageAsset>

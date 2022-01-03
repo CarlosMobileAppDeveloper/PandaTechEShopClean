@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using PandaTechEShop.Services.Account;
 using PandaTechEShop.ViewModels.Base;
 using Prism.Navigation;
@@ -7,6 +8,7 @@ using PandaTechEShop.Controls.Popups;
 using System.Windows.Input;
 using System.Collections.Generic;
 using System.Linq;
+using PandaTechEShop.Exceptions;
 using Prism.Commands;
 using PandaTechEShop.Services;
 using XF.Material.Forms.UI.Dialogs;
@@ -17,12 +19,10 @@ namespace PandaTechEShop.ViewModels.Account
 {
     public class SignupPageViewModel : BaseViewModel
     {
-
         private readonly IAccountService _accountService;
         private bool _hasEmailUnFocussed = false;
         private bool _hasPasswordUnFocussed = false;
         private bool _hasPasswordMatchUnFocussed = false;
-        private IMaterialDialog _materialDialog;
 
         public SignupPageViewModel(IBaseService baseService, IAccountService accountService, IMaterialDialog materialDialog)
             : base(baseService)
@@ -42,8 +42,6 @@ namespace PandaTechEShop.ViewModels.Account
 
             ValidatePasswordMatchCommand = new DelegateCommand(ValidatePasswordMatch);
             ForceValidatePasswordMatchCommand = new DelegateCommand(ForceValidatePasswordMatch);
-
-            _materialDialog = materialDialog;
 
             AddValidations();
         }
@@ -77,9 +75,7 @@ namespace PandaTechEShop.ViewModels.Account
                 return;
             }
 
-            //var loadingDialog = await _materialDialog.LoadingDialogAsync(message: "Creating Account...", configuration: MaterialStylesConfigurations.LoadingDialogConfiguration);
-            // TODO / FIXME - Need to properly set styling in initialisation (e.g. app.xaml.cs)
-            var loadingDialog = await _materialDialog.LoadingDialogAsync(message: "Creating Account...");
+            var loadingDialog = await DialogService.ShowLoadingDialogAsync(message: "Creating Account...");
 
             var response = await _accountService.RegisterUserAsync(string.Empty, EmailAddress.Value, Password.Value);
 
@@ -90,11 +86,9 @@ namespace PandaTechEShop.ViewModels.Account
             else
             {
                 await loadingDialog.DismissAsync();
-                //await _materialDialog.SnackbarAsync(message: "Something went wrong. Failed to create account. Please try again.", msDuration: MaterialSnackbar.DurationLong, configuration: MaterialStylesConfigurations.SnackbarConfiguration);
-                // TODO / FIXME - Need to properly set styling in initialisation (e.g. app.xaml.cs)
-                await _materialDialog.SnackbarAsync(message: "Something went wrong. Failed to create account. Please try again.", msDuration: MaterialSnackbar.DurationLong);
 
-                // await PopupNavigation.PushAsync(new ToastPopup("Failed to create account."));
+                await DialogService.ShowSnackbarAsync(
+                    message: "Something went wrong. Failed to create account. Please try again.");
             }
         }
 
@@ -102,26 +96,52 @@ namespace PandaTechEShop.ViewModels.Account
         {
             loadingDialog.MessageText = "Logging In...";
 
-            var response = await _accountService.LoginAsync(EmailAddress.Value, Password.Value);
-
-            await loadingDialog.DismissAsync();
-
-            if (response)
+            try
             {
-                await NavigationService.NavigateAsync("/NavigationPage/HomePage");
-                //await _materialDialog.SnackbarAsync(message: "Account successfully created.", msDuration: MaterialSnackbar.DurationLong, configuration: MaterialStylesConfigurations.SnackbarConfiguration);
-                // TODO / FIXME - Need to properly set styling in initialisation (e.g. app.xaml.cs)
-                await _materialDialog.SnackbarAsync(message: "Account successfully created.", msDuration: MaterialSnackbar.DurationLong);
-            }
-            else
-            {
-                await NavigationService.NavigateAsync("LoginPage", useModalNavigation: true);
-                //await _materialDialog.SnackbarAsync(message: "Something went wrong. Failed to login. Please try again.", msDuration: MaterialSnackbar.DurationLong, configuration: MaterialStylesConfigurations.SnackbarConfiguration);
-                // TODO / FIXME - Need to properly set styling in initialisation (e.g. app.xaml.cs)
-                await _materialDialog.SnackbarAsync(message: "Something went wrong. Failed to login. Please try again.", msDuration: MaterialSnackbar.DurationLong);
-            }
+                var response = await _accountService.LoginAsync(EmailAddress.Value, Password.Value);
 
-            ResetForm();
+                await loadingDialog.DismissAsync();
+
+                if (response)
+                {
+                    await NavigationService.NavigateAsync("/NavigationPage/HomePage");
+
+                    await DialogService.ShowSnackbarAsync(message: "Account successfully created.");
+                }
+                else
+                {
+                    await NavigationService.NavigateAsync("LoginPage", useModalNavigation: true);
+
+                    await DialogService.ShowSnackbarAsync(
+                        message: "Something went wrong. Failed to login. Please try again.");
+                }
+            }
+            catch (ServiceAuthenticationException ex)
+            {
+                //Logger.LogWarning("ServiceAuthenticationException: " + ex.Message);
+                //Console.WriteLine(ex);
+                if (loadingDialog != null)
+                {
+                    await loadingDialog.DismissAsync();
+                }
+
+                await DialogService.ShowSnackbarAsync(
+                    message: "Authentication failed. Please check your username and password.");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex);
+                if (loadingDialog != null)
+                {
+                    await loadingDialog.DismissAsync();
+                }
+
+                await DialogService.ShowSnackbarAsync(message: "Something went wrong. Please try again later.");
+            }
+            finally
+            {
+                ResetForm();
+            }
         }
 
         private Task NavigateToSignInPageAsync()

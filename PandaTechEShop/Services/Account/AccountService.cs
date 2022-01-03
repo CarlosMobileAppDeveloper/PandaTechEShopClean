@@ -3,7 +3,7 @@ using PandaTechEShop.Constants;
 using PandaTechEShop.Exceptions;
 using PandaTechEShop.Models.Account;
 using PandaTechEShop.Services.RequestProvider;
-using PandaTechEShop.Services.SecureStorage;
+using PandaTechEShop.Utilities.SecureStorage;
 using PandaTechEShop.Services.Token;
 
 namespace PandaTechEShop.Services.Account

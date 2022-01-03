@@ -135,10 +135,8 @@
     <Folder Include="Views\ContactUs\" />
     <Folder Include="ViewModels\ContactUs\" />
     <Folder Include="Services\Token\" />
-    <Folder Include="Services\Logger\" />
     <Folder Include="Services\RequestProvider\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="Services\SecureStorage\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xsd" />

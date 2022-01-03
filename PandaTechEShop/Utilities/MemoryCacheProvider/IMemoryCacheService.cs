@@ -1,5 +1,5 @@
 ﻿using System;
-namespace PandaTechEShop.Services.MemoryCacheProvider
+namespace PandaTechEShop.Utilities.MemoryCacheProvider
 {
     public interface IMemoryCacheProviderService
     {

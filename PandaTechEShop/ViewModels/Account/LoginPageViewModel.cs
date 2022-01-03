@@ -7,6 +7,7 @@ using PandaTechEShop.ViewModels.Base;
 using PandaTechEShop.Validations;
 using Xamarin.CommunityToolkit.ObjectModel;
 using System.Windows.Input;
+using PandaTechEShop.Exceptions;
 using Prism.Commands;
 using XF.Material.Forms.UI.Dialogs;
 using PandaTechEShop.Helpers;
@@ -18,8 +19,6 @@ namespace PandaTechEShop.ViewModels.Account
         private readonly IAccountService _accountService;
         private bool _hasEmailUnFocussed = false;
         private bool _hasPasswordUnFocussed = false;
-        private IMaterialDialog _materialDialog;
-
         public LoginPageViewModel(IBaseService baseService, IAccountService accountService)
             : base(baseService)
         {
@@ -35,8 +34,6 @@ namespace PandaTechEShop.ViewModels.Account
 
             ValidatePasswordCommand = new DelegateCommand(ValidatePassword);
             ForceValidatePasswordCommand = new DelegateCommand(ForceValidatePassword);
-
-            _materialDialog = MaterialDialog.Instance;
 
             AddValidations();
         }
@@ -65,20 +62,47 @@ namespace PandaTechEShop.ViewModels.Account
                 return;
             }
 
-            var loadingDialog = await _materialDialog.LoadingDialogAsync(message: "Logging In...", configuration: MaterialStylesConfigurations.LoadingDialogConfiguration);
-
-            var response = await _accountService.LoginAsync(EmailAddress.Value, Password.Value);
-
-            await loadingDialog.DismissAsync();
-
-            if (response)
+            IMaterialModalPage loadingDialog = null;
+            try
             {
-                await NavigationService.NavigateAsync("/NavigationPage/HomePage");
-                ClearForm();
+                // TODO - Fix me to use common spot for text
+                loadingDialog = await DialogService.ShowLoadingDialogAsync("Logging In...");
+
+                var response = await _accountService.LoginAsync(EmailAddress.Value, Password.Value);
+
+                await loadingDialog.DismissAsync();
+
+                if (response)
+                {
+                    await NavigationService.NavigateAsync("/NavigationPage/HomePage");
+                    ClearForm();
+                }
+                else
+                {
+                    await DialogService.ShowSnackbarAsync(message: "Failed to login.");
+                }
             }
-            else
+            catch (ServiceAuthenticationException ex)
             {
-                await _materialDialog.SnackbarAsync(message: "Failed to login.", msDuration: MaterialSnackbar.DurationLong, configuration: MaterialStylesConfigurations.SnackbarConfiguration);
+                //Logger.LogWarning("ServiceAuthenticationException: " + ex.Message);
+                //Console.WriteLine(ex);
+                if (loadingDialog != null)
+                {
+                    await loadingDialog.DismissAsync();
+                }
+
+                await DialogService.ShowSnackbarAsync(
+                    message: "Authentication failed. Please check your username and password.");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex);
+                if (loadingDialog != null)
+                {
+                    await loadingDialog.DismissAsync();
+                }
+
+                await DialogService.ShowSnackbarAsync(message: "Something went wrong. Please try again later.");
             }
         }
 

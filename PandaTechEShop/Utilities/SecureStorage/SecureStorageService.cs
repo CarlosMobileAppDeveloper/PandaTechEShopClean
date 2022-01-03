@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace PandaTechEShop.Services.SecureStorage
+namespace PandaTechEShop.Utilities.SecureStorage
 {
     // FIXME - How to handle failures better?
     public class SecureStorageService : ISecureStorageService

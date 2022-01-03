@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PandaTechEShop.Services
+namespace PandaTechEShop.Utilities.Logger
 {
     public interface ILogger
     {

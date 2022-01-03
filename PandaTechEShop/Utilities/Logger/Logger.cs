@@ -3,7 +3,7 @@ using System.Collections.Generic;
 //using Microsoft.AppCenter.Analytics;
 //using Microsoft.AppCenter.Crashes;
 
-namespace PandaTechEShop.Services
+namespace PandaTechEShop.Utilities.Logger
 {
     public class Logger : ILogger
     {

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace PandaTechEShop.Services.SecureStorage
+namespace PandaTechEShop.Utilities.SecureStorage
 {
     public interface ISecureStorageService
     {

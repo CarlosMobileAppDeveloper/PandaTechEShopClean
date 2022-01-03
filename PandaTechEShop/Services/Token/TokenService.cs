@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using PandaTechEShop.Constants;
 using PandaTechEShop.Services.Account;
-using PandaTechEShop.Services.MemoryCacheProvider;
-using PandaTechEShop.Services.SecureStorage;
+using PandaTechEShop.Utilities.MemoryCacheProvider;
+using PandaTechEShop.Utilities.SecureStorage;
 
 namespace PandaTechEShop.Services.Token
 {
