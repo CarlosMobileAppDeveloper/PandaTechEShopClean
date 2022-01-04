@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using PandaTechEShop.Constants;
 using PandaTechEShop.Models.Category;
 using PandaTechEShop.Models.Product;
 using PandaTechEShop.Services;
@@ -67,7 +68,7 @@ namespace PandaTechEShop.ViewModels.Product
             };
 
             SelectedProduct = null;
-            return NavigationService.NavigateAsync("NavigationPage/ProductDetailsPage", parameters, useModalNavigation: true);
+            return NavigationService.NavigateAsync($"{NavigationConstants.NavigationPage}/{NavigationConstants.ProductDetailsPage}", parameters, useModalNavigation: true);
         }
 
         private Task ExecuteNavigateBackCommandAsync()

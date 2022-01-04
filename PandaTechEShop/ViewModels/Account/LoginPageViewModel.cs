@@ -7,6 +7,7 @@ using PandaTechEShop.ViewModels.Base;
 using PandaTechEShop.Validations;
 using Xamarin.CommunityToolkit.ObjectModel;
 using System.Windows.Input;
+using PandaTechEShop.Constants;
 using PandaTechEShop.Exceptions;
 using Prism.Commands;
 using XF.Material.Forms.UI.Dialogs;
@@ -74,7 +75,7 @@ namespace PandaTechEShop.ViewModels.Account
 
                 if (response)
                 {
-                    await NavigationService.NavigateAsync("/NavigationPage/HomePage");
+                    await NavigationService.NavigateAsync($"{NavigationConstants.RootNavigationPage}/{NavigationConstants.HomePage}");
                     ClearForm();
                 }
                 else

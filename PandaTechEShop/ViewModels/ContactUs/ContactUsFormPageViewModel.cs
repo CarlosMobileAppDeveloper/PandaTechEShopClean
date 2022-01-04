@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using PandaTechEShop.Constants;
 using PandaTechEShop.Controls.Popups;
 using PandaTechEShop.Models.Complaint;
 using PandaTechEShop.Services;
@@ -62,7 +63,7 @@ namespace PandaTechEShop.ViewModels.ContactUs
                 {
                     await PopupNavigation.PushAsync(new ToastPopup("Complaint Sent"));
                     await Task.Delay(500);
-                    await NavigationService.NavigateAsync("/NavigationPage/HomePage");
+                    await NavigationService.NavigateAsync($"{NavigationConstants.RootNavigationPage}/{NavigationConstants.HomePage}");
                 }
                 else
                 {
