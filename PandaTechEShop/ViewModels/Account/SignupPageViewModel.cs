@@ -7,6 +7,8 @@ using Xamarin.CommunityToolkit.ObjectModel;
 using System.Windows.Input;
 using PandaTechEShop.Constants;
 using PandaTechEShop.Exceptions;
+using PandaTechEShop.Resources;
+using PandaTechEShop.Resources;
 using Prism.Commands;
 using PandaTechEShop.Services;
 using XF.Material.Forms.UI.Dialogs;
@@ -24,7 +26,7 @@ namespace PandaTechEShop.ViewModels.Account
         public SignupPageViewModel(IBaseService baseService, IAccountService accountService)
             : base(baseService)
         {
-            Title = "Sign Up";
+            //Title = "Sign Up";
 
             _accountService = accountService;
 
@@ -72,7 +74,7 @@ namespace PandaTechEShop.ViewModels.Account
                 return;
             }
 
-            var loadingDialog = await DialogService.ShowLoadingDialogAsync(message: "Creating Account...");
+            var loadingDialog = await DialogService.ShowLoadingDialogAsync(message: AppResources.LoadingDialogCreatingAccountMessage);
 
             var response = await _accountService.RegisterUserAsync(string.Empty, EmailAddress.Value, Password.Value);
 
@@ -84,14 +86,13 @@ namespace PandaTechEShop.ViewModels.Account
             {
                 await loadingDialog.DismissAsync();
 
-                await DialogService.ShowSnackbarAsync(
-                    message: "Something went wrong. Failed to create account. Please try again.");
+                await DialogService.ShowSnackbarAsync(message: AppResources.AccountCreationFailedErrorMessage);
             }
         }
 
         private async Task LoginAsync(IMaterialModalPage loadingDialog)
         {
-            loadingDialog.MessageText = "Logging In...";
+            loadingDialog.MessageText = AppResources.LoadingDialogLoggingInMessage;
 
             try
             {
@@ -103,14 +104,14 @@ namespace PandaTechEShop.ViewModels.Account
                 {
                     await NavigationService.NavigateAsync($"{NavigationConstants.RootNavigationPage}/{NavigationConstants.HomePage}");
 
-                    await DialogService.ShowSnackbarAsync(message: "Account successfully created.");
+                    await DialogService.ShowSnackbarAsync(message: AppResources.AccountCreatedMessage);
                 }
                 else
                 {
                     await NavigationService.NavigateAsync($"{NavigationConstants.LoginPage}", useModalNavigation: true);
 
                     await DialogService.ShowSnackbarAsync(
-                        message: "Something went wrong. Failed to login. Please try again.");
+                        message: AppResources.LoginFailedUnknownErrorMessage);
                 }
             }
             catch (ServiceAuthenticationException ex)
@@ -123,7 +124,7 @@ namespace PandaTechEShop.ViewModels.Account
                 }
 
                 await DialogService.ShowSnackbarAsync(
-                    message: "Authentication failed. Please check your username and password.");
+                    message: AppResources.AuthenticationFailureErrorMessage);
             }
             catch (Exception ex)
             {
@@ -133,7 +134,7 @@ namespace PandaTechEShop.ViewModels.Account
                     await loadingDialog.DismissAsync();
                 }
 
-                await DialogService.ShowSnackbarAsync(message: "Something went wrong. Please try again later.");
+                await DialogService.ShowSnackbarAsync(message: AppResources.UnkownGenericErrorMessage);
             }
             finally
             {
@@ -149,18 +150,19 @@ namespace PandaTechEShop.ViewModels.Account
 
         private void AddValidations()
         {
-            EmailAddress.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "An email is required." });
-            EmailAddress.Validations.Add(new EmailValidationRule<string> { ValidationMessage = "Invalid email address." });
+            EmailAddress.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = EmailAddressResources.EmailAddressEmptyValidationErrorMessage });
+            EmailAddress.Validations.Add(new EmailValidationRule<string> { ValidationMessage = EmailAddressResources.EmailAddressInvalidValidationErrorMessage });
 
-            Password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A password is required." });
-            Password.Validations.Add(new TextValidationRule<string> { ValidationMessage = "Password minimum length is 8", ValidationRuleType = TextValidationRuleType.MinimumLength, MinimumLength = 8 });
-            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = "Password must have 1 digit", CharacterType = CharacterType.Digit, MinimumCharacterCount = 1 });
-            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = "Password must have 1 lowercase character", CharacterType = CharacterType.LowercaseLetter, MinimumCharacterCount = 1 });
-            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = "Password must have 1 uppercase character", CharacterType = CharacterType.UppercaseLetter, MinimumCharacterCount = 1 });
-            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = "Password must have 1 special character", CharacterType = CharacterType.NonAlphanumericSymbol, MinimumCharacterCount = 1 });
-            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = "Password cannot have any spaces", CharacterType = CharacterType.Whitespace, MaximumCharacterCount = 0 });
+            Password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = PasswordResources.PasswordEmptyValidationErrorMessage });
+            // TODO Fix validation messages to be more dynamic
+            Password.Validations.Add(new TextValidationRule<string> { ValidationMessage = PasswordResources.PasswordMinLengthValidationErrorMessage, ValidationRuleType = TextValidationRuleType.MinimumLength, MinimumLength = 8 });
+            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = PasswordResources.PasswordMinDigitCountValidationErrorMessage, CharacterType = CharacterType.Digit, MinimumCharacterCount = 1 });
+            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = PasswordResources.PasswordMinLowercaseCountValidationErrorMessage, CharacterType = CharacterType.LowercaseLetter, MinimumCharacterCount = 1 });
+            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = PasswordResources.PasswordMinUppercaseCountValidationErrorMessage, CharacterType = CharacterType.UppercaseLetter, MinimumCharacterCount = 1 });
+            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = PasswordResources.PasswordMinSpecialCharacterCountValidationErrorMessage, CharacterType = CharacterType.NonAlphanumericSymbol, MinimumCharacterCount = 1 });
+            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = PasswordResources.PasswordMinWhitespaceCountValidationErrorMessage, CharacterType = CharacterType.Whitespace, MaximumCharacterCount = 0 });
 
-            ConfirmedPassword.Validations.Add(new RequiredStringValidationRule<string> { ValidationMessage = "Password and confirm password must match", RequiredValidatableObject = Password });
+            ConfirmedPassword.Validations.Add(new RequiredStringValidationRule<string> { ValidationMessage = PasswordResources.PasswordMatchValidationErrorMessage, RequiredValidatableObject = Password });
         }
 
         private bool IsValid()
