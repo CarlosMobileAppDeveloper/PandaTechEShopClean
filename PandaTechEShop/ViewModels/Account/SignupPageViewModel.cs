@@ -24,7 +24,7 @@ namespace PandaTechEShop.ViewModels.Account
         private bool _hasPasswordUnFocussed = false;
         private bool _hasPasswordMatchUnFocussed = false;
 
-        public SignupPageViewModel(IBaseService baseService, IAccountService accountService, IMaterialDialog materialDialog)
+        public SignupPageViewModel(IBaseService baseService, IAccountService accountService)
             : base(baseService)
         {
             Title = "Sign Up";
