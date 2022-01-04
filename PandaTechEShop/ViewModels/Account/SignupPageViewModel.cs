@@ -8,7 +8,6 @@ using System.Windows.Input;
 using PandaTechEShop.Constants;
 using PandaTechEShop.Exceptions;
 using PandaTechEShop.Resources;
-using PandaTechEShop.Resources;
 using Prism.Commands;
 using PandaTechEShop.Services;
 using XF.Material.Forms.UI.Dialogs;

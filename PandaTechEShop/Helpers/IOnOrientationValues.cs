@@ -1,96 +1,97 @@
 ﻿using System;
+
 namespace PandaTechEShop.Helpers
 {
-	internal interface IOnOrientationValues<T>
-	{
-		T Portrait
-		{
-			get;
-		}
+    internal interface IOnOrientationValues<T>
+    {
+        T Portrait
+        {
+            get;
+        }
 
-		T Landscape
-		{
-			get;
-		}
+        T Landscape
+        {
+            get;
+        }
 
-		T PortraitPhone
-		{
-			get;
-		}
+        T PortraitPhone
+        {
+            get;
+        }
 
-		T PortraitTablet
-		{
-			get;
-		}
+        T PortraitTablet
+        {
+            get;
+        }
 
-		T PortraitDesktop
-		{
-			get;
-		}
+        T PortraitDesktop
+        {
+            get;
+        }
 
-		T LandscapePhone
-		{
-			get;
-		}
+        T LandscapePhone
+        {
+            get;
+        }
 
-		T LandscapeTablet
-		{
-			get;
-		}
+        T LandscapeTablet
+        {
+            get;
+        }
 
-		T LandscapeDesktop
-		{
-			get;
-		}
+        T LandscapeDesktop
+        {
+            get;
+        }
 
-		T Default
-		{
-			get;
-		}
+        T Default
+        {
+            get;
+        }
 
-		bool HasPortrait
-		{
-			get;
-		}
+        bool HasPortrait
+        {
+            get;
+        }
 
-		bool HasLandscape
-		{
-			get;
-		}
+        bool HasLandscape
+        {
+            get;
+        }
 
-		bool HasPortraitPhone
-		{
-			get;
-		}
+        bool HasPortraitPhone
+        {
+            get;
+        }
 
-		bool HasPortraitTablet
-		{
-			get;
-		}
+        bool HasPortraitTablet
+        {
+            get;
+        }
 
-		bool HasPortraitDesktop
-		{
-			get;
-		}
+        bool HasPortraitDesktop
+        {
+            get;
+        }
 
-		bool HasLandscapePhone
-		{
-			get;
-		}
+        bool HasLandscapePhone
+        {
+            get;
+        }
 
-		bool HasLandscapeTablet
-		{
-			get;
-		}
+        bool HasLandscapeTablet
+        {
+            get;
+        }
 
-		bool HasLandscapeDesktop
-		{
-			get;
-		}
+        bool HasLandscapeDesktop
+        {
+            get;
+        }
 
-		bool HasDefault
-		{
-			get;
-		}
-	}
+        bool HasDefault
+        {
+            get;
+        }
+    }
 }

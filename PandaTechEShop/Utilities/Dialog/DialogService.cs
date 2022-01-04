@@ -12,15 +12,17 @@ namespace PandaTechEShop.Utilities.Dialog
         {
             _materialDialog = MaterialDialog.Instance;
         }
-        
+
         public Task<IMaterialModalPage> ShowLoadingDialogAsync(string message)
         {
-            return _materialDialog.LoadingDialogAsync(message: message, configuration: MaterialStylesConfigurations.LoadingDialogConfiguration);
+            return _materialDialog.LoadingDialogAsync(message: message,
+                configuration: MaterialStylesConfigurations.LoadingDialogConfiguration);
         }
 
         public Task ShowSnackbarAsync(string message, int duration = MaterialSnackbar.DurationLong)
         {
-            return _materialDialog.SnackbarAsync(message: message, msDuration: duration, configuration: MaterialStylesConfigurations.SnackbarConfiguration);
+            return _materialDialog.SnackbarAsync(message: message, msDuration: duration,
+                configuration: MaterialStylesConfigurations.SnackbarConfiguration);
         }
     }
 }

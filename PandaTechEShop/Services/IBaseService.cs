@@ -13,7 +13,7 @@ namespace PandaTechEShop.Services
         ILogger Logger { get; }
 
         IPopupNavigation PopupNavigation { get; }
-        
+
         IDialogService DialogService { get; }
     }
 }

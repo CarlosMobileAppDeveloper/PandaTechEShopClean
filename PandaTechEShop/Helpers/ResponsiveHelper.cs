@@ -13,14 +13,18 @@ namespace PandaTechEShop.Helpers
             {
                 if (_orientation == null)
                 {
-                    IDeviceOrientationServiceLocator deviceOrientationServiceLocator = DependencyService.Get<IDeviceOrientationServiceLocator>();
+                    IDeviceOrientationServiceLocator deviceOrientationServiceLocator =
+                        DependencyService.Get<IDeviceOrientationServiceLocator>();
                     if (deviceOrientationServiceLocator == null)
                     {
                         //return null;
-                        throw new InvalidOperationException("Missing Dependency Service -IDeviceOrientationServiceLocator");
+                        throw new InvalidOperationException(
+                            "Missing Dependency Service -IDeviceOrientationServiceLocator");
                     }
+
                     _orientation = deviceOrientationServiceLocator.Service;
                 }
+
                 return _orientation;
             }
         }

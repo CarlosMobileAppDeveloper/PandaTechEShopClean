@@ -22,12 +22,14 @@ namespace PandaTechEShop.Helpers
                     {
                         result = _values.Default;
                     }
+
                     if (ResponsiveHelper.Orientation.IsPortrait)
                     {
                         if (_values.HasPortrait)
                         {
                             result = _values.Portrait;
                         }
+
                         if (Device.Idiom == TargetIdiom.Phone)
                         {
                             if (_values.HasPortraitPhone)
@@ -53,6 +55,7 @@ namespace PandaTechEShop.Helpers
                         {
                             result = _values.Landscape;
                         }
+
                         if (Device.Idiom == TargetIdiom.Phone)
                         {
                             if (_values.HasLandscapePhone)
@@ -72,6 +75,7 @@ namespace PandaTechEShop.Helpers
                             result = _values.LandscapeDesktop;
                         }
                     }
+
                     return result;
                 }
             }
@@ -101,6 +105,7 @@ namespace PandaTechEShop.Helpers
             {
                 Initialize();
             }
+
             return GetBindingSource(values, default(T));
         }
 
@@ -114,6 +119,7 @@ namespace PandaTechEShop.Helpers
                     return null;
                 }
             }
+
             MagnitudeBinder<T> magnitudeBinder = new MagnitudeBinder<T>(values, defaultValue);
             _notificationTracker.Add(magnitudeBinder);
             return magnitudeBinder;

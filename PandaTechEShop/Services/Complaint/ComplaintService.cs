@@ -22,11 +22,11 @@ namespace PandaTechEShop.Services.Complaint
 
         public async Task<bool> RegisterComplaintAsync(ComplaintInfo complaint)
         {
-
             try
             {
                 var accessToken = _tokenService.GetAccessToken();
-                await _requestProvider.PostAsync<object>(uri: _apiUrlBase + "/register", token: accessToken, data: complaint);
+                await _requestProvider.PostAsync<object>(uri: _apiUrlBase + "/register", token: accessToken,
+                    data: complaint);
                 return true;
             }
             catch (HttpRequestExceptionEx)

@@ -22,7 +22,8 @@ namespace PandaTechEShop.Services.RequestProvider
             return ProcessGetRequest<T>(httpClient, uri);
         }
 
-        public Task<T> GetAndRetryAsync<T>(string uri, int retryCount, string token = "", Func<Exception, int, Task> onRetry = null) where T : class
+        public Task<T> GetAndRetryAsync<T>(string uri, int retryCount, string token = "",
+            Func<Exception, int, Task> onRetry = null) where T : class
         {
             CheckNetworkConnectivity();
             HttpClient httpClient = CreateHttpClient(token);
@@ -30,7 +31,8 @@ namespace PandaTechEShop.Services.RequestProvider
             return Retry(func, retryCount, onRetry);
         }
 
-        public Task<T> GetWaitAndTryAsync<T>(string uri, Func<int, TimeSpan> sleepDurationProvider, int retryCount, string token = "", Func<Exception, TimeSpan, Task> onWaitAndRetry = null) where T : class
+        public Task<T> GetWaitAndTryAsync<T>(string uri, Func<int, TimeSpan> sleepDurationProvider, int retryCount,
+            string token = "", Func<Exception, TimeSpan, Task> onWaitAndRetry = null) where T : class
         {
             CheckNetworkConnectivity();
             HttpClient httpClient = CreateHttpClient(token);
@@ -140,7 +142,8 @@ namespace PandaTechEShop.Services.RequestProvider
             return JsonConvert.DeserializeObject<T>(responseContent);
         }
 
-        private async Task<T> ProcessPutRequest<T>(HttpClient httpClient, string path, object data = null) where T : class
+        private async Task<T> ProcessPutRequest<T>(HttpClient httpClient, string path, object data = null)
+            where T : class
         {
             var content = data is HttpContent httpContent
                 ? httpContent
@@ -155,13 +158,14 @@ namespace PandaTechEShop.Services.RequestProvider
             return JsonConvert.DeserializeObject<T>(responseContent);
         }
 
-        private async Task<T> ProcessDeleteRequest<T>(HttpClient httpClient, string path, object data = null) where T : class
+        private async Task<T> ProcessDeleteRequest<T>(HttpClient httpClient, string path, object data = null)
+            where T : class
         {
             var req = new HttpRequestMessage(HttpMethod.Delete, path)
             {
                 Content = data is HttpContent content
-                ? content
-                : new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"),
+                    ? content
+                    : new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"),
             };
 
             var response = await httpClient.SendAsync(req);
@@ -182,7 +186,8 @@ namespace PandaTechEShop.Services.RequestProvider
                 .ExecuteAsync(func);
         }
 
-        private Task<T> WaitAndRetry<T>(Func<Task<T>> func, Func<int, TimeSpan> sleepDurationProvider, int retryCount, Func<Exception, TimeSpan, Task> onRetryAsync)
+        private Task<T> WaitAndRetry<T>(Func<Task<T>> func, Func<int, TimeSpan> sleepDurationProvider, int retryCount,
+            Func<Exception, TimeSpan, Task> onRetryAsync)
         {
             return Policy
                 .Handle<Exception>()
@@ -205,7 +210,6 @@ namespace PandaTechEShop.Services.RequestProvider
         {
             if (!response.IsSuccessStatusCode)
             {
-
                 if (response.StatusCode == HttpStatusCode.Forbidden ||
                     response.StatusCode == HttpStatusCode.Unauthorized)
                 {
@@ -215,7 +219,5 @@ namespace PandaTechEShop.Services.RequestProvider
                 throw new HttpRequestExceptionEx(response.StatusCode, response.RequestMessage.RequestUri, content);
             }
         }
-
-        
     }
 }
