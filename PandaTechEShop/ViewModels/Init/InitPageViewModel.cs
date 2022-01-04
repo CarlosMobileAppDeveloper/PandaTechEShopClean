@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using PandaTechEShop.Constants;
 using PandaTechEShop.Services;
 using PandaTechEShop.Services.Token;
 using PandaTechEShop.ViewModels.Base;
@@ -30,7 +31,7 @@ namespace PandaTechEShop.ViewModels.Init
 
         private async Task StartupAsync()
         {
-            // FIXME - Storing the data in keychain is cloud synced. So deleted an app, the information will still be there when the new app is installed...
+            // TODO FIXME - Storing the data in keychain is cloud synced. So deleted an app, the information will still be there when the new app is installed...
 
             await _tokenStorageService.LoadTokenIntoMemory();
 
@@ -38,7 +39,7 @@ namespace PandaTechEShop.ViewModels.Init
 
             if (string.IsNullOrEmpty(accessToken))
             {
-                await NavigationService.NavigateAsync("/NavigationPage/SignupPage");
+                await NavigationService.NavigateAsync($"{NavigationConstants.RootNavigationPage}/{NavigationConstants.SignupPage}");
                 return;
             }
 
@@ -47,17 +48,17 @@ namespace PandaTechEShop.ViewModels.Init
                 // Update access token if expired
                 if (await _tokenService.UpdateAccessToken())
                 {
-                    await NavigationService.NavigateAsync("/NavigationPage/HomePage");
+                    await NavigationService.NavigateAsync($"{NavigationConstants.RootNavigationPage}/{NavigationConstants.HomePage}");
                     return;
                 }
 
                 // Couldn't update access token, so taken them to the sign-up page
-                await NavigationService.NavigateAsync("/NavigationPage/SignupPage");
+                await NavigationService.NavigateAsync($"{NavigationConstants.RootNavigationPage}/{NavigationConstants.SignupPage}");
                 return;
             }
 
             // Access token is all good, take them to home page
-            await NavigationService.NavigateAsync("/NavigationPage/HomePage");
+            await NavigationService.NavigateAsync($"{NavigationConstants.RootNavigationPage}/{NavigationConstants.HomePage}");
             return;
         }
     }

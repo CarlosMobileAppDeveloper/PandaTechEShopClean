@@ -10,6 +10,7 @@ using PandaTechEShop.Validations;
 using System.Collections.Generic;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
+using PandaTechEShop.Constants;
 using PandaTechEShop.Utilities.Dialog;
 using XF.Material.Forms.UI.Dialogs;
 
@@ -20,26 +21,23 @@ namespace PandaTechEShop.UnitTests.ViewModels.Account
     {
         // https://enterprisecraftsmanship.com/posts/you-naming-tests-wrong/
 
-        private SignupPageViewModel _sut;
-        private Mock<IAccountService> _mockAccountService;
-        private Mock<IBaseService> _mockBaseService;
+        private readonly SignupPageViewModel _sut;
+        private readonly Mock<IAccountService> _mockAccountService;
+        private readonly Mock<IBaseService> _mockBaseService;
 
         public SignupPageViewModelTests()
         {
+            _mockAccountService = new Mock<IAccountService>();
             _mockBaseService = new Mock<IBaseService>();
             
             var mockLoadingDialog = new Mock<IMaterialModalPage>();
-            //var mockLoadingSnackbar = new Mock<IMaterialModalPage>();
-            var _mockDialogService = new Mock<IDialogService>();
-            _mockDialogService.Setup(x => x.ShowLoadingDialogAsync(It.IsAny<string>())).Returns(Task.FromResult(mockLoadingDialog.Object));
-            _mockDialogService.Setup(x => x.ShowSnackbarAsync(It.IsAny<string>(), It.IsAny<int>())).Returns(Task.CompletedTask);
-            _mockBaseService.Setup(x => x.DialogService).Returns(_mockDialogService.Object);
+            var mockDialogService = new Mock<IDialogService>();
+            mockDialogService.Setup(x => x.ShowLoadingDialogAsync(It.IsAny<string>())).Returns(Task.FromResult(mockLoadingDialog.Object));
+            mockDialogService.Setup(x => x.ShowSnackbarAsync(It.IsAny<string>(), It.IsAny<int>())).Returns(Task.CompletedTask);
+            _mockBaseService.Setup(x => x.DialogService).Returns(mockDialogService.Object);
 
-            
             var mockNavigationService = new Mock<INavigationService>();
             _mockBaseService.Setup(x => x.NavigationService).Returns(mockNavigationService.Object);
-
-            _mockAccountService = new Mock<IAccountService>();
             
             _sut = new SignupPageViewModel(_mockBaseService.Object, _mockAccountService.Object);
         }
@@ -79,7 +77,6 @@ namespace PandaTechEShop.UnitTests.ViewModels.Account
 
             Assert.True(isFormValid);
             _mockBaseService.Verify(x => x.DialogService.ShowLoadingDialogAsync(It.IsAny<string>()), Times.Once);
-            //_mockMaterialDialog.Verify(x => x.LoadingDialogAsync(It.IsAny<string>(), null), Times.Once);
             _mockAccountService.Verify(x => x.RegisterUserAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
 
@@ -95,7 +92,6 @@ namespace PandaTechEShop.UnitTests.ViewModels.Account
 
             Assert.False(isFormValid);
             _mockBaseService.Verify(x => x.DialogService.ShowLoadingDialogAsync(It.IsAny<string>()), Times.Never);
-            //_mockMaterialDialog.Verify(x => x.LoadingDialogAsync(It.IsAny<string>(), null), Times.Never);
             _mockAccountService.Verify(x => x.RegisterUserAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
             _mockAccountService.Verify(x => x.LoginAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
         }
@@ -112,10 +108,9 @@ namespace PandaTechEShop.UnitTests.ViewModels.Account
 
             Assert.True(isFormValid);
             _mockBaseService.Verify(x => x.DialogService.ShowLoadingDialogAsync(It.IsAny<string>()), Times.Once);
-            //_mockMaterialDialog.Verify(x => x.LoadingDialogAsync(It.IsAny<string>(), null), Times.Once);
             _mockAccountService.Verify(x => x.RegisterUserAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
             _mockAccountService.Verify(x => x.LoginAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-            _mockBaseService.Verify(x => x.NavigationService.NavigateAsync("/NavigationPage/HomePage"), Times.Once);
+            _mockBaseService.Verify(x => x.NavigationService.NavigateAsync($"{NavigationConstants.RootNavigationPage}/{NavigationConstants.HomePage}"), Times.Once);
         }
 
         [Fact]
@@ -130,12 +125,10 @@ namespace PandaTechEShop.UnitTests.ViewModels.Account
 
             Assert.True(isFormValid);
             _mockBaseService.Verify(x => x.DialogService.ShowLoadingDialogAsync(It.IsAny<string>()), Times.Once);
-            //_mockMaterialDialog.Verify(x => x.LoadingDialogAsync(It.IsAny<string>(), null), Times.Once);
             _mockAccountService.Verify(x => x.RegisterUserAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
             _mockAccountService.Verify(x => x.LoginAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-            _mockBaseService.Verify(x => x.NavigationService.NavigateAsync("/NavigationPage/HomePage"), Times.Once);
+            _mockBaseService.Verify(x => x.NavigationService.NavigateAsync($"{NavigationConstants.RootNavigationPage}/{NavigationConstants.HomePage}"), Times.Once);
             _mockBaseService.Verify(x => x.DialogService.ShowSnackbarAsync(It.IsAny<string>(), It.IsAny<int>()), Times.Once);
-            //_mockMaterialDialog.Verify(x => x.SnackbarAsync(It.IsAny<string>(), MaterialSnackbar.DurationLong, null), Times.Once);
         }
 
         [Fact]
@@ -184,7 +177,6 @@ namespace PandaTechEShop.UnitTests.ViewModels.Account
 
             Assert.True(isFormValid);
             _mockBaseService.Verify(x => x.DialogService.ShowSnackbarAsync(It.IsAny<string>(), It.IsAny<int>()), Times.Once);
-            //_mockMaterialDialog.Verify(x => x.SnackbarAsync(It.IsAny<string>(), MaterialSnackbar.DurationLong, null), Times.Once);
         }        
 
         [Fact]
@@ -200,7 +192,7 @@ namespace PandaTechEShop.UnitTests.ViewModels.Account
             Assert.True(isFormValid);
             _mockAccountService.Verify(x => x.RegisterUserAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
             _mockAccountService.Verify(x => x.LoginAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-            _mockBaseService.Verify(x => x.NavigationService.NavigateAsync("LoginPage", null, true, true), Times.Once);
+            _mockBaseService.Verify(x => x.NavigationService.NavigateAsync($"{NavigationConstants.LoginPage}", null, true, true), Times.Once);
         }
 
         [Fact]
@@ -209,7 +201,6 @@ namespace PandaTechEShop.UnitTests.ViewModels.Account
             SetupValidNewUser();
             _mockAccountService.Setup(x => x.RegisterUserAsync(string.Empty, _sut.EmailAddress.Value, _sut.Password.Value)).Returns(Task.FromResult(true));
             _mockAccountService.Setup(x => x.LoginAsync(_sut.EmailAddress.Value, _sut.Password.Value)).Returns(Task.FromResult(false));
-
             
             var isFormValid = _sut.IsFormValid;
             await _sut.SignUpCommand.ExecuteAsync();
@@ -217,9 +208,8 @@ namespace PandaTechEShop.UnitTests.ViewModels.Account
             Assert.True(isFormValid);
             _mockAccountService.Verify(x => x.RegisterUserAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
             _mockAccountService.Verify(x => x.LoginAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-            _mockBaseService.Verify(x => x.NavigationService.NavigateAsync("LoginPage", null, true, true), Times.Once);
+            _mockBaseService.Verify(x => x.NavigationService.NavigateAsync($"{NavigationConstants.LoginPage}", null, true, true), Times.Once);
             _mockBaseService.Verify(x => x.DialogService.ShowSnackbarAsync(It.IsAny<string>(), It.IsAny<int>()), Times.Once);
-            //_mockMaterialDialog.Verify(x => x.SnackbarAsync(It.IsAny<string>(), MaterialSnackbar.DurationLong, null), Times.Once);
         }
 
         [Fact]
@@ -298,7 +288,7 @@ namespace PandaTechEShop.UnitTests.ViewModels.Account
 
             await _sut.NavigateToSignInPageCommand.ExecuteAsync();
 
-            _mockBaseService.Verify(x => x.NavigationService.NavigateAsync("LoginPage", null, true, true), Times.Once);
+            _mockBaseService.Verify(x => x.NavigationService.NavigateAsync($"{NavigationConstants.LoginPage}", null, true, true), Times.Once);
             Assert.True(string.IsNullOrEmpty(_sut.EmailAddress.Value));
             Assert.True(string.IsNullOrEmpty(_sut.Password.Value));
             Assert.True(string.IsNullOrEmpty(_sut.ConfirmedPassword.Value));

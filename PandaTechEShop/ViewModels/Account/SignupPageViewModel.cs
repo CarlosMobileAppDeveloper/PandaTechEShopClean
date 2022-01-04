@@ -4,16 +4,13 @@ using PandaTechEShop.Services.Account;
 using PandaTechEShop.ViewModels.Base;
 using Prism.Navigation;
 using Xamarin.CommunityToolkit.ObjectModel;
-using PandaTechEShop.Controls.Popups;
 using System.Windows.Input;
-using System.Collections.Generic;
-using System.Linq;
+using PandaTechEShop.Constants;
 using PandaTechEShop.Exceptions;
 using Prism.Commands;
 using PandaTechEShop.Services;
 using XF.Material.Forms.UI.Dialogs;
 using PandaTechEShop.Validations;
-using PandaTechEShop.Helpers;
 
 namespace PandaTechEShop.ViewModels.Account
 {
@@ -104,13 +101,13 @@ namespace PandaTechEShop.ViewModels.Account
 
                 if (response)
                 {
-                    await NavigationService.NavigateAsync("/NavigationPage/HomePage");
+                    await NavigationService.NavigateAsync($"{NavigationConstants.RootNavigationPage}/{NavigationConstants.HomePage}");
 
                     await DialogService.ShowSnackbarAsync(message: "Account successfully created.");
                 }
                 else
                 {
-                    await NavigationService.NavigateAsync("LoginPage", useModalNavigation: true);
+                    await NavigationService.NavigateAsync($"{NavigationConstants.LoginPage}", useModalNavigation: true);
 
                     await DialogService.ShowSnackbarAsync(
                         message: "Something went wrong. Failed to login. Please try again.");
@@ -147,7 +144,7 @@ namespace PandaTechEShop.ViewModels.Account
         private Task NavigateToSignInPageAsync()
         {
             ResetForm();
-            return NavigationService.NavigateAsync("LoginPage", useModalNavigation: true);
+            return NavigationService.NavigateAsync($"{NavigationConstants.LoginPage}", useModalNavigation: true);
         }
 
         private void AddValidations()
