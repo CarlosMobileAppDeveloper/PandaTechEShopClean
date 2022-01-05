@@ -1,4 +1,5 @@
 ﻿using System;
+using PandaTechEShop.Constants;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Prism;
@@ -31,8 +32,11 @@ using PandaTechEShop.ViewModels.ContactUs;
 using PandaTechEShop.Services.Token;
 using PandaTechEShop.Services;
 using PandaTechEShop.Services.RequestProvider;
-using PandaTechEShop.Services.SecureStorage;
-using PandaTechEShop.Services.MemoryCacheProvider;
+using PandaTechEShop.Utilities.Dialog;
+using PandaTechEShop.Utilities.Logger;
+using PandaTechEShop.Utilities.SecureStorage;
+using PandaTechEShop.Utilities.MemoryCacheProvider;
+using XF.Material.Forms.Resources;
 using XF.Material.Forms.UI.Dialogs;
 
 namespace PandaTechEShop
@@ -50,28 +54,25 @@ namespace PandaTechEShop
         {
             InitializeComponent();
             XF.Material.Forms.Material.Init(this);
-
-            // NavigationService.NavigateAsync(PageConstants.MY_PAGE);
-            //NavigationService.NavigateAsync("NavigationPage/TestMainPage");
-
-            NavigationService.NavigateAsync("InitPage");
+            XF.Material.Forms.Material.Use("Material.Configuration");
+            NavigationService.NavigateAsync(NavigationConstants.InitPage);
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<InitPage, InitPageViewModel>();
-            containerRegistry.RegisterForNavigation<TestMainPage, TestMainPageViewModel>();
-            containerRegistry.RegisterForNavigation<SignupPage, SignupPageViewModel>();
-            containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
-            containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
-            containerRegistry.RegisterForNavigation<ProductListPage, ProductListPageViewModel>();
-            containerRegistry.RegisterForNavigation<ProductDetailsPage, ProductDetailsPageViewModel>();
-            containerRegistry.RegisterForNavigation<ShoppingCartPage, ShoppingCartPageViewModel>();
-            containerRegistry.RegisterForNavigation<PlaceOrderPage, PlaceOrderPageViewModel>();
-            containerRegistry.RegisterForNavigation<OrdersPage, OrdersPageViewModel>();
-            containerRegistry.RegisterForNavigation<OrderDetailsPage, OrderDetailsPageViewModel>();
-            containerRegistry.RegisterForNavigation<ContactUsFormPage, ContactUsFormPageViewModel>();
+            containerRegistry.RegisterForNavigation<NavigationPage>(NavigationConstants.NavigationPage);
+            containerRegistry.RegisterForNavigation<InitPage, InitPageViewModel>(NavigationConstants.InitPage);
+            //containerRegistry.RegisterForNavigation<TestMainPage, TestMainPageViewModel>();
+            containerRegistry.RegisterForNavigation<SignupPage, SignupPageViewModel>(NavigationConstants.SignupPage);
+            containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>(NavigationConstants.LoginPage);
+            containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>(NavigationConstants.HomePage);
+            containerRegistry.RegisterForNavigation<ProductListPage, ProductListPageViewModel>(NavigationConstants.ProductListPage);
+            containerRegistry.RegisterForNavigation<ProductDetailsPage, ProductDetailsPageViewModel>(NavigationConstants.ProductDetailsPage);
+            containerRegistry.RegisterForNavigation<ShoppingCartPage, ShoppingCartPageViewModel>(NavigationConstants.ShoppingCartPage);
+            containerRegistry.RegisterForNavigation<PlaceOrderPage, PlaceOrderPageViewModel>(NavigationConstants.PlaceOrderPage);
+            containerRegistry.RegisterForNavigation<OrdersPage, OrdersPageViewModel>(NavigationConstants.OrdersPage);
+            containerRegistry.RegisterForNavigation<OrderDetailsPage, OrderDetailsPageViewModel>(NavigationConstants.OrderDetailsPage);
+            containerRegistry.RegisterForNavigation<ContactUsFormPage, ContactUsFormPageViewModel>(NavigationConstants.ContactUsFormPage);
 
             containerRegistry.Register<IBaseService, BaseService>();
             containerRegistry.Register<ILogger, Logger>();
@@ -83,6 +84,7 @@ namespace PandaTechEShop
             containerRegistry.Register<IShoppingCartService, ShoppingCartService>();
             containerRegistry.Register<ITokenValidatorService, TokenValidatorService>();
             containerRegistry.Register<ITokenService, TokenService>();
+            containerRegistry.Register<IDialogService, DialogService>();
 
             containerRegistry.RegisterInstance(PopupNavigation.Instance);
             containerRegistry.RegisterInstance(MaterialDialog.Instance);

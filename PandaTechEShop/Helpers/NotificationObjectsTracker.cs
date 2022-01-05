@@ -38,8 +38,10 @@ namespace PandaTechEShop.Helpers
             {
                 if (_notificationObjects != null)
                 {
-                    throw new InvalidOperationException("Size must be changed before the collection has been initialized.");
+                    throw new InvalidOperationException(
+                        "Size must be changed before the collection has been initialized.");
                 }
+
                 _initialNotificationListSize = value;
             }
         }
@@ -58,6 +60,7 @@ namespace PandaTechEShop.Helpers
                 {
                     _notificationObjects = new List<WeakReference<INotifier>>(InitialNotificationListSize);
                 }
+
                 return _notificationObjects;
             }
         }
@@ -121,7 +124,8 @@ namespace PandaTechEShop.Helpers
 
         private void Cleanup()
         {
-            if (NotificationObjects.Count > AutoCleanupTriggerCount && DateTime.Now - _lastCleanup > PeriodBetweenAutoCleanups)
+            if (NotificationObjects.Count > AutoCleanupTriggerCount &&
+                DateTime.Now - _lastCleanup > PeriodBetweenAutoCleanups)
             {
                 ForceCleanup();
             }

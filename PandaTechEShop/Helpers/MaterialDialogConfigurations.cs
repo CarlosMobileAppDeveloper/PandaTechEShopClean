@@ -9,20 +9,20 @@ namespace PandaTechEShop.Helpers
     {
         public static MaterialLoadingDialogConfiguration LoadingDialogConfiguration => new MaterialLoadingDialogConfiguration()
         {
-            BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
-            MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY).MultiplyAlpha(0.8),
-            TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY),
-            CornerRadius = 8,
-            ScrimColor = Color.FromHex("#232F34").MultiplyAlpha(0.32)
+            // BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY_VARIANT),
+            // MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY),
+            TintColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY_VARIANT),
+            // CornerRadius = 8,
+            // ScrimColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY_VARIANT).MultiplyAlpha(0.32),
         };
 
         public static MaterialSnackbarConfiguration SnackbarConfiguration => new MaterialSnackbarConfiguration()
         {
-            BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY),
+            BackgroundColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.PRIMARY_VARIANT),
             ButtonAllCaps = true,
             TintColor = Color.White,
             CornerRadius = 8,
-            MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY).MultiplyAlpha(0.8)
+            MessageTextColor = XF.Material.Forms.Material.GetResource<Color>(MaterialConstants.Color.ON_PRIMARY),
         };
     }
 }

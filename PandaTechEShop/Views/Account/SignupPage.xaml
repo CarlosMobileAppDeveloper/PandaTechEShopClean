@@ -7,6 +7,7 @@
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:resources="clr-namespace:PandaTechEShop.Resources;assembly=PandaTechEShop"
     Title="{Binding Title}"
     ios:Page.UseSafeArea="True"
     BackgroundColor="{DynamicResource LightPrimaryBackgroundColor}"
@@ -30,7 +31,6 @@
                 <Setter Property="UnselectedColor" Value="{StaticResource LightPrimaryTextSubTitleColor}" />
                 <Setter Property="Margin" Value="-16,0,0,-16" />
                 <Setter Property="FontSize" Value="12" />
-
             </Style>
             <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
         </ResourceDictionary>
@@ -58,7 +58,7 @@
                         Margin="0,20,0,40"
                         FontAttributes="Bold"
                         HorizontalOptions="Center"
-                        Text="Create your account">
+                        Text="{x:Static resources:AppResources.SignupBlurbText}">
                         <Label.FontSize>
                             <OnIdiom
                                 x:TypeArguments="x:Double"
@@ -79,7 +79,7 @@
                                 ErrorText="{Binding EmailAddress.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
                                 HasError="{Binding EmailAddress.IsValid, Converter={xct:InvertedBoolConverter}}"
                                 InputType="Email"
-                                Placeholder="Email"
+                                Placeholder="{x:Static resources:EmailAddressResources.EmailAddressPlaceholderText}"
                                 ReturnType="Next"
                                 Style="{StaticResource BaseEntryStyle}"
                                 Text="{Binding EmailAddress.Value, Mode=TwoWay}">
@@ -97,7 +97,7 @@
                                 ErrorText="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
                                 HasError="{Binding Password.IsValid, Converter={xct:InvertedBoolConverter}}"
                                 InputType="Password"
-                                Placeholder="Password"
+                                Placeholder="{x:Static resources:PasswordResources.PasswordPlaceholderText}"
                                 ReturnType="Next"
                                 Style="{StaticResource BaseEntryStyle}"
                                 Text="{Binding Password.Value, Mode=TwoWay}">
@@ -114,7 +114,7 @@
                                 ErrorText="{Binding ConfirmedPassword.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
                                 HasError="{Binding ConfirmedPassword.IsValid, Converter={xct:InvertedBoolConverter}}"
                                 InputType="Password"
-                                Placeholder="Confirm Password"
+                                Placeholder="{x:Static resources:PasswordResources.PasswordConfirmPlaceholderText}"
                                 ReturnCommand="{Binding SignUpCommand}"
                                 ReturnType="Go"
                                 Style="{StaticResource BaseEntryStyle}"
@@ -132,12 +132,12 @@
                         <material:MaterialCheckbox
                             IsSelected="True"
                             Style="{StaticResource BaseCheckBoxStyle}"
-                            Text="Keep me signed in" />
+                            Text="{x:Static resources:AppResources.SignupKeepSignedInText}" />
 
                         <material:MaterialCheckbox
                             IsSelected="True"
                             Style="{StaticResource BaseCheckBoxStyle}"
-                            Text="Email me about special pricing deals" />
+                            Text="{x:Static resources:AppResources.SignupAllowMarketingText}" />
                     </StackLayout>
 
                     <material:MaterialButton
@@ -148,7 +148,7 @@
                         Elevation="4, 8"
                         HeightRequest="60"
                         HorizontalOptions="FillAndExpand"
-                        Text="Create Account"
+                        Text="{x:Static resources:AppResources.SignupButtonText}"
                         TextColor="{StaticResource PrimaryButtonTextColor}"
                         VerticalOptions="End" />
 
@@ -190,10 +190,10 @@
                         VerticalOptions="End">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span FontSize="Small" Text="Already have an account? " />
+                                <Span FontSize="Small" Text="{x:Static resources:AppResources.SignupSignInExistingAccountBlurbText}" />
                                 <Span
                                     FontSize="Small"
-                                    Text=" Sign in "
+                                    Text="{x:Static resources:AppResources.SignupSignInButtonText}"
                                     TextColor="{StaticResource PrimaryButtonColor}">
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding NavigateToSignInPageCommand}" />

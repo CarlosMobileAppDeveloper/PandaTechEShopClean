@@ -7,16 +7,11 @@
     xmlns:effects="clr-namespace:PandaTechEShop.Effects;assembly=PandaTechEShop"
     xmlns:helpers="clr-namespace:PandaTechEShop.Helpers;assembly=PandaTechEShop"
     xmlns:mtrl="clr-namespace:XF.Material.Forms.Resources;assembly=XF.Material"
-    xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
-    xmlns:themes="clr-namespace:PandaTechEShop.Themes;assembly=PandaTechEShop">
+    xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms">
     <Application.Resources>
         <ResourceDictionary>
-
             <ResourceDictionary.MergedDictionaries />
-
-
-
-
+            
             <!--  UNITS CARL  -->
             <x:Double x:Key="BaseFontSize">14</x:Double>
 
@@ -36,24 +31,6 @@
             <Color x:Key="ErrorColor">#e63200</Color>
 
             <Color x:Key="SurfaceColor">#f5f4f4</Color>
-
-            <mtrl:MaterialColorConfiguration
-                x:Key="Material.Color"
-                Background="{StaticResource LightPrimaryBackgroundColor}"
-                Error="{StaticResource ErrorColor}"
-                OnBackground="#2C2C2C"
-                OnError="#FFFFFF"
-                OnPrimary="#FFFFFF"
-                OnSecondary="#FFFFFF"
-                OnSurface="#2C2C2C"
-                Primary="{StaticResource LightPrimaryColor}"
-                PrimaryVariant="{StaticResource LightPrimaryColorDark}"
-                Secondary="{StaticResource LightSecondaryColor}"
-                SecondaryVariant="{StaticResource LightSecondaryColorDark}"
-                Surface="{StaticResource SurfaceColor}" />
-
-            <mtrl:MaterialConfiguration x:Key="Material.Configuration" ColorConfiguration="{StaticResource Material.Color}" />
-
 
             <!--  BASE STYLES Carl  -->
             <Style TargetType="Label">
@@ -82,8 +59,24 @@
             <!--<Style x:Key="BaseEntryStyle" TargetType="material:MaterialTextField">
                 <Setter Property="ErrorColor" Value="{StaticResource LightPrimaryTextColor}" />
             </Style>-->
-
-
+            
         </ResourceDictionary>
+        
+        <mtrl:MaterialColorConfiguration
+            x:Key="Material.Color"
+            Background="{StaticResource LightPrimaryBackgroundColor}"
+            Error="{StaticResource ErrorColor}"
+            OnBackground="#2C2C2C"
+            OnError="#FFFFFF"
+            OnPrimary="#FFFFFF"
+            OnSecondary="#FFFFFF"
+            OnSurface="#2C2C2C"
+            Primary="{StaticResource LightPrimaryColor}"
+            PrimaryVariant="{StaticResource LightPrimaryColorDark}"
+            Secondary="{StaticResource LightSecondaryColor}"
+            SecondaryVariant="{StaticResource LightSecondaryColorDark}"
+            Surface="{StaticResource SurfaceColor}" />
+
+        <mtrl:MaterialConfiguration x:Key="Material.Configuration" ColorConfiguration="{StaticResource Material.Color}" />
     </Application.Resources>
 </prism:PrismApplication>

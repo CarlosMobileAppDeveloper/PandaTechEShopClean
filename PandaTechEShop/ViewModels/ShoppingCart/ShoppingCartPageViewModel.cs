@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using PandaTechEShop.Constants;
 using PandaTechEShop.Controls.Popups;
 using PandaTechEShop.Models.ShoppingCart;
 using PandaTechEShop.Services;
@@ -92,7 +93,7 @@ namespace PandaTechEShop.ViewModels.ShoppingCart
                 { "OrderTotal", ShoppingCartSubTotal.SubTotal },
             };
 
-            return NavigationService.NavigateAsync("PlaceOrderPage", parameters);
+            return NavigationService.NavigateAsync($"{NavigationConstants.PlaceOrderPage}", parameters);
         }
 
         private Task ExecuteNavigateBackCommandAsync()

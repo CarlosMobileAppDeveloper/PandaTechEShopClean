@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
+using PandaTechEShop.Constants;
 using PandaTechEShop.Exceptions;
 using PandaTechEShop.Models.Account;
 using PandaTechEShop.Services.RequestProvider;
+using PandaTechEShop.Utilities.SecureStorage;
 using PandaTechEShop.Services.Token;
 
 namespace PandaTechEShop.Services.Account
@@ -12,12 +14,14 @@ namespace PandaTechEShop.Services.Account
 
         private readonly IRequestProvider _requestProvider;
         private readonly ITokenStorageService _tokenStorageService;
+        private readonly ISecureStorageService _secureStorageService;
 
-        public AccountService(IRequestProvider requestProvider, ITokenStorageService tokenStorageService)
+        public AccountService(IRequestProvider requestProvider, ITokenStorageService tokenStorageService, ISecureStorageService secureStorageService)
             : base()
         {
             _requestProvider = requestProvider;
             _tokenStorageService = tokenStorageService;
+            _secureStorageService = secureStorageService;
         }
 
         public async Task<bool> RegisterUserAsync(string name, string email, string password)
@@ -52,7 +56,13 @@ namespace PandaTechEShop.Services.Account
             try
             {
                 var response = await _requestProvider.PostAsync<TokenInfo>(_apiUrlBase + "/login", data: credentials);
+
+                // HACK - For testing purposes only. Used for refreshing token but this isn't implemented properly yet
+                await _secureStorageService.SetAsync(SecureStorageConstants.EmailKey, email);
+                await _secureStorageService.SetAsync(SecureStorageConstants.PasswordKey, password);
+
                 await _tokenStorageService.SaveToken(response);
+
                 return true;
             }
             catch (HttpRequestExceptionEx)

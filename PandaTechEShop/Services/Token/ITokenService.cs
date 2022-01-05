@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Threading.Tasks;
+
 namespace PandaTechEShop.Services.Token
 {
     public interface ITokenService
@@ -7,5 +8,6 @@ namespace PandaTechEShop.Services.Token
         int GetTokenExpirationTime();
         int GetUserId();
         string GetUsername();
+        Task<bool> UpdateAccessToken();
     }
 }

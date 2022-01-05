@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using PandaTechEShop.Constants;
 using PandaTechEShop.Controls.Popups;
 using PandaTechEShop.Models.Order;
 using PandaTechEShop.Services;
@@ -73,7 +74,7 @@ namespace PandaTechEShop.ViewModels.ShoppingCart
                 {
                     await PopupNavigation.PushAsync(new ToastPopup("Order Placed! Order Id: " + response.OrderId));
                     await Task.Delay(500);
-                    await NavigationService.NavigateAsync("/NavigationPage/HomePage");
+                    await NavigationService.NavigateAsync($"{NavigationConstants.RootNavigationPage}/{NavigationConstants.HomePage}");
                 }
                 else
                 {

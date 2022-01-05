@@ -1,33 +1,31 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using PandaTechEShop.Services.Account;
 using PandaTechEShop.ViewModels.Base;
 using Prism.Navigation;
 using Xamarin.CommunityToolkit.ObjectModel;
-using PandaTechEShop.Controls.Popups;
 using System.Windows.Input;
-using System.Collections.Generic;
-using System.Linq;
+using PandaTechEShop.Constants;
+using PandaTechEShop.Exceptions;
+using PandaTechEShop.Resources;
 using Prism.Commands;
 using PandaTechEShop.Services;
 using XF.Material.Forms.UI.Dialogs;
 using PandaTechEShop.Validations;
-using PandaTechEShop.Helpers;
 
 namespace PandaTechEShop.ViewModels.Account
 {
     public class SignupPageViewModel : BaseViewModel
     {
-
         private readonly IAccountService _accountService;
         private bool _hasEmailUnFocussed = false;
         private bool _hasPasswordUnFocussed = false;
         private bool _hasPasswordMatchUnFocussed = false;
-        private IMaterialDialog _materialDialog;
 
-        public SignupPageViewModel(IBaseService baseService, IAccountService accountService, IMaterialDialog materialDialog)
+        public SignupPageViewModel(IBaseService baseService, IAccountService accountService)
             : base(baseService)
         {
-            Title = "Sign Up";
+            //Title = "Sign Up";
 
             _accountService = accountService;
 
@@ -42,8 +40,6 @@ namespace PandaTechEShop.ViewModels.Account
 
             ValidatePasswordMatchCommand = new DelegateCommand(ValidatePasswordMatch);
             ForceValidatePasswordMatchCommand = new DelegateCommand(ForceValidatePasswordMatch);
-
-            _materialDialog = materialDialog;
 
             AddValidations();
         }
@@ -77,9 +73,7 @@ namespace PandaTechEShop.ViewModels.Account
                 return;
             }
 
-            //var loadingDialog = await _materialDialog.LoadingDialogAsync(message: "Creating Account...", configuration: MaterialStylesConfigurations.LoadingDialogConfiguration);
-            // TODO / FIXME - Need to properly set styling in initialisation (e.g. app.xaml.cs)
-            var loadingDialog = await _materialDialog.LoadingDialogAsync(message: "Creating Account...");
+            var loadingDialog = await DialogService.ShowLoadingDialogAsync(message: AppResources.LoadingDialogCreatingAccountMessage);
 
             var response = await _accountService.RegisterUserAsync(string.Empty, EmailAddress.Value, Password.Value);
 
@@ -90,60 +84,84 @@ namespace PandaTechEShop.ViewModels.Account
             else
             {
                 await loadingDialog.DismissAsync();
-                //await _materialDialog.SnackbarAsync(message: "Something went wrong. Failed to create account. Please try again.", msDuration: MaterialSnackbar.DurationLong, configuration: MaterialStylesConfigurations.SnackbarConfiguration);
-                // TODO / FIXME - Need to properly set styling in initialisation (e.g. app.xaml.cs)
-                await _materialDialog.SnackbarAsync(message: "Something went wrong. Failed to create account. Please try again.", msDuration: MaterialSnackbar.DurationLong);
 
-                // await PopupNavigation.PushAsync(new ToastPopup("Failed to create account."));
+                await DialogService.ShowSnackbarAsync(message: AppResources.AccountCreationFailedErrorMessage);
             }
         }
 
         private async Task LoginAsync(IMaterialModalPage loadingDialog)
         {
-            loadingDialog.MessageText = "Logging In...";
+            loadingDialog.MessageText = AppResources.LoadingDialogLoggingInMessage;
 
-            var response = await _accountService.LoginAsync(EmailAddress.Value, Password.Value);
-
-            await loadingDialog.DismissAsync();
-
-            if (response)
+            try
             {
-                await NavigationService.NavigateAsync("/NavigationPage/HomePage");
-                //await _materialDialog.SnackbarAsync(message: "Account successfully created.", msDuration: MaterialSnackbar.DurationLong, configuration: MaterialStylesConfigurations.SnackbarConfiguration);
-                // TODO / FIXME - Need to properly set styling in initialisation (e.g. app.xaml.cs)
-                await _materialDialog.SnackbarAsync(message: "Account successfully created.", msDuration: MaterialSnackbar.DurationLong);
-            }
-            else
-            {
-                await NavigationService.NavigateAsync("LoginPage", useModalNavigation: true);
-                //await _materialDialog.SnackbarAsync(message: "Something went wrong. Failed to login. Please try again.", msDuration: MaterialSnackbar.DurationLong, configuration: MaterialStylesConfigurations.SnackbarConfiguration);
-                // TODO / FIXME - Need to properly set styling in initialisation (e.g. app.xaml.cs)
-                await _materialDialog.SnackbarAsync(message: "Something went wrong. Failed to login. Please try again.", msDuration: MaterialSnackbar.DurationLong);
-            }
+                var response = await _accountService.LoginAsync(EmailAddress.Value, Password.Value);
 
-            ResetForm();
+                await loadingDialog.DismissAsync();
+
+                if (response)
+                {
+                    await NavigationService.NavigateAsync($"{NavigationConstants.RootNavigationPage}/{NavigationConstants.HomePage}");
+
+                    await DialogService.ShowSnackbarAsync(message: AppResources.AccountCreatedMessage);
+                }
+                else
+                {
+                    await NavigationService.NavigateAsync($"{NavigationConstants.LoginPage}", useModalNavigation: true);
+
+                    await DialogService.ShowSnackbarAsync(
+                        message: AppResources.LoginFailedUnknownErrorMessage);
+                }
+            }
+            catch (ServiceAuthenticationException ex)
+            {
+                //Logger.LogWarning("ServiceAuthenticationException: " + ex.Message);
+                //Console.WriteLine(ex);
+                if (loadingDialog != null)
+                {
+                    await loadingDialog.DismissAsync();
+                }
+
+                await DialogService.ShowSnackbarAsync(
+                    message: AppResources.AuthenticationFailureErrorMessage);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex);
+                if (loadingDialog != null)
+                {
+                    await loadingDialog.DismissAsync();
+                }
+
+                await DialogService.ShowSnackbarAsync(message: AppResources.UnkownGenericErrorMessage);
+            }
+            finally
+            {
+                ResetForm();
+            }
         }
 
         private Task NavigateToSignInPageAsync()
         {
             ResetForm();
-            return NavigationService.NavigateAsync("LoginPage", useModalNavigation: true);
+            return NavigationService.NavigateAsync($"{NavigationConstants.LoginPage}", useModalNavigation: true);
         }
 
         private void AddValidations()
         {
-            EmailAddress.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "An email is required." });
-            EmailAddress.Validations.Add(new EmailValidationRule<string> { ValidationMessage = "Invalid email address." });
+            EmailAddress.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = EmailAddressResources.EmailAddressEmptyValidationErrorMessage });
+            EmailAddress.Validations.Add(new EmailValidationRule<string> { ValidationMessage = EmailAddressResources.EmailAddressInvalidValidationErrorMessage });
 
-            Password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A password is required." });
-            Password.Validations.Add(new TextValidationRule<string> { ValidationMessage = "Password minimum length is 8", ValidationRuleType = TextValidationRuleType.MinimumLength, MinimumLength = 8 });
-            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = "Password must have 1 digit", CharacterType = CharacterType.Digit, MinimumCharacterCount = 1 });
-            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = "Password must have 1 lowercase character", CharacterType = CharacterType.LowercaseLetter, MinimumCharacterCount = 1 });
-            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = "Password must have 1 uppercase character", CharacterType = CharacterType.UppercaseLetter, MinimumCharacterCount = 1 });
-            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = "Password must have 1 special character", CharacterType = CharacterType.NonAlphanumericSymbol, MinimumCharacterCount = 1 });
-            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = "Password cannot have any spaces", CharacterType = CharacterType.Whitespace, MaximumCharacterCount = 0 });
+            Password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = PasswordResources.PasswordEmptyValidationErrorMessage });
+            // TODO Fix validation messages to be more dynamic
+            Password.Validations.Add(new TextValidationRule<string> { ValidationMessage = PasswordResources.PasswordMinLengthValidationErrorMessage, ValidationRuleType = TextValidationRuleType.MinimumLength, MinimumLength = 8 });
+            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = PasswordResources.PasswordMinDigitCountValidationErrorMessage, CharacterType = CharacterType.Digit, MinimumCharacterCount = 1 });
+            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = PasswordResources.PasswordMinLowercaseCountValidationErrorMessage, CharacterType = CharacterType.LowercaseLetter, MinimumCharacterCount = 1 });
+            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = PasswordResources.PasswordMinUppercaseCountValidationErrorMessage, CharacterType = CharacterType.UppercaseLetter, MinimumCharacterCount = 1 });
+            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = PasswordResources.PasswordMinSpecialCharacterCountValidationErrorMessage, CharacterType = CharacterType.NonAlphanumericSymbol, MinimumCharacterCount = 1 });
+            Password.Validations.Add(new CharactersValidationRule<string> { ValidationMessage = PasswordResources.PasswordMinWhitespaceCountValidationErrorMessage, CharacterType = CharacterType.Whitespace, MaximumCharacterCount = 0 });
 
-            ConfirmedPassword.Validations.Add(new RequiredStringValidationRule<string> { ValidationMessage = "Password and confirm password must match", RequiredValidatableObject = Password });
+            ConfirmedPassword.Validations.Add(new RequiredStringValidationRule<string> { ValidationMessage = PasswordResources.PasswordMatchValidationErrorMessage, RequiredValidatableObject = Password });
         }
 
         private bool IsValid()

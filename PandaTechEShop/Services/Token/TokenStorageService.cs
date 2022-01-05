@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using PandaTechEShop.Constants;
 using PandaTechEShop.Models.Account;
-using PandaTechEShop.Services.MemoryCacheProvider;
-using PandaTechEShop.Services.SecureStorage;
+using PandaTechEShop.Utilities.MemoryCacheProvider;
+using PandaTechEShop.Utilities.SecureStorage;
 
 namespace PandaTechEShop.Services.Token
 {
@@ -31,10 +31,10 @@ namespace PandaTechEShop.Services.Token
 
         public async Task DeleteToken()
         {
-            await _secureStorage.SetAsync(TokenKeyConstants.AccessTokenKey, null);
-            await _secureStorage.SetAsync(TokenKeyConstants.TokenExpirationTimeKey, null);
-            await _secureStorage.SetAsync(TokenKeyConstants.UserIdKey, null);
-            await _secureStorage.SetAsync(TokenKeyConstants.UserNameKey, null);
+            await _secureStorage.Remove(TokenKeyConstants.AccessTokenKey);
+            await _secureStorage.Remove(TokenKeyConstants.TokenExpirationTimeKey);
+            await _secureStorage.Remove(TokenKeyConstants.UserIdKey);
+            await _secureStorage.Remove(TokenKeyConstants.UserNameKey);
 
             _memoryCacheProviderService.Remove(TokenKeyConstants.AccessTokenKey);
             _memoryCacheProviderService.Remove(TokenKeyConstants.TokenExpirationTimeKey);

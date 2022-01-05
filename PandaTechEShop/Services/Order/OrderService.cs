@@ -48,7 +48,8 @@ namespace PandaTechEShop.Services.Order
             try
             {
                 var accessToken = _tokenService.GetAccessToken();
-                return _requestProvider.GetAsync<List<OrderByUser>>(uri: _apiUrlBase + "/OrdersByUser/" + userId, token: accessToken);
+                return _requestProvider.GetAsync<List<OrderByUser>>(uri: _apiUrlBase + "/OrdersByUser/" + userId,
+                    token: accessToken);
             }
             catch (HttpRequestExceptionEx)
             {
@@ -67,7 +68,8 @@ namespace PandaTechEShop.Services.Order
             try
             {
                 var accessToken = _tokenService.GetAccessToken();
-                return _requestProvider.GetAsync<List<OrderDetail>>(uri: _apiUrlBase + "/OrderDetails/" + orderId, token: accessToken);
+                return _requestProvider.GetAsync<List<OrderDetail>>(uri: _apiUrlBase + "/OrderDetails/" + orderId,
+                    token: accessToken);
             }
             catch (HttpRequestExceptionEx)
             {

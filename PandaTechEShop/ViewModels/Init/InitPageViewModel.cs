@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using PandaTechEShop.Constants;
 using PandaTechEShop.Services;
 using PandaTechEShop.Services.Token;
 using PandaTechEShop.ViewModels.Base;
@@ -9,27 +10,56 @@ namespace PandaTechEShop.ViewModels.Init
     {
         private readonly ITokenStorageService _tokenStorageService;
         private readonly ITokenService _tokenService;
+        private readonly ITokenValidatorService _tokenValidatorService;
 
-        public InitPageViewModel(IBaseService baseService, ITokenStorageService tokenStorageService, ITokenService tokenService)
+        public InitPageViewModel(
+            IBaseService baseService,
+            ITokenStorageService tokenStorageService,
+            ITokenService tokenService,
+            ITokenValidatorService tokenValidatorService)
             : base(baseService)
         {
             _tokenStorageService = tokenStorageService;
             _tokenService = tokenService;
+            _tokenValidatorService = tokenValidatorService;
         }
 
-        public override void OnAppearing()
+        public override Task OnAppearingAsync()
         {
-            StartupAsync();
+            return StartupAsync();
         }
 
-        public Task StartupAsync()
+        private async Task StartupAsync()
         {
-            _tokenStorageService.LoadTokenIntoMemory();
+            // TODO FIXME - Storing the data in keychain is cloud synced. So deleted an app, the information will still be there when the new app is installed...
+
+            await _tokenStorageService.LoadTokenIntoMemory();
 
             var accessToken = _tokenService.GetAccessToken();
-            return !string.IsNullOrEmpty(accessToken)
-                ? NavigationService.NavigateAsync("/NavigationPage/HomePage")
-                : NavigationService.NavigateAsync("/NavigationPage/SignupPage");
+
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                await NavigationService.NavigateAsync($"{NavigationConstants.RootNavigationPage}/{NavigationConstants.SignupPage}");
+                return;
+            }
+
+            if (await _tokenValidatorService.HasTokenExpired())
+            {
+                // Update access token if expired
+                if (await _tokenService.UpdateAccessToken())
+                {
+                    await NavigationService.NavigateAsync($"{NavigationConstants.RootNavigationPage}/{NavigationConstants.HomePage}");
+                    return;
+                }
+
+                // Couldn't update access token, so taken them to the sign-up page
+                await NavigationService.NavigateAsync($"{NavigationConstants.RootNavigationPage}/{NavigationConstants.SignupPage}");
+                return;
+            }
+
+            // Access token is all good, take them to home page
+            await NavigationService.NavigateAsync($"{NavigationConstants.RootNavigationPage}/{NavigationConstants.HomePage}");
+            return;
         }
     }
 }

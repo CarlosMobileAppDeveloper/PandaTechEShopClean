@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using PandaTechEShop.Constants;
 using PandaTechEShop.Models.Order;
 using PandaTechEShop.Services;
 using PandaTechEShop.Services.Order;
@@ -71,7 +72,7 @@ namespace PandaTechEShop.ViewModels.Order
             };
 
             SelectedOrder = null;
-            await NavigationService.NavigateAsync("OrderDetailsPage", parameters);
+            await NavigationService.NavigateAsync($"{NavigationConstants.OrderDetailsPage}", parameters);
         }
 
         private Task ExecuteNavigateBackCommandAsync()

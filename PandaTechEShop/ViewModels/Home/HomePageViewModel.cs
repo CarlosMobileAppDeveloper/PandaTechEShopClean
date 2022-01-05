@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using PandaTechEShop.Constants;
 using PandaTechEShop.Models.Category;
 using PandaTechEShop.Models.Product;
 using PandaTechEShop.Services;
@@ -140,7 +141,7 @@ namespace PandaTechEShop.ViewModels.Home
             // Clear selection before navigating
             SelectedProductCategory = null;
 
-            return NavigationService.NavigateAsync("NavigationPage/ProductListPage", parameters, useModalNavigation: true);
+            return NavigationService.NavigateAsync($"{NavigationConstants.NavigationPage}/{NavigationConstants.ProductListPage}", parameters, useModalNavigation: true);
         }
 
         private Task ExecuteViewProductDetailsCommandAsync()
@@ -157,30 +158,30 @@ namespace PandaTechEShop.ViewModels.Home
             };
 
             SelectedProduct = null;
-            return NavigationService.NavigateAsync("NavigationPage/ProductDetailsPage", parameters, useModalNavigation: true);
+            return NavigationService.NavigateAsync($"{NavigationConstants.NavigationPage}/{NavigationConstants.ProductDetailsPage}", parameters, useModalNavigation: true);
         }
 
         private async Task ExecuteViewCartCommandAsync()
         {
-            await NavigationService.NavigateAsync("NavigationPage/ShoppingCartPage", useModalNavigation: true);
+            await NavigationService.NavigateAsync($"{NavigationConstants.NavigationPage}/{NavigationConstants.ShoppingCartPage}", useModalNavigation: true);
             CloseMenu();
         }
 
         private async Task ExecuteContactUsCommandAsync()
         {
-            await NavigationService.NavigateAsync("NavigationPage/ContactUsFormPage", useModalNavigation: true);
+            await NavigationService.NavigateAsync($"{NavigationConstants.NavigationPage}/{NavigationConstants.ContactUsFormPage}", useModalNavigation: true);
             CloseMenu();
         }
 
         private Task ExecuteLogoutCommandAsync()
         {
             _tokenStorageService.DeleteToken();
-            return NavigationService.NavigateAsync("/NavigationPage/SignupPage");
+            return NavigationService.NavigateAsync($"{NavigationConstants.RootNavigationPage}/{NavigationConstants.SignupPage}");
         }
 
         private async Task ExecuteViewOrdersCommandAsync()
         {
-            await NavigationService.NavigateAsync("NavigationPage/OrdersPage", useModalNavigation: true);
+            await NavigationService.NavigateAsync($"{NavigationConstants.NavigationPage}/{NavigationConstants.OrdersPage}", useModalNavigation: true);
             CloseMenu();
         }
     }
