@@ -118,8 +118,8 @@ namespace PandaTechEShop.ViewModels.Account
 
         private bool IsValid()
         {
-            ValidateEmail();
             ForceValidateEmail();
+            ForceValidatePassword();
             return EmailAddress.IsValid && Password.IsValid;
         }
 

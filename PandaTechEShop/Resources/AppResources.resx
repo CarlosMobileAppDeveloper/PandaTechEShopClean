@@ -39,7 +39,7 @@
     <data name="LoadingDialogLoggingInMessage" xml:space="preserve">
         <value>Logging In...</value>
     </data>
-    <data name="SignupBlurbText" xml:space="preserve">
+    <data name="SignupH1BlurbText" xml:space="preserve">
         <value>Create your account</value>
     </data>
     <data name="SignupKeepSignedInText" xml:space="preserve">
@@ -56,5 +56,11 @@
     </data>
     <data name="SignupSignInExistingAccountBlurbText" xml:space="preserve">
         <value>Already have an account? </value>
+    </data>
+    <data name="SignInH1BlurbText" xml:space="preserve">
+        <value>Sign in to your account</value>
+    </data>
+    <data name="SignInButtonText" xml:space="preserve">
+        <value>Sign in</value>
     </data>
 </root>
