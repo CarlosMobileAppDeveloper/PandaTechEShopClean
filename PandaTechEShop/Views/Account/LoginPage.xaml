@@ -6,127 +6,119 @@
     xmlns:converters="clr-namespace:PandaTechEShop.Converters;assembly=PandaTechEShop"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+    xmlns:resources="clr-namespace:PandaTechEShop.Resources;assembly=PandaTechEShop"
+    xmlns:styles="clr-namespace:PandaTechEShop.Styles;assembly=PandaTechEShop"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     Title="{Binding Title}"
     ios:Page.UseSafeArea="True"
-    BackgroundColor="{DynamicResource MainPageBackgroundColor}"
+    BackgroundColor="{DynamicResource LightPrimaryBackgroundColor}"
     NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <styles:MaterialControlStyles />
+            </ResourceDictionary.MergedDictionaries>
             <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
-            <ScrollView Margin="0" Padding="{StaticResource MainPagePadding}">
-                <StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Image
-                            HeightRequest="40"
-                            HorizontalOptions="Start"
-                            Source="leftarrow"
-                            VerticalOptions="Start"
-                            WidthRequest="40">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding NavigateBackCommand}" />
-                            </Image.GestureRecognizers>
-                        </Image>
-                        <Image
-                            HeightRequest="150"
-                            HorizontalOptions="EndAndExpand"
-                            Source="PandaLogo1.png" />
-                    </StackLayout>
+            <!-- Content -->
+            <ScrollView Margin="0">
+                <StackLayout Padding="{StaticResource MainNavigationBarPagePadding}">
+                    
+                    <Image
+                        HeightRequest="100"
+                        HorizontalOptions="CenterAndExpand"
+                        Source="bloblogo.png" />
+                    
                     <Label
-                        Margin="0,20,0,0"
-                        FontAttributes="Bold"
-                        Text="Login">
-                        <Label.FontSize>
-                            <OnIdiom
-                                x:TypeArguments="x:Double"
-                                Phone="24"
-                                Tablet="34" />
-                        </Label.FontSize>
+                        Margin="0,0,0,30"
+                        Style="{StaticResource H1LabelStyle}"
+                        HorizontalOptions="Center"
+                        Text="{x:Static resources:AppResources.SignInH1BlurbText}">
                     </Label>
-                    <Label
-                        Margin="0,0,0,20"
-                        FontSize="Medium"
-                        Text="Please Sign in to continue"
-                        TextColor="{StaticResource LightPrimaryTextSubTitleColor}" />
+
                     <material:MaterialTextField
-                        AlwaysShowUnderline="True"
-                        BackgroundColor="Transparent"
-                        CardBackgroundColor="Transparent"
-                        ErrorColor="Red"
                         ErrorIcon="ic_warning_fill"
                         ErrorText="{Binding EmailAddress.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
                         HasError="{Binding EmailAddress.IsValid, Converter={xct:InvertedBoolConverter}}"
-                        HorizontalPadding="0"
                         InputType="Email"
-                        IsSpellCheckEnabled="False"
-                        IsTextPredictionEnabled="False"
-                        Placeholder="Email"
+                        Placeholder="{x:Static resources:EmailAddressResources.EmailAddressPlaceholderText}"
                         ReturnType="Next"
+                        Style="{StaticResource BaseEntryStyle}"
                         Text="{Binding EmailAddress.Value, Mode=TwoWay}">
                         <material:MaterialTextField.Behaviors>
                             <xct:EventToCommandBehavior Command="{Binding ForceValidateEmailCommand}" EventName="Unfocused" />
                             <xct:EventToCommandBehavior Command="{Binding ValidateEmailCommand}" EventName="TextChanged" />
                         </material:MaterialTextField.Behaviors>
                     </material:MaterialTextField>
-                    <!--<Entry
-                        IsPassword="True"
-                        Placeholder="Password"
-                        Style="{StaticResource SingleLineFormEntryStyle}"
-                        Text="{Binding Password.Value, Mode=TwoWay}" />-->
+
                     <material:MaterialTextField
-                        AlwaysShowUnderline="True"
-                        BackgroundColor="Transparent"
-                        CardBackgroundColor="Transparent"
-                        ErrorColor="Red"
                         ErrorIcon="ic_warning_fill"
                         ErrorText="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
                         HasError="{Binding Password.IsValid, Converter={xct:InvertedBoolConverter}}"
-                        HorizontalPadding="0"
                         InputType="Password"
-                        IsSpellCheckEnabled="False"
-                        IsTextPredictionEnabled="False"
-                        Placeholder="Password"
+                        Placeholder="{x:Static resources:PasswordResources.PasswordPlaceholderText}"
                         ReturnCommand="{Binding LoginCommand}"
                         ReturnType="Go"
+                        Style="{StaticResource BaseEntryStyle}"
                         Text="{Binding Password.Value, Mode=TwoWay}">
                         <material:MaterialTextField.Behaviors>
                             <xct:EventToCommandBehavior Command="{Binding ForceValidatePasswordCommand}" EventName="Unfocused" />
                             <xct:EventToCommandBehavior Command="{Binding ValidatePasswordCommand}" EventName="TextChanged" />
                         </material:MaterialTextField.Behaviors>
                     </material:MaterialTextField>
-                    <Grid Margin="0,40,0,20">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="5.5*" />
-                            <ColumnDefinition Width="4.5*" />
-                        </Grid.ColumnDefinitions>
-                        <Frame
-                            Grid.Column="1"
-                            Padding="15"
-                            BackgroundColor="{StaticResource PrimaryButtonColor}"
-                            CornerRadius="35">
-                            <StackLayout Orientation="Horizontal">
-                                <Label
-                                    FontSize="Medium"
-                                    HorizontalOptions="EndAndExpand"
-                                    Text="LOGIN"
-                                    TextColor="White"
-                                    VerticalOptions="Center" />
-                                <Image
-                                    HeightRequest="30"
-                                    HorizontalOptions="CenterAndExpand"
-                                    Source="rightarrow.png" />
-                            </StackLayout>
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding LoginCommand}" />
-                            </Frame.GestureRecognizers>
-                        </Frame>
-                    </Grid>
+                    
+                    <material:MaterialCheckbox
+                        IsSelected="True"
+                        Style="{StaticResource BaseCheckBoxStyle}"
+                        Text="{x:Static resources:AppResources.SignupKeepSignedInText}" />
+                    
+                    <material:MaterialButton
+                        Command="{Binding LoginCommand}"
+                        Style="{StaticResource BaseButtonStyle}"
+                        Text="{x:Static resources:AppResources.SignInButtonText}"
+                        VerticalOptions="EndAndExpand"/>
                 </StackLayout>
             </ScrollView>
+            
+            <!--  Navigation Bar  -->
+            <Grid 
+                Margin="0" 
+                Padding="10,0" 
+                HeightRequest="60" 
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Start">
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Image
+                    Grid.Column="0"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    Source="close">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateBackCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <!-- <Label -->
+                <!--     x:Name="LblCategoryName" -->
+                <!--     Grid.Column="1" -->
+                <!--     FontAttributes="Bold" -->
+                <!--     FontSize="Large" -->
+                <!--     HorizontalTextAlignment="Center" -->
+                <!--     VerticalTextAlignment="Center" -->
+                <!--     VerticalOptions="CenterAndExpand" -->
+                <!--     Text="{Binding Title}" -->
+                <!--     TextColor="#2C2C2C" /> -->
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

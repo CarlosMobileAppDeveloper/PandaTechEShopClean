@@ -75,7 +75,7 @@ namespace PandaTechEShop.ViewModels.Account
 
             var loadingDialog = await DialogService.ShowLoadingDialogAsync(message: AppResources.LoadingDialogCreatingAccountMessage);
 
-            var response = await _accountService.RegisterUserAsync(string.Empty, EmailAddress.Value, Password.Value);
+            var response = await _accountService.RegisterUserAsync(EmailAddress.Value.ToLower(), EmailAddress.Value.ToLower(), Password.Value);
 
             if (response)
             {
@@ -220,6 +220,11 @@ namespace PandaTechEShop.ViewModels.Account
             EmailAddress = new ValidatableObject<string>();
             Password = new ValidatableObject<string>();
             ConfirmedPassword = new ValidatableObject<string>();
+
+            ForceValidateEmail();
+            ForceValidatePassword();
+            ForceValidatePasswordMatch();
+
             _hasEmailUnFocussed = false;
             _hasPasswordUnFocussed = false;
             _hasPasswordMatchUnFocussed = false;

@@ -8,127 +8,93 @@
     xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:resources="clr-namespace:PandaTechEShop.Resources;assembly=PandaTechEShop"
+    xmlns:styles="clr-namespace:PandaTechEShop.Styles;assembly=PandaTechEShop"
     Title="{Binding Title}"
     ios:Page.UseSafeArea="True"
     BackgroundColor="{DynamicResource LightPrimaryBackgroundColor}"
     NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style x:Key="BaseEntryStyle" TargetType="material:MaterialTextField">
-                <Setter Property="ErrorColor" Value="{StaticResource ErrorColor}" />
-                <Setter Property="TintColor" Value="{StaticResource LightPrimaryColor}" />
-                <Setter Property="PlaceholderColor" Value="{StaticResource LightPrimaryTextSubTitleColor}" />
-                <Setter Property="AlwaysShowUnderline" Value="True" />
-                <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="CardBackgroundColor" Value="Transparent" />
-                <Setter Property="HorizontalPadding" Value="0" />
-                <Setter Property="IsSpellCheckEnabled" Value="False" />
-                <Setter Property="IsTextPredictionEnabled" Value="False" />
-            </Style>
-            <Style x:Key="BaseCheckBoxStyle" TargetType="material:MaterialCheckbox">
-                <Setter Property="TextColor" Value="{StaticResource LightPrimaryTextSubTitleColor}" />
-                <Setter Property="SelectedColor" Value="{StaticResource LightPrimaryColor}" />
-                <Setter Property="UnselectedColor" Value="{StaticResource LightPrimaryTextSubTitleColor}" />
-                <Setter Property="Margin" Value="-16,0,0,-16" />
-                <Setter Property="FontSize" Value="12" />
-            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <styles:MaterialControlStyles />
+            </ResourceDictionary.MergedDictionaries>
             <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
-            <ScrollView Margin="0,20,0,0" Padding="{StaticResource MainPagePadding}">
+            <ScrollView Margin="0,20,0,0">
                 <Grid
                     ColumnSpacing="0"
                     HorizontalOptions="Fill"
-                    RowDefinitions="150, Auto, Auto, Auto, *, Auto"
+                    Padding="{StaticResource MainPagePadding}"
+                    RowDefinitions="130, Auto, Auto, *, Auto"
                     RowSpacing="0"
                     Style="{StaticResource SignUpFormsContentStyle}"
                     VerticalOptions="FillAndExpand">
 
                     <Image
                         Grid.Row="0"
-                        HeightRequest="150"
+                        HeightRequest="100"
                         HorizontalOptions="CenterAndExpand"
-                        Source="PandaLogo1.png"
+                        Source="bloblogo.png"
                         Style="{StaticResource SignUpImageStyle}" />
 
                     <Label
                         Grid.Row="1"
-                        Margin="0,20,0,40"
-                        FontAttributes="Bold"
+                        Margin="0,0,0,30"
+                        Style="{StaticResource H1LabelStyle}"
                         HorizontalOptions="Center"
-                        Text="{x:Static resources:AppResources.SignupBlurbText}">
-                        <Label.FontSize>
-                            <OnIdiom
-                                x:TypeArguments="x:Double"
-                                Phone="24"
-                                Tablet="34" />
-                        </Label.FontSize>
+                        Text="{x:Static resources:AppResources.SignupH1BlurbText}">
                     </Label>
 
-                    <Grid
-                        Grid.Row="2"
-                        Padding="0"
-                        RowDefinitions="*, *, *"
-                        VerticalOptions="StartAndExpand">
+                    <StackLayout Grid.Row="2" Spacing="0">
+                        <material:MaterialTextField
+                            ErrorIcon="ic_warning_fill"
+                            ErrorText="{Binding EmailAddress.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                            HasError="{Binding EmailAddress.IsValid, Converter={xct:InvertedBoolConverter}}"
+                            InputType="Email"
+                            Placeholder="{x:Static resources:EmailAddressResources.EmailAddressPlaceholderText}"
+                            ReturnType="Next"
+                            Style="{StaticResource BaseEntryStyle}"
+                            Text="{Binding EmailAddress.Value, Mode=TwoWay}">
+                            <material:MaterialTextField.Behaviors>
+                                <xct:EventToCommandBehavior Command="{Binding ForceValidateEmailCommand}" EventName="Unfocused" />
+                                <xct:EventToCommandBehavior Command="{Binding ValidateEmailCommand}" EventName="TextChanged" />
+                            </material:MaterialTextField.Behaviors>
+                        </material:MaterialTextField>
 
-                        <StackLayout Grid.Row="0">
-                            <material:MaterialTextField
-                                ErrorIcon="ic_warning_fill"
-                                ErrorText="{Binding EmailAddress.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
-                                HasError="{Binding EmailAddress.IsValid, Converter={xct:InvertedBoolConverter}}"
-                                InputType="Email"
-                                Placeholder="{x:Static resources:EmailAddressResources.EmailAddressPlaceholderText}"
-                                ReturnType="Next"
-                                Style="{StaticResource BaseEntryStyle}"
-                                Text="{Binding EmailAddress.Value, Mode=TwoWay}">
-                                <material:MaterialTextField.Behaviors>
-                                    <xct:EventToCommandBehavior Command="{Binding ForceValidateEmailCommand}" EventName="Unfocused" />
-                                    <xct:EventToCommandBehavior Command="{Binding ValidateEmailCommand}" EventName="TextChanged" />
-                                </material:MaterialTextField.Behaviors>
-                            </material:MaterialTextField>
-                        </StackLayout>
+                        <material:MaterialTextField
+                            ErrorIcon="ic_warning_fill"
+                            ErrorText="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                            HasError="{Binding Password.IsValid, Converter={xct:InvertedBoolConverter}}"
+                            InputType="Password"
+                            Placeholder="{x:Static resources:PasswordResources.PasswordPlaceholderText}"
+                            ReturnType="Next"
+                            Style="{StaticResource BaseEntryStyle}"
+                            Text="{Binding Password.Value, Mode=TwoWay}">
+                            <material:MaterialTextField.Behaviors>
+                                <xct:EventToCommandBehavior Command="{Binding ForceValidatePasswordCommand}" EventName="Unfocused" />
+                                <xct:EventToCommandBehavior Command="{Binding ValidatePasswordCommand}" EventName="TextChanged" />
+                            </material:MaterialTextField.Behaviors>
+                        </material:MaterialTextField>
 
-                        <StackLayout Grid.Row="1">
-                            <material:MaterialTextField
-                                x:Name="PasswordEntry"
-                                ErrorIcon="ic_warning_fill"
-                                ErrorText="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
-                                HasError="{Binding Password.IsValid, Converter={xct:InvertedBoolConverter}}"
-                                InputType="Password"
-                                Placeholder="{x:Static resources:PasswordResources.PasswordPlaceholderText}"
-                                ReturnType="Next"
-                                Style="{StaticResource BaseEntryStyle}"
-                                Text="{Binding Password.Value, Mode=TwoWay}">
-                                <material:MaterialTextField.Behaviors>
-                                    <xct:EventToCommandBehavior Command="{Binding ForceValidatePasswordCommand}" EventName="Unfocused" />
-                                    <xct:EventToCommandBehavior Command="{Binding ValidatePasswordCommand}" EventName="TextChanged" />
-                                </material:MaterialTextField.Behaviors>
-                            </material:MaterialTextField>
-                        </StackLayout>
-
-                        <StackLayout Grid.Row="2">
-                            <material:MaterialTextField
-                                ErrorIcon="ic_warning_fill"
-                                ErrorText="{Binding ConfirmedPassword.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
-                                HasError="{Binding ConfirmedPassword.IsValid, Converter={xct:InvertedBoolConverter}}"
-                                InputType="Password"
-                                Placeholder="{x:Static resources:PasswordResources.PasswordConfirmPlaceholderText}"
-                                ReturnCommand="{Binding SignUpCommand}"
-                                ReturnType="Go"
-                                Style="{StaticResource BaseEntryStyle}"
-                                Text="{Binding ConfirmedPassword.Value, Mode=TwoWay}">
-                                <material:MaterialTextField.Behaviors>
-                                    <xct:EventToCommandBehavior Command="{Binding ForceValidatePasswordMatchCommand}" EventName="Unfocused" />
-                                    <xct:EventToCommandBehavior Command="{Binding ValidatePasswordMatchCommand}" EventName="TextChanged" />
-                                </material:MaterialTextField.Behaviors>
-                            </material:MaterialTextField>
-
-                        </StackLayout>
-                    </Grid>
-
-                    <StackLayout Grid.Row="3" Spacing="0">
+                        <material:MaterialTextField
+                            ErrorIcon="ic_warning_fill"
+                            ErrorText="{Binding ConfirmedPassword.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                            HasError="{Binding ConfirmedPassword.IsValid, Converter={xct:InvertedBoolConverter}}"
+                            InputType="Password"
+                            Placeholder="{x:Static resources:PasswordResources.PasswordConfirmPlaceholderText}"
+                            ReturnCommand="{Binding SignUpCommand}"
+                            ReturnType="Go"
+                            Style="{StaticResource BaseEntryStyle}"
+                            Text="{Binding ConfirmedPassword.Value, Mode=TwoWay}">
+                            <material:MaterialTextField.Behaviors>
+                                <xct:EventToCommandBehavior Command="{Binding ForceValidatePasswordMatchCommand}" EventName="Unfocused" />
+                                <xct:EventToCommandBehavior Command="{Binding ValidatePasswordMatchCommand}" EventName="TextChanged" />
+                            </material:MaterialTextField.Behaviors>
+                        </material:MaterialTextField>    
+                        
                         <material:MaterialCheckbox
                             IsSelected="True"
                             Style="{StaticResource BaseCheckBoxStyle}"
@@ -139,53 +105,17 @@
                             Style="{StaticResource BaseCheckBoxStyle}"
                             Text="{x:Static resources:AppResources.SignupAllowMarketingText}" />
                     </StackLayout>
-
+                    
                     <material:MaterialButton
-                        Grid.Row="4"
-                        AllCaps="True"
-                        BackgroundColor="{StaticResource LightPrimaryColor}"
+                        Grid.Row="3"
                         Command="{Binding SignUpCommand}"
-                        Elevation="4, 8"
-                        HeightRequest="60"
-                        HorizontalOptions="FillAndExpand"
+                        Style="{StaticResource BaseButtonStyle}"
                         Text="{x:Static resources:AppResources.SignupButtonText}"
-                        TextColor="{StaticResource PrimaryButtonTextColor}"
                         VerticalOptions="End" />
 
-                    <!--<Grid
-                        Grid.Row="4"
-                        Margin="0,20,0,20"
-                        VerticalOptions="Start">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="5.5*" />
-                            <ColumnDefinition Width="4.5*" />
-                        </Grid.ColumnDefinitions>
-                        <Frame
-                            Grid.Column="1"
-                            Padding="15"
-                            BackgroundColor="{StaticResource PrimaryButtonColor}"
-                            CornerRadius="35">
-                            <StackLayout Orientation="Horizontal">
-                                <Label
-                                    FontSize="Medium"
-                                    HorizontalOptions="EndAndExpand"
-                                    Text="SIGN UP"
-                                    TextColor="{StaticResource PrimaryButtonTextColor}"
-                                    VerticalOptions="Center" />
-                                <Image
-                                    HeightRequest="30"
-                                    HorizontalOptions="CenterAndExpand"
-                                    Source="rightarrow.png" />
-                            </StackLayout>
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SignUpCommand}" />
-                            </Frame.GestureRecognizers>
-                        </Frame>
-                    </Grid>-->
-
                     <Label
-                        Grid.Row="5"
-                        Margin="0,20"
+                        Grid.Row="4"
+                        Margin="0,20,0,0"
                         HorizontalOptions="Center"
                         VerticalOptions="End">
                         <Label.FormattedText>

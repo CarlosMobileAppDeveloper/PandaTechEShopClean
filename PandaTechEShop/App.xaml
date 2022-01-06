@@ -10,10 +10,15 @@
     xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms">
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries />
             
             <!--  UNITS CARL  -->
             <x:Double x:Key="BaseFontSize">14</x:Double>
+            <!-- FONT SIZES PHONE -->
+            <x:Double x:Key="H1FontSize">24</x:Double>
+            <x:Double x:Key="Body1FontSize">14</x:Double>
+            <x:Double x:Key="Body2FontSize">12</x:Double>
+            <!-- FONT SIZES Tablet -->
+            <x:Double x:Key="H1TabletFontSize">34</x:Double>
 
             <!--  LIGHT COLOURS CARL  -->
             <Color x:Key="LightPrimaryBackgroundColor">#ffffff</Color>
@@ -31,6 +36,24 @@
             <Color x:Key="ErrorColor">#e63200</Color>
 
             <Color x:Key="SurfaceColor">#f5f4f4</Color>
+            <Color x:Key="LightPrimaryNavBarBackgroundColor">#ffffff</Color>
+            
+            <!--  RESPONSIVE COMMON CARL  -->
+            <OnIdiom x:Key="MainPagePadding" x:TypeArguments="Thickness">
+                <OnIdiom.Phone>20,0,20,20</OnIdiom.Phone>
+                <OnIdiom.Tablet>100,0,100,20</OnIdiom.Tablet>
+            </OnIdiom>
+            
+            <OnIdiom x:Key="MainNavigationBarPagePadding" x:TypeArguments="Thickness">
+                <OnIdiom.Phone>20,60,20,20</OnIdiom.Phone>
+                <OnIdiom.Tablet>100,60,100,20</OnIdiom.Tablet>
+            </OnIdiom>
+            
+            
+            
+            <OnIdiom x:Key="H1LabelFontSize" x:TypeArguments="x:Double" Phone="{StaticResource H1FontSize}" Tablet="{StaticResource H1TabletFontSize}" />
+
+            
 
             <!--  BASE STYLES Carl  -->
             <Style TargetType="Label">
@@ -40,17 +63,19 @@
             <Style TargetType="Entry">
                 <Setter Property="TextColor" Value="{StaticResource LightPrimaryTextColor}" />
             </Style>
-
-            <!--  RESPONSIVE COMMON CARL  -->
-            <OnIdiom x:Key="MainPagePadding" x:TypeArguments="Thickness">
-                <OnIdiom.Phone>20,0,20,0</OnIdiom.Phone>
-                <OnIdiom.Tablet>100,0,100,0</OnIdiom.Tablet>
-            </OnIdiom>
-
+            
+            <!-- LABEL STYLES Carl -->
+            <Style x:Key="H1LabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource LightPrimaryTextColor}" />
+                <Setter Property="FontSize" Value="{StaticResource H1LabelFontSize}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+            
+            
             <Style x:Key="SignUpFormsContentStyle" TargetType="Layout">
                 <Setter Property="Padding" Value="{helpers:OnOrientationThickness PortraitPhone='0,10,0,20', LandscapePhone='30,10,30,30', PortraitTablet=0, LandscapeTablet=0}" />
             </Style>
-
+            
             <Style x:Key="SignUpImageStyle" TargetType="Layout">
                 <Setter Property="Margin" Value="{helpers:OnOrientationThickness PortraitPhone='0,-10,-17,0', LandscapePhone='0,-10,-47,0', PortraitTablet='0,0,-17,0', LandscapeTablet='0,0,-17,0'}" />
             </Style>
@@ -60,23 +85,23 @@
                 <Setter Property="ErrorColor" Value="{StaticResource LightPrimaryTextColor}" />
             </Style>-->
             
-        </ResourceDictionary>
-        
-        <mtrl:MaterialColorConfiguration
-            x:Key="Material.Color"
-            Background="{StaticResource LightPrimaryBackgroundColor}"
-            Error="{StaticResource ErrorColor}"
-            OnBackground="#2C2C2C"
-            OnError="#FFFFFF"
-            OnPrimary="#FFFFFF"
-            OnSecondary="#FFFFFF"
-            OnSurface="#2C2C2C"
-            Primary="{StaticResource LightPrimaryColor}"
-            PrimaryVariant="{StaticResource LightPrimaryColorDark}"
-            Secondary="{StaticResource LightSecondaryColor}"
-            SecondaryVariant="{StaticResource LightSecondaryColorDark}"
-            Surface="{StaticResource SurfaceColor}" />
+            <mtrl:MaterialColorConfiguration
+                x:Key="Material.Color"
+                Background="{StaticResource LightPrimaryBackgroundColor}"
+                Error="{StaticResource ErrorColor}"
+                OnBackground="#2C2C2C"
+                OnError="#FFFFFF"
+                OnPrimary="#FFFFFF"
+                OnSecondary="#FFFFFF"
+                OnSurface="#2C2C2C"
+                Primary="{StaticResource LightPrimaryColor}"
+                PrimaryVariant="{StaticResource LightPrimaryColorDark}"
+                Secondary="{StaticResource LightSecondaryColor}"
+                SecondaryVariant="{StaticResource LightSecondaryColorDark}"
+                Surface="{StaticResource SurfaceColor}" />
 
-        <mtrl:MaterialConfiguration x:Key="Material.Configuration" ColorConfiguration="{StaticResource Material.Color}" />
+            <mtrl:MaterialConfiguration x:Key="Material.Configuration" ColorConfiguration="{StaticResource Material.Color}" />
+            
+        </ResourceDictionary>
     </Application.Resources>
 </prism:PrismApplication>

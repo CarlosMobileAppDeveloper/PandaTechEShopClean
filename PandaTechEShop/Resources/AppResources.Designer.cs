@@ -115,6 +115,24 @@ namespace PandaTechEShop.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sign in.
+        /// </summary>
+        internal static string SignInButtonText {
+            get {
+                return ResourceManager.GetString("SignInButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign in to your account.
+        /// </summary>
+        internal static string SignInH1BlurbText {
+            get {
+                return ResourceManager.GetString("SignInH1BlurbText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email me about special pricing deals.
         /// </summary>
         internal static string SignupAllowMarketingText {
@@ -124,20 +142,20 @@ namespace PandaTechEShop.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create your account.
-        /// </summary>
-        internal static string SignupBlurbText {
-            get {
-                return ResourceManager.GetString("SignupBlurbText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Create Account.
         /// </summary>
         internal static string SignupButtonText {
             get {
                 return ResourceManager.GetString("SignupButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create your account.
+        /// </summary>
+        internal static string SignupH1BlurbText {
+            get {
+                return ResourceManager.GetString("SignupH1BlurbText", resourceCulture);
             }
         }
         
