@@ -23,29 +23,17 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
-            <ScrollView Margin="0" Padding="{StaticResource MainPagePadding}">
-                <StackLayout>
-                    <!-- TODO Nav Bar should be put somewhere else... -->
-                    <StackLayout Orientation="Horizontal">
-                        <Image
-                            HeightRequest="40"
-                            HorizontalOptions="Start"
-                            Source="leftarrow"
-                            VerticalOptions="Start"
-                            WidthRequest="40">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding NavigateBackCommand}" />
-                            </Image.GestureRecognizers>
-                        </Image>
-                    </StackLayout>
+            <!-- Content -->
+            <ScrollView Margin="0">
+                <StackLayout Padding="{StaticResource MainNavigationBarPagePadding}">
                     
                     <Image
-                        HeightRequest="150"
+                        HeightRequest="100"
                         HorizontalOptions="CenterAndExpand"
-                        Source="PandaLogo1.png" />
+                        Source="bloblogo.png" />
                     
                     <Label
-                        Margin="0,20,0,40"
+                        Margin="0,0,0,30"
                         Style="{StaticResource H1LabelStyle}"
                         HorizontalOptions="Center"
                         Text="{x:Static resources:AppResources.SignInH1BlurbText}">
@@ -94,6 +82,41 @@
                         VerticalOptions="EndAndExpand"/>
                 </StackLayout>
             </ScrollView>
+            
+            <!--  Navigation Bar  -->
+            <Grid 
+                Margin="0" 
+                Padding="10,0" 
+                HeightRequest="60" 
+                VerticalOptions="Start">
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Image
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    Source="close">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateBackCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <!-- <Label -->
+                <!--     x:Name="LblCategoryName" -->
+                <!--     Grid.Column="1" -->
+                <!--     FontAttributes="Bold" -->
+                <!--     FontSize="Large" -->
+                <!--     HorizontalTextAlignment="Center" -->
+                <!--     VerticalTextAlignment="Center" -->
+                <!--     VerticalOptions="CenterAndExpand" -->
+                <!--     Text="{Binding Title}" -->
+                <!--     TextColor="#2C2C2C" /> -->
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -11,6 +11,7 @@
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="CardBackgroundColor" Value="Transparent" />
         <Setter Property="HorizontalPadding" Value="0" />
+        <Setter Property="Padding" Value="0,0,0,5" />
         <Setter Property="IsSpellCheckEnabled" Value="False" />
         <Setter Property="IsTextPredictionEnabled" Value="False" />
     </Style>
@@ -27,7 +28,7 @@
         <Setter Property="BackgroundColor" Value="{StaticResource LightPrimaryColor}" />
         <Setter Property="Elevation" Value="4, 8" />
         <Setter Property="HeightRequest" Value="60" />
-        <Setter Property="Margin" Value="0,0" />
+        <Setter Property="Margin" Value="-5,0" />
         <Setter Property="HorizontalOptions" Value="FillAndExpand" />
     </Style>
 </ResourceDictionary>

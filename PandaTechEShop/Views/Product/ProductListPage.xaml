@@ -34,6 +34,8 @@
                     FontAttributes="Bold"
                     FontSize="Large"
                     HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center"
+                    VerticalOptions="CenterAndExpand"
                     Text="{Binding Title}"
                     TextColor="#2C2C2C" />
             </Grid>

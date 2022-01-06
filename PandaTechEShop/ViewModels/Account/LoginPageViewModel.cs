@@ -12,6 +12,7 @@ using PandaTechEShop.Exceptions;
 using Prism.Commands;
 using XF.Material.Forms.UI.Dialogs;
 using PandaTechEShop.Helpers;
+using PandaTechEShop.Resources;
 
 namespace PandaTechEShop.ViewModels.Account
 {
@@ -66,8 +67,7 @@ namespace PandaTechEShop.ViewModels.Account
             IMaterialModalPage loadingDialog = null;
             try
             {
-                // TODO - Fix me to use common spot for text
-                loadingDialog = await DialogService.ShowLoadingDialogAsync("Logging In...");
+                loadingDialog = await DialogService.ShowLoadingDialogAsync(AppResources.LoadingDialogLoggingInMessage);
 
                 var response = await _accountService.LoginAsync(EmailAddress.Value, Password.Value);
 
@@ -80,7 +80,7 @@ namespace PandaTechEShop.ViewModels.Account
                 }
                 else
                 {
-                    await DialogService.ShowSnackbarAsync(message: "Failed to login.");
+                    await DialogService.ShowSnackbarAsync(message: AppResources.LoginFailedUnknownErrorMessage);
                 }
             }
             catch (ServiceAuthenticationException ex)
@@ -93,7 +93,7 @@ namespace PandaTechEShop.ViewModels.Account
                 }
 
                 await DialogService.ShowSnackbarAsync(
-                    message: "Authentication failed. Please check your username and password.");
+                    message: AppResources.AuthenticationFailureErrorMessage);
             }
             catch (Exception ex)
             {
@@ -103,17 +103,18 @@ namespace PandaTechEShop.ViewModels.Account
                     await loadingDialog.DismissAsync();
                 }
 
-                await DialogService.ShowSnackbarAsync(message: "Something went wrong. Please try again later.");
+                await DialogService.ShowSnackbarAsync(message: AppResources.UnkownGenericErrorMessage);
             }
         }
 
         private void AddValidations()
         {
-            EmailAddress.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "An email is required." });
-            EmailAddress.Validations.Add(new EmailValidationRule<string> { ValidationMessage = "Invalid email address." });
+            EmailAddress.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = EmailAddressResources.EmailAddressEmptyValidationErrorMessage });
+            EmailAddress.Validations.Add(new EmailValidationRule<string> { ValidationMessage = EmailAddressResources.EmailAddressInvalidValidationErrorMessage });
 
-            Password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "A password is required." });
-            Password.Validations.Add(new TextValidationRule<string> { ValidationMessage = "Password minimum length is 8", ValidationRuleType = TextValidationRuleType.MinimumLength, MinimumLength = 8 });
+            Password.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = PasswordResources.PasswordEmptyValidationErrorMessage });
+            // TODO Fix validation messages to be more dynamic
+            Password.Validations.Add(new TextValidationRule<string> { ValidationMessage = PasswordResources.PasswordMinLengthValidationErrorMessage, ValidationRuleType = TextValidationRuleType.MinimumLength, MinimumLength = 8 });
         }
 
         private bool IsValid()
@@ -156,6 +157,8 @@ namespace PandaTechEShop.ViewModels.Account
         {
             EmailAddress = new ValidatableObject<string>();
             Password = new ValidatableObject<string>();
+            ForceValidateEmail();
+            ForceValidatePassword();
             AddValidations();
         }
     }

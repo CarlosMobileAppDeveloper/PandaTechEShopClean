@@ -86,6 +86,9 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bloblogo.png" />
+    <AndroidResource Include="Resources\drawable\bloblogo2.png" />
+    <AndroidResource Include="Resources\drawable\close.xml" />
     <AndroidResource Include="Resources\values\styles.xml" />
     <AndroidResource Include="Resources\values\colors.xml" />
     <AndroidResource Include="Resources\mipmap-anydpi-v26\icon.xml" />

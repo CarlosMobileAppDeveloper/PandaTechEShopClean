@@ -23,25 +23,26 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
-            <ScrollView Margin="0,20,0,0" Padding="{StaticResource MainPagePadding}">
+            <ScrollView Margin="0,20,0,0">
                 <Grid
                     ColumnSpacing="0"
                     HorizontalOptions="Fill"
-                    RowDefinitions="150, Auto, Auto, *, Auto"
+                    Padding="{StaticResource MainPagePadding}"
+                    RowDefinitions="130, Auto, Auto, *, Auto"
                     RowSpacing="0"
                     Style="{StaticResource SignUpFormsContentStyle}"
                     VerticalOptions="FillAndExpand">
 
                     <Image
                         Grid.Row="0"
-                        HeightRequest="150"
+                        HeightRequest="100"
                         HorizontalOptions="CenterAndExpand"
-                        Source="PandaLogo1.png"
+                        Source="bloblogo.png"
                         Style="{StaticResource SignUpImageStyle}" />
 
                     <Label
                         Grid.Row="1"
-                        Margin="0,20,0,40"
+                        Margin="0,0,0,30"
                         Style="{StaticResource H1LabelStyle}"
                         HorizontalOptions="Center"
                         Text="{x:Static resources:AppResources.SignupH1BlurbText}">

@@ -220,6 +220,11 @@ namespace PandaTechEShop.ViewModels.Account
             EmailAddress = new ValidatableObject<string>();
             Password = new ValidatableObject<string>();
             ConfirmedPassword = new ValidatableObject<string>();
+
+            ForceValidateEmail();
+            ForceValidatePassword();
+            ForceValidatePasswordMatch();
+
             _hasEmailUnFocussed = false;
             _hasPasswordUnFocussed = false;
             _hasPasswordMatchUnFocussed = false;

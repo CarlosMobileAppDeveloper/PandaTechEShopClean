@@ -43,6 +43,13 @@
                 <OnIdiom.Tablet>100,0,100,20</OnIdiom.Tablet>
             </OnIdiom>
             
+            <OnIdiom x:Key="MainNavigationBarPagePadding" x:TypeArguments="Thickness">
+                <OnIdiom.Phone>20,60,20,20</OnIdiom.Phone>
+                <OnIdiom.Tablet>100,60,100,20</OnIdiom.Tablet>
+            </OnIdiom>
+            
+            
+            
             <OnIdiom x:Key="H1LabelFontSize" x:TypeArguments="x:Double" Phone="{StaticResource H1FontSize}" Tablet="{StaticResource H1TabletFontSize}" />
 
             
