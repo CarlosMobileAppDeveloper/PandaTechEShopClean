@@ -88,6 +88,7 @@
                 Margin="0" 
                 Padding="10,0" 
                 HeightRequest="60" 
+                HorizontalOptions="FillAndExpand"
                 VerticalOptions="Start">
                 
                 <Grid.RowDefinitions>
@@ -100,7 +101,8 @@
                 </Grid.ColumnDefinitions>
                 <Image
                     Grid.Column="0"
-                    HorizontalOptions="Center"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
                     Source="close">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigateBackCommand}" />

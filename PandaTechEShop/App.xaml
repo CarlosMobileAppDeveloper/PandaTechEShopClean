@@ -36,6 +36,7 @@
             <Color x:Key="ErrorColor">#e63200</Color>
 
             <Color x:Key="SurfaceColor">#f5f4f4</Color>
+            <Color x:Key="LightPrimaryNavBarBackgroundColor">#ffffff</Color>
             
             <!--  RESPONSIVE COMMON CARL  -->
             <OnIdiom x:Key="MainPagePadding" x:TypeArguments="Thickness">
