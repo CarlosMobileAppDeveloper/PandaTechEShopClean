@@ -15,10 +15,14 @@
             <x:Double x:Key="BaseFontSize">14</x:Double>
             <!-- FONT SIZES PHONE -->
             <x:Double x:Key="H1FontSize">24</x:Double>
+            <x:Double x:Key="H2FontSize">20</x:Double>
             <x:Double x:Key="Body1FontSize">14</x:Double>
             <x:Double x:Key="Body2FontSize">12</x:Double>
             <!-- FONT SIZES Tablet -->
             <x:Double x:Key="H1TabletFontSize">34</x:Double>
+            <x:Double x:Key="H2TabletFontSize">30</x:Double>
+            
+            <x:Double x:Key="PageSidePadding">20</x:Double>
 
             <!--  LIGHT COLOURS CARL  -->
             <Color x:Key="LightPrimaryBackgroundColor">#ffffff</Color>
@@ -49,11 +53,20 @@
                 <OnIdiom.Tablet>100,60,100,20</OnIdiom.Tablet>
             </OnIdiom>
             
+            <OnIdiom x:Key="MainNavigationBarPageCollectionViewPadding" x:TypeArguments="Thickness">
+                <OnIdiom.Phone>0,0,0,20</OnIdiom.Phone>
+                <OnIdiom.Tablet>100,60,100,20</OnIdiom.Tablet>
+            </OnIdiom>
+            
+            <!-- <OnIdiom x:Key="CollectionViewContentPadding" x:TypeArguments="Thickness"> -->
+            <!--     <OnIdiom.Phone>20,0,20,20</OnIdiom.Phone> -->
+            <!--     <OnIdiom.Tablet>100,60,100,20</OnIdiom.Tablet> -->
+            <!-- </OnIdiom> -->
+            
             
             
             <OnIdiom x:Key="H1LabelFontSize" x:TypeArguments="x:Double" Phone="{StaticResource H1FontSize}" Tablet="{StaticResource H1TabletFontSize}" />
-
-            
+            <OnIdiom x:Key="H2LabelFontSize" x:TypeArguments="x:Double" Phone="{StaticResource H2FontSize}" Tablet="{StaticResource H2TabletFontSize}" />
 
             <!--  BASE STYLES Carl  -->
             <Style TargetType="Label">
@@ -70,6 +83,24 @@
                 <Setter Property="FontSize" Value="{StaticResource H1LabelFontSize}" />
                 <Setter Property="FontAttributes" Value="Bold" />
             </Style>
+            
+            <Style x:Key="H2LabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource LightPrimaryTextColor}" />
+                <Setter Property="FontSize" Value="{StaticResource H2LabelFontSize}" />
+            </Style>
+            
+            <!-- Label Buttons Styles -->
+            <Style x:Key="PrimaryLabelButtonStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource PrimaryButtonColor}" />
+                <Setter Property="FontSize" Value="{StaticResource Body1FontSize}" />
+            </Style>
+            <Style x:Key="SecondaryLabelButtonStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource LightSecondaryColor}" />
+                <Setter Property="FontSize" Value="{StaticResource Body1FontSize}" />
+            </Style>
+                
+            
+            
             
             
             <Style x:Key="SignUpFormsContentStyle" TargetType="Layout">

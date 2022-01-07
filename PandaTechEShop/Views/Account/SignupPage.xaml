@@ -113,6 +113,7 @@
                         Text="{x:Static resources:AppResources.SignupButtonText}"
                         VerticalOptions="End" />
 
+                    <!-- TODO Fix the styling of this -->
                     <Label
                         Grid.Row="4"
                         Margin="0,20,0,0"

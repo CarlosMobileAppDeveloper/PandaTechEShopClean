@@ -90,6 +90,7 @@
     <None Remove="Microsoft.Extensions.Caching.Memory" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Controls\Templates" />
     <Folder Include="Views\" />
     <Folder Include="ViewModels\" />
     <Folder Include="ViewModels\Base\" />

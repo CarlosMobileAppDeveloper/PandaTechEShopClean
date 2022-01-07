@@ -36,8 +36,7 @@
                         Margin="0,0,0,30"
                         Style="{StaticResource H1LabelStyle}"
                         HorizontalOptions="Center"
-                        Text="{x:Static resources:AppResources.SignInH1BlurbText}">
-                    </Label>
+                        Text="{x:Static resources:AppResources.SignInH1BlurbText}" />
 
                     <material:MaterialTextField
                         ErrorIcon="ic_warning_fill"
@@ -83,7 +82,7 @@
                 </StackLayout>
             </ScrollView>
             
-            <!--  Navigation Bar  -->
+            <!-- Floating Navigation Bar  -->
             <Grid 
                 Margin="0" 
                 Padding="10,0" 

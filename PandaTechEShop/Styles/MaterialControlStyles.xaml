@@ -25,10 +25,14 @@
     <Style x:Key="BaseButtonStyle" TargetType="material:MaterialButton">
         <Setter Property="AllCaps" Value="True" />
         <Setter Property="TextColor" Value="{StaticResource PrimaryButtonTextColor}" />
-        <Setter Property="BackgroundColor" Value="{StaticResource LightPrimaryColor}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource PrimaryButtonColor}" />
         <Setter Property="Elevation" Value="4, 8" />
         <Setter Property="HeightRequest" Value="60" />
         <Setter Property="Margin" Value="-5,0" />
         <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+    </Style>
+    <Style x:Key="BaseTextButtonStyle" TargetType="material:MaterialButton">
+        <Setter Property="TextColor" Value="{StaticResource PrimaryButtonColor}" />
+        <Setter Property="ButtonType" Value="Text" />
     </Style>
 </ResourceDictionary>

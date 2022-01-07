@@ -3,18 +3,302 @@
     x:Class="PandaTechEShop.Views.Home.HomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:helpers="clr-namespace:PandaTechEShop.Helpers;assembly=PandaTechEShop"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+    xmlns:styles="clr-namespace:PandaTechEShop.Styles;assembly=PandaTechEShop"
     Title="{Binding Title}"
     ios:Page.UseSafeArea="True"
     BackgroundColor="{DynamicResource LightPrimaryBackgroundColor}"
     NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <styles:MaterialControlStyles />
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Key="evenTemplate">
+                <StackLayout Spacing="0">
+                    <Frame
+                        Padding="15"
+                        Margin="20,0,20,0"
+                        CornerRadius="15"
+                        BackgroundColor="#FCFCFC"
+                        HasShadow="False">
+                        <StackLayout Orientation="Vertical" Spacing="5" Padding="0">
+                            <Frame
+                                Margin="0"
+                                HorizontalOptions="FillAndExpand"
+                                CornerRadius="15"
+                                HasShadow="False">
+                                <Image
+                                    Aspect="Fill"
+                                    HeightRequest="100"
+                                    Source="{Binding FullImageUrl}" />
+                            </Frame>
+                            <Label Text="{Binding Name}" TextColor="#2C2C2C" />
+                            <Label Text="{Binding Price, StringFormat='${0}'}" TextColor="{StaticResource LightSecondaryColor}" />
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </DataTemplate>
+            <DataTemplate x:Key="unevenTemplate">
+                <StackLayout Spacing="0">
+                    <Frame
+                        Padding="15"
+                        Margin="0,0,20,0"
+                        CornerRadius="15"
+                        BackgroundColor="#FCFCFC"
+                        HasShadow="False">
+                        <StackLayout Orientation="Vertical" Spacing="5" Padding="0">
+                            <Frame
+                                Margin="0"
+                                HorizontalOptions="FillAndExpand"
+                                CornerRadius="15"
+                                HasShadow="False">
+                                <Image
+                                    Aspect="Fill"
+                                    HeightRequest="100"
+                                    Source="{Binding FullImageUrl}" />
+                            </Frame>
+                            <Label Text="{Binding Name}" TextColor="#2C2C2C" />
+                            <Label Text="{Binding Price, StringFormat='${0}'}" TextColor="{StaticResource LightSecondaryColor}" />
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </DataTemplate>
+            <helpers:AlternateMarginDataTemplateSelector x:Key="alternateMarginDataTemplateSelector"
+                                                         EvenTemplate="{StaticResource evenTemplate}"
+                                                         UnevenTemplate="{StaticResource unevenTemplate}" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
-            <!--  Navigation Bar  -->
+            <!--  Main Content  -->
+            <ScrollView Margin="0">
+                <StackLayout Padding="{StaticResource MainNavigationBarPageCollectionViewPadding}">
+                    <CollectionView
+                        x:Name="CvProducts"
+                        ItemsSource="{Binding TrendingProducts}"
+                        ItemTemplate="{StaticResource alternateMarginDataTemplateSelector}"
+                        SelectedItem="{Binding SelectedProduct}"
+                        SelectionChangedCommand="{Binding ViewProductDetailsCommand}"
+                        SelectionMode="Single">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout
+                                HorizontalItemSpacing="0"
+                                Orientation="Vertical"
+                                Span="2"
+                                VerticalItemSpacing="20" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.Header>
+                            <StackLayout Padding="0, 60, 0, 0" Margin="0">
+                                <StackLayout Margin="20,10,20,20" Orientation="Horizontal">
+                                    <Label
+                                        Style="{StaticResource H2LabelStyle}"
+                                        HorizontalOptions="StartAndExpand"
+                                        VerticalTextAlignment="End"
+                                        Text="New Arrivals" />
+                                    
+                                    <Label
+                                        Style="{StaticResource PrimaryLabelButtonStyle}"
+                                        Text="See All"
+                                        HorizontalOptions="End"
+                                        VerticalTextAlignment="End">
+                                        <!-- <Label.GestureRecognizers> -->
+                                        <!--     <TapGestureRecognizer Command="{Binding ViewAllNewArrivalsCommand}" /> -->
+                                        <!-- </Label.GestureRecognizers> -->
+                                    </Label>
+                                </StackLayout>
+                                <CollectionView
+                                    x:Name="CvCategories"
+                                    HeightRequest="200"
+                                    ItemsSource="{Binding Categories}"
+                                    SelectedItem="{Binding SelectedProductCategory, Mode=TwoWay}"
+                                    SelectionChangedCommand="{Binding ViewProductForCategoryCommand}"
+                                    SelectionMode="Single">
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout Orientation="Horizontal"/>
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.Header>
+                                        <Grid WidthRequest="10" Margin="0" />
+                                    </CollectionView.Header>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Frame
+                                                    Margin="10,0,10,0"
+                                                    Padding="0"
+                                                    CornerRadius="15"
+                                                    BackgroundColor="#FCFCFC"
+                                                    HasShadow="False">
+                                                    <StackLayout Orientation="Vertical">
+                                                        <Frame
+                                                            Padding="0"
+                                                            BackgroundColor="#D6D6D6"
+                                                            HeightRequest="150"
+                                                            HorizontalOptions="Center"
+                                                            HasShadow="False"
+                                                            IsClippedToBounds="True"
+                                                            WidthRequest="300">
+                                                            <Image
+                                                                Aspect="AspectFit"
+                                                                HorizontalOptions="FillAndExpand"
+                                                                Source="{Binding FullImageUrl}"
+                                                                VerticalOptions="FillAndExpand" />
+                                                        </Frame>
+                                                        <Label
+                                                            FontSize="Medium"
+                                                            HorizontalTextAlignment="Center"
+                                                            Text="{Binding Name}"
+                                                            TextColor="#2C2C2C" />
+                                                    </StackLayout>
+                                                </Frame>
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                                
+                                <StackLayout Margin="20,10,20,20" Orientation="Horizontal">
+                                    <Label
+                                        Style="{StaticResource H2LabelStyle}"
+                                        VerticalOptions="EndAndExpand"
+                                        HorizontalOptions="StartAndExpand"
+                                        VerticalTextAlignment="End"
+                                        Text="By Categories" />
+                        
+                                    <Label
+                                        Style="{StaticResource PrimaryLabelButtonStyle}"
+                                        Text="See All"
+                                        HorizontalOptions="End"
+                                        VerticalTextAlignment="End">
+                                        <!-- <Label.GestureRecognizers> -->
+                                        <!--     <TapGestureRecognizer Command="{Binding ViewAllNewArrivalsCommand}" /> -->
+                                        <!-- </Label.GestureRecognizers> -->
+                                    </Label>
+                                </StackLayout>
+                                <CollectionView
+                                    HeightRequest="70"
+                                    ItemsSource="{Binding Categories}"
+                                    SelectedItem="{Binding SelectedProductCategory, Mode=TwoWay}"
+                                    SelectionChangedCommand="{Binding ViewProductForCategoryCommand}"
+                                    Margin="0, 0, 0, 10"
+                                    SelectionMode="Single">
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout Orientation="Horizontal"/>
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.Header>
+                                        <Grid WidthRequest="10" Margin="0" />
+                                    </CollectionView.Header>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout Orientation="Horizontal">
+                                                <!-- <material:MaterialChip  -->
+                                                <!--     BackgroundColor="#F2F2F2"  -->
+                                                <!--     Text="{Binding Name}" -->
+                                                <!--     HeightRequest="80" -->
+                                                <!--     TextColor="#DE000000" /> -->
+                                                
+                                                <material:MaterialCard 
+                                                    CornerRadius="15" 
+                                                    Margin="10,0,10,0"
+                                                    BackgroundColor="#FAFAFA"
+                                                    Padding="40,0"
+                                                    Elevation="0">
+                                                    <Label
+                                                        FontSize="{StaticResource Body1FontSize}"
+                                                        HorizontalOptions="CenterAndExpand"
+                                                        VerticalOptions="CenterAndExpand"
+                                                        HorizontalTextAlignment="Center" 
+                                                        Text="{Binding Name}" 
+                                                        TextColor="#B5B5B5" /> 
+                                                </material:MaterialCard>
+                                                <!-- <Frame -->
+                                                <!--     Margin="15,0,15,0" -->
+                                                <!--     Padding="0" -->
+                                                <!--     BackgroundColor="Transparent" -->
+                                                <!--     HasShadow="True"> -->
+                                                <!--     <StackLayout Orientation="Vertical"> -->
+                                                <!--         <Frame -->
+                                                <!--             Padding="0" -->
+                                                <!--             CornerRadius="15" -->
+                                                <!--             HeightRequest="150" -->
+                                                <!--             HorizontalOptions="Center" -->
+                                                <!--             IsClippedToBounds="True" -->
+                                                <!--             WidthRequest="150"> -->
+                                                <!--             <Image -->
+                                                <!--                 Aspect="AspectFit" -->
+                                                <!--                 HorizontalOptions="FillAndExpand" -->
+                                                <!--                 Source="{Binding FullImageUrl}" -->
+                                                <!--                 VerticalOptions="FillAndExpand" /> -->
+                                                <!--         </Frame> -->
+                                                <!--         <Label -->
+                                                <!--             FontSize="Medium" -->
+                                                <!--             HorizontalTextAlignment="Center" -->
+                                                <!--             Text="{Binding Name}" -->
+                                                <!--             TextColor="#2C2C2C" /> -->
+                                                <!--     </StackLayout> -->
+                                                <!-- </Frame> -->
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                                
+                                <StackLayout Margin="20,10,20,0" Orientation="Horizontal">
+                                    <Label
+                                        Style="{StaticResource H2LabelStyle}"
+                                        VerticalOptions="EndAndExpand"
+                                        HorizontalOptions="StartAndExpand"
+                                        VerticalTextAlignment="End"
+                                        Text="Trending Products" />
+                        
+                                    <Label
+                                        Style="{StaticResource PrimaryLabelButtonStyle}"
+                                        Text="See All"
+                                        HorizontalOptions="End"
+                                        VerticalTextAlignment="End">
+                                        <!-- <Label.GestureRecognizers> -->
+                                        <!--     <TapGestureRecognizer Command="{Binding ViewAllNewArrivalsCommand}" /> -->
+                                        <!-- </Label.GestureRecognizers> -->
+                                    </Label>
+                                </StackLayout>
+                            </StackLayout>
+                        </CollectionView.Header>
+                        <!-- <CollectionView.ItemTemplate> -->
+                        <!--     <DataTemplate> -->
+                        <!--         <StackLayout Spacing="0"> -->
+                        <!--             <Frame -->
+                        <!--                 Padding="15" -->
+                        <!--                 CornerRadius="15" -->
+                        <!--                 BackgroundColor="#FCFCFC" -->
+                        <!--                 HasShadow="False"> -->
+                        <!--                 <StackLayout Orientation="Vertical" Spacing="5" Padding="0"> -->
+                        <!--                     <Frame -->
+                        <!--                         Margin="0" -->
+                        <!--                         HorizontalOptions="FillAndExpand" -->
+                        <!--                         CornerRadius="15" -->
+                        <!--                         HasShadow="False"> -->
+                        <!--                         <Image -->
+                        <!--                             Aspect="Fill" -->
+                        <!--                             HeightRequest="100" -->
+                        <!--                             Source="{Binding FullImageUrl}" /> -->
+                        <!--                     </Frame> -->
+                        <!--                     <Label Text="{Binding Name}" TextColor="#2C2C2C" /> -->
+                        <!--                     <Label Text="{Binding Price, StringFormat='${0}'}" TextColor="{StaticResource LightSecondaryColor}" /> -->
+                        <!--                 </StackLayout> -->
+                        <!--             </Frame> -->
+                        <!--         </StackLayout> -->
+                        <!--     </DataTemplate> -->
+                        <!-- </CollectionView.ItemTemplate> -->
+                    </CollectionView>
+                </StackLayout>
+            </ScrollView>
+            
+            <!-- Floating Navigation Bar  -->
             <Grid
                 Margin="0"
                 Padding="10,0"
                 HeightRequest="60"
+                BackgroundColor="{StaticResource LightPrimaryNavBarBackgroundColor}"
                 VerticalOptions="Start">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60" />
@@ -73,7 +357,7 @@
                         Grid.Column="1"
                         Margin="20,0,0,0"
                         Padding="1"
-                        BackgroundColor="#FA6400"
+                        BackgroundColor="{StaticResource LightSecondaryColor}"
                         CornerRadius="55"
                         HorizontalOptions="Start"
                         VerticalOptions="End">
@@ -92,106 +376,6 @@
                 </Grid>
             </Grid>
 
-            <!--  Main Content  -->
-
-            <ScrollView Margin="0,60,0,0" Padding="{StaticResource MainPagePadding}">
-                <StackLayout Margin="0">
-                    <CollectionView
-                        x:Name="CvProducts"
-                        ItemsSource="{Binding TrendingProducts}"
-                        SelectedItem="{Binding SelectedProduct}"
-                        SelectionChangedCommand="{Binding ViewProductDetailsCommand}"
-                        SelectionMode="Single">
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout
-                                HorizontalItemSpacing="0"
-                                Orientation="Vertical"
-                                Span="2"
-                                VerticalItemSpacing="20" />
-                        </CollectionView.ItemsLayout>
-                        <CollectionView.Header>
-                            <StackLayout>
-                                <Label
-                                    Margin="15,50,15,15"
-                                    FontAttributes="Bold"
-                                    FontSize="Title"
-                                    Text="Explore"
-                                    TextColor="#2C2C2C" />
-                                <CollectionView
-                                    x:Name="CvCategories"
-                                    HeightRequest="200"
-                                    ItemsSource="{Binding Categories}"
-                                    SelectedItem="{Binding SelectedProductCategory, Mode=TwoWay}"
-                                    SelectionChangedCommand="{Binding ViewProductForCategoryCommand}"
-                                    SelectionMode="Single">
-                                    <CollectionView.ItemsLayout>
-                                        <LinearItemsLayout Orientation="Horizontal" />
-                                    </CollectionView.ItemsLayout>
-                                    <CollectionView.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackLayout Orientation="Horizontal">
-                                                <Frame
-                                                    Margin="15,0,15,0"
-                                                    Padding="0"
-                                                    BackgroundColor="Transparent"
-                                                    HasShadow="True">
-                                                    <StackLayout Orientation="Vertical">
-                                                        <Frame
-                                                            Padding="0"
-                                                            CornerRadius="15"
-                                                            HeightRequest="150"
-                                                            HorizontalOptions="Center"
-                                                            IsClippedToBounds="True"
-                                                            WidthRequest="150">
-                                                            <Image
-                                                                Aspect="AspectFit"
-                                                                HorizontalOptions="FillAndExpand"
-                                                                Source="{Binding FullImageUrl}"
-                                                                VerticalOptions="FillAndExpand" />
-                                                        </Frame>
-                                                        <Label
-                                                            FontSize="Medium"
-                                                            HorizontalTextAlignment="Center"
-                                                            Text="{Binding Name}"
-                                                            TextColor="#2C2C2C" />
-                                                    </StackLayout>
-                                                </Frame>
-                                            </StackLayout>
-                                        </DataTemplate>
-                                    </CollectionView.ItemTemplate>
-                                </CollectionView>
-                                <Label
-                                    Margin="15,15,15,0"
-                                    FontAttributes="Bold"
-                                    FontSize="Title"
-                                    Text="Trending Products"
-                                    TextColor="#2C2C2C" />
-                            </StackLayout>
-                        </CollectionView.Header>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout Spacing="0">
-                                    <Frame
-                                        Margin="15,0,15,0"
-                                        Padding="20"
-                                        CornerRadius="10"
-                                        HasShadow="False">
-                                        <StackLayout Orientation="Vertical" Spacing="5">
-                                            <Image
-                                                Aspect="Fill"
-                                                HeightRequest="120"
-                                                Source="{Binding FullImageUrl}" />
-                                            <Label Text="{Binding Name}" TextColor="#2C2C2C" />
-                                            <Label Text="{Binding Price, StringFormat='${0}'}" TextColor="#FA6400" />
-                                        </StackLayout>
-                                    </Frame>
-                                </StackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </StackLayout>
-            </ScrollView>
-
             <!--  Flyout Menu  -->
             <Grid
                 x:Name="GridOverlay"
@@ -204,7 +388,7 @@
                 <StackLayout x:Name="SlMenu" BackgroundColor="White">
                     <StackLayout
                         Margin="0"
-                        BackgroundColor="#FA6400"
+                        BackgroundColor="{StaticResource LightPrimaryColor}"
                         Spacing="0"
                         VerticalOptions="Center">
                         <Label
