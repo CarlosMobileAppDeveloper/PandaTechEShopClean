@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Grid
+    x:Class="PandaTechEShop.Controls.LoadingButton"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+    xmlns:styles="clr-namespace:PandaTechEShop.Styles;assembly=PandaTechEShop">
+    <Grid.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <styles:MaterialControlStyles />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Grid.Resources>
+
+    <material:MaterialButton
+        x:Name="InnerButton"
+        Clicked="OnClicked"
+        Command="{Binding LoginCommand}"
+        Style="{StaticResource BaseButtonStyle}"
+        Text="Test Button"
+        VerticalOptions="EndAndExpand" />
+
+    <ActivityIndicator
+        x:Name="InnerActivityIndicator"
+        HorizontalOptions="Center"
+        IsRunning="False"
+        IsVisible="False"
+        Opacity="0"
+        Color="White">
+        <ActivityIndicator.Margin>
+            <OnPlatform x:TypeArguments="Thickness">
+                <On Platform="iOS" Value="0,0,10,0" />
+            </OnPlatform>
+        </ActivityIndicator.Margin>
+        <ActivityIndicator.Scale>
+            <OnPlatform x:TypeArguments="x:Double">
+                <On Platform="iOS">1</On>
+                <On Platform="Android">0.7</On>
+            </OnPlatform>
+        </ActivityIndicator.Scale>
+    </ActivityIndicator>
+</Grid>

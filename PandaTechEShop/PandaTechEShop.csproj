@@ -88,6 +88,7 @@
     <None Remove="Polly" />
     <None Remove="Services\SecureStorage\" />
     <None Remove="Microsoft.Extensions.Caching.Memory" />
+    <None Remove="Controls\Button\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\Templates" />
@@ -138,6 +139,7 @@
     <Folder Include="Services\Token\" />
     <Folder Include="Services\RequestProvider\" />
     <Folder Include="Exceptions\" />
+    <Folder Include="Controls\Button\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xsd" />

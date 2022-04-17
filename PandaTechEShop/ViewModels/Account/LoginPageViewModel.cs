@@ -57,6 +57,8 @@ namespace PandaTechEShop.ViewModels.Account
         public ICommand ValidatePasswordCommand { get; set; }
         public ICommand ForceValidatePasswordCommand { get; set; }
 
+        public bool IsBusy { get; set; }
+
         private async Task LoginAsync()
         {
             if (!IsValid())
@@ -64,14 +66,19 @@ namespace PandaTechEShop.ViewModels.Account
                 return;
             }
 
-            IMaterialModalPage loadingDialog = null;
+            //IMaterialModalPage loadingDialog = null;
             try
             {
-                loadingDialog = await DialogService.ShowLoadingDialogAsync(AppResources.LoadingDialogLoggingInMessage);
+                IsBusy = true;
+                await Task.Delay(3000);
+                //loadingDialog = await DialogService.ShowLoadingDialogAsync(AppResources.LoadingDialogLoggingInMessage);
 
                 var response = await _accountService.LoginAsync(EmailAddress.Value, Password.Value);
 
-                await loadingDialog.DismissAsync();
+                //await loadingDialog.DismissAsync();
+
+                // Stop spinner before next changes
+                IsBusy = false;
 
                 if (response)
                 {
@@ -87,10 +94,11 @@ namespace PandaTechEShop.ViewModels.Account
             {
                 //Logger.LogWarning("ServiceAuthenticationException: " + ex.Message);
                 //Console.WriteLine(ex);
-                if (loadingDialog != null)
-                {
-                    await loadingDialog.DismissAsync();
-                }
+
+                //if (loadingDialog != null)
+                //{
+                //    await loadingDialog.DismissAsync();
+                //}
 
                 await DialogService.ShowSnackbarAsync(
                     message: AppResources.AuthenticationFailureErrorMessage);
@@ -98,12 +106,16 @@ namespace PandaTechEShop.ViewModels.Account
             catch (Exception ex)
             {
                 Logger.LogError(ex);
-                if (loadingDialog != null)
-                {
-                    await loadingDialog.DismissAsync();
-                }
+                //if (loadingDialog != null)
+                //{
+                //    await loadingDialog.DismissAsync();
+                //}
 
                 await DialogService.ShowSnackbarAsync(message: AppResources.UnkownGenericErrorMessage);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 

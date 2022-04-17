@@ -3,6 +3,7 @@
     x:Class="PandaTechEShop.Views.Account.LoginPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:PandaTechEShop.Controls;assembly=PandaTechEShop"
     xmlns:converters="clr-namespace:PandaTechEShop.Converters;assembly=PandaTechEShop"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
@@ -23,19 +24,19 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
-            <!-- Content -->
+            <!--  Content  -->
             <ScrollView Margin="0">
                 <StackLayout Padding="{StaticResource MainNavigationBarPagePadding}">
-                    
+
                     <Image
                         HeightRequest="100"
                         HorizontalOptions="CenterAndExpand"
                         Source="bloblogo.png" />
-                    
+
                     <Label
                         Margin="0,0,0,30"
-                        Style="{StaticResource H1LabelStyle}"
                         HorizontalOptions="Center"
+                        Style="{StaticResource H1LabelStyle}"
                         Text="{x:Static resources:AppResources.SignInH1BlurbText}" />
 
                     <material:MaterialTextField
@@ -68,28 +69,35 @@
                             <xct:EventToCommandBehavior Command="{Binding ValidatePasswordCommand}" EventName="TextChanged" />
                         </material:MaterialTextField.Behaviors>
                     </material:MaterialTextField>
-                    
+
                     <material:MaterialCheckbox
                         IsSelected="True"
                         Style="{StaticResource BaseCheckBoxStyle}"
                         Text="{x:Static resources:AppResources.SignupKeepSignedInText}" />
-                    
-                    <material:MaterialButton
+
+                    <!--<material:MaterialButton
                         Command="{Binding LoginCommand}"
                         Style="{StaticResource BaseButtonStyle}"
                         Text="{x:Static resources:AppResources.SignInButtonText}"
-                        VerticalOptions="EndAndExpand"/>
+                        VerticalOptions="EndAndExpand"/>-->
+
+                    <controls:LoadingButton
+                        ActivityIndicatorColor="White"
+                        Command="{Binding LoginCommand}"
+                        IsBusy="{Binding IsBusy}"
+                        Text="{x:Static resources:AppResources.SignInButtonText}"
+                        VerticalOptions="End" />
                 </StackLayout>
             </ScrollView>
-            
-            <!-- Floating Navigation Bar  -->
-            <Grid 
-                Margin="0" 
-                Padding="10,0" 
-                HeightRequest="60" 
+
+            <!--  Floating Navigation Bar  -->
+            <Grid
+                Margin="0"
+                Padding="10,0"
+                HeightRequest="60"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="Start">
-                
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60" />
                 </Grid.RowDefinitions>
@@ -101,22 +109,22 @@
                 <Image
                     Grid.Column="0"
                     HorizontalOptions="Start"
-                    VerticalOptions="Center"
-                    Source="close">
+                    Source="close"
+                    VerticalOptions="Center">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigateBackCommand}" />
                     </Image.GestureRecognizers>
                 </Image>
-                <!-- <Label -->
-                <!--     x:Name="LblCategoryName" -->
-                <!--     Grid.Column="1" -->
-                <!--     FontAttributes="Bold" -->
-                <!--     FontSize="Large" -->
-                <!--     HorizontalTextAlignment="Center" -->
-                <!--     VerticalTextAlignment="Center" -->
-                <!--     VerticalOptions="CenterAndExpand" -->
-                <!--     Text="{Binding Title}" -->
-                <!--     TextColor="#2C2C2C" /> -->
+                <!--  <Label  -->
+                <!--  x:Name="LblCategoryName"  -->
+                <!--  Grid.Column="1"  -->
+                <!--  FontAttributes="Bold"  -->
+                <!--  FontSize="Large"  -->
+                <!--  HorizontalTextAlignment="Center"  -->
+                <!--  VerticalTextAlignment="Center"  -->
+                <!--  VerticalOptions="CenterAndExpand"  -->
+                <!--  Text="{Binding Title}"  -->
+                <!--  TextColor="#2C2C2C" />  -->
             </Grid>
         </Grid>
     </ContentPage.Content>
